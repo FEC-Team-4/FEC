@@ -9,10 +9,10 @@
 **CODE OF CONDUCT**
 
 1. Roles and responsibilities
-	 - Team lead 1: Nicholas
-    - Team lead 2: Cassandra
-    - Team Goal Tracker: Pritam
-    - Lead of Mental Breaks: Richard
+	 - Team lead 1: _Nicholas_
+    - Team lead 2: _Cassandra_
+    - Team Goal Tracker: _Pritam_
+    - Lead of Mental Breaks: _Richard_
     
 2. Communication methods
     - Slack
