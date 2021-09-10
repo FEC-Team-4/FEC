@@ -1,0 +1,36 @@
+.container {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  /* grid-template-rows: 25% 25% 25% 25% 25%; */
+}
+
+.Navbar {
+  border: 4px dotted grey;
+  height: 100%;
+  grid-row: 1 / 2;
+}
+
+.Products {
+  border: 4px dotted grey;
+  height: 100%;
+  grid-row: 2 / 3;
+}
+
+.RelatedItems-OutfitCreation {
+  border: 4px dotted grey;
+  height: 100%;
+  grid-row: 3 / 4;
+}
+
+.Questions-Answers {
+  border: 4px dotted grey;
+  height: 100%;
+  grid-row: 4 / 5;
+}
+
+.Ratings-Reviews {
+  border: 4px dotted grey;
+  height: 100%;
+  grid-row: 5 / 6;
+}
