@@ -1,4 +1,4 @@
-# HR-LAX46 / TEAM 4
+# HR-LAX46 / TEAM <sup>4</sup>
 
 ### FRONTEND CAPSTONE
 
