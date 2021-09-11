@@ -65,10 +65,10 @@ class Review extends React.Component {
     return (
       <div>
         {this.oneStars()}
-        <h6>{this.props.review.date.split('T')[0]}</h6>
+        <h6>User: {this.props.review.reviewer_name} | {this.props.review.date.split('T')[0]}</h6>
         <h4>{this.props.review.summary}</h4>
         <p className="text-justify">{this.props.review.body}</p>
-        <p><i>Helpful? <a href="">Yes</a> ({this.props.review.helpfulness}) </i> || Report</p>
+        <p><i>Helpful? <a href="">Yes</a> ({this.props.review.helpfulness}) </i> || <a href="">Report</a></p>
       </div>
     )
   }

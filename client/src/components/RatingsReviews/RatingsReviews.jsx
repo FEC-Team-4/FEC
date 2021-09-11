@@ -3,7 +3,6 @@ import Header from './components/Header.jsx'
 import RatingsGraph from './components/RatingsGraph.jsx'
 import Reviews from './components/Reviews.jsx'
 import Footer from './components/Footer.jsx'
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios'
 
 // Need to pass down the current product ID from the main component
@@ -11,6 +10,7 @@ class RatingsReviews extends React.Component {
   constructor () {
     super();
     this.state = {
+      reviewCount: 2,
       currentProduct: 42366,
       reviews: [],
       recommendations: 0,
@@ -28,8 +28,8 @@ class RatingsReviews extends React.Component {
   }
 
   getReviews () {
-    axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews', {params: {product_id: this.state.currentProduct}, headers: {Authorization: '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' }})
-      .then(({ data }) => this.setState({reviews: data.results}))
+    axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews', {params: {product_id: this.state.currentProduct, count: this.state.reviewCount}, headers: {Authorization: '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' }})
+      .then(({ data }) => this.setState({reviews: data.results, reviewCount: this.state.reviewCount + 2}))
       .then(() => this.getAvgStars())
       .then(() => this.getPercRecs())
       .then(() => this.getAllStars())
@@ -39,7 +39,6 @@ class RatingsReviews extends React.Component {
   getAvgStars () {
     var total = 0;
     this.state.reviews.forEach(ele => {
-      // console.log(ele.rating)
       total += ele.rating
     })
     this.setState({avgStars: total/this.state.reviews.length})
@@ -59,7 +58,6 @@ class RatingsReviews extends React.Component {
     })
   }
 
-
   render () {
     return (
       <div className="container">
@@ -70,7 +68,7 @@ class RatingsReviews extends React.Component {
         </div>
         <div className="col-sm">
           <Reviews reviews={this.state.reviews}/>
-          <Footer />
+          <Footer getMoreReviews={this.getReviews} />
         </div>
         </div>
       </div>
