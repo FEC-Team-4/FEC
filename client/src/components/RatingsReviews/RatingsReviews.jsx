@@ -2,6 +2,7 @@ import React from 'react'
 import Header from './components/Header.jsx'
 import RatingsGraph from './components/RatingsGraph.jsx'
 import Reviews from './components/Reviews.jsx'
+import Footer from './components/Footer.jsx'
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios'
 
@@ -69,6 +70,7 @@ class RatingsReviews extends React.Component {
         </div>
         <div className="col-sm">
           <Reviews reviews={this.state.reviews}/>
+          <Footer />
         </div>
         </div>
       </div>
