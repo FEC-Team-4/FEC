@@ -11,7 +11,7 @@ class RatingsReviews extends React.Component {
     super();
     this.state = {
       reviewCount: 2,
-      currentProduct: 42366,
+      currentProduct: 42366, //hard coded product id
       reviews: [],
       recommendations: 0,
       stars: [],

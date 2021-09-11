@@ -11,14 +11,14 @@ export default class App extends React.Component {
     return (
       <div className="container">
         <div className="Navbar">
-          <NavBar/>
+          {/* <NavBar/> */}
         </div>
         {/* <div className="Products">
           <ProductDetail/>
         </div> */}
-        <div className="RelatedItems-OutfitCreation">
+        {/* <div className="RelatedItems-OutfitCreation">
           <RelatedItems/>
-        </div>
+        </div> */}
         {/* <div className="Questions-Answers">
           <Questions/>
         </div> */}
