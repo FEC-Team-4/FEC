@@ -3,7 +3,7 @@ import NavBar from './NavBar/NavBar.jsx';
 import Products from './ProductDetail/ProductDetail.jsx';
 import RelatedItems from './RelatedItems/RelatedItems.jsx';
 import Questions from './Questions/Questions.jsx';
-import Ratings from './RatingsReviews/RatingsReviews.jsx';
+import RatingsReviews from './RatingsReviews/RatingsReviews.jsx';
 import "./App.css";
 
 export default class App extends React.Component {
@@ -21,10 +21,10 @@ export default class App extends React.Component {
         </div>
         {/* <div className="Questions-Answers">
           <Questions/>
-        </div>
+        </div> */}
         <div className="Ratings-Reviews">
           <RatingsReviews/>
-        </div> */}
+        </div>
       </div>
     );
   }
