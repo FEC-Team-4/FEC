@@ -2,13 +2,12 @@ import React from 'react';
 import { Card } from 'react-bootstrap';
 
 
-
-function YourOutfit() {
+const RelatedItemsCards = () => {
   return(
     <div>
       <Card style={{ width: "22rem"}}>
         <Card.Body>
-          <Card.Title style={{ color: "green"}}>Your Outfit</Card.Title>
+          <Card.Title style={{ color: "green"}}>Related Items</Card.Title>
           <Card.Subtitle className="mb-2 text-muted">
             Sample Subtitle
           </Card.Subtitle>
@@ -22,4 +21,5 @@ function YourOutfit() {
   );
 }
 
-export default YourOutfit;
+
+export default RelatedItemsCards;
