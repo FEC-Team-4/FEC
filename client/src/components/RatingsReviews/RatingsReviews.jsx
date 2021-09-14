@@ -78,4 +78,4 @@ class RatingsReviews extends React.Component {
 
 
 
-export default RatingsReviews
+export default RatingsReviews;
