@@ -101,9 +101,12 @@ class Footer extends React.Component {
               <Form.Check onChange={this.handleChangeFalse} value={this.state.recommend} name="recommend" type="checkbox" label="I recommend this item" />
             </Form.Group>
           </Row>
-          <Button onClick={this.onSubmit} variant="primary" type="submit">
+          <Button style={style} onClick={this.onSubmit} variant="primary" type="submit">
             Submit
           </Button>
+          <Button style={style} onClick={this.addReview} variant="primary">
+            Cancel
+          </Button >
         </Form>
       )
     } else {

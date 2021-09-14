@@ -31,7 +31,7 @@ class Review extends React.Component {
     } else {
       return (
         <div>
-        <p><i>Helpful? <a href="#" onClick={this.helpful} >Yes</a> ({this.props.review.helpfulness}) </i> || <a href="">Report</a></p>
+        <p><i>Helpful? <a href="#" onClick={this.helpful} >Yes</a> ({this.props.review.helpfulness}) </i> || <a href="#">Report</a></p>
         </div>
       )
     }
@@ -41,6 +41,7 @@ class Review extends React.Component {
     axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/${this.props.review.review_id}/helpful`, {}, {headers: {Authorization: apiKey }})
     .then(() => this.setState({feedback: true}))
   }
+
   oneStars() {
     if (this.props.review.rating === 1) {
       return (
