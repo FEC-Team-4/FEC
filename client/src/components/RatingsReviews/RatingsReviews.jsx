@@ -5,6 +5,8 @@ import Reviews from './components/Reviews.jsx'
 import Footer from './components/Footer.jsx'
 import axios from 'axios'
 
+const apiKey = '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'
+
 // Need to pass down the current product ID from the main component
 class RatingsReviews extends React.Component {
   constructor () {
@@ -13,6 +15,7 @@ class RatingsReviews extends React.Component {
       reviewCount: 2,
       currentProduct: 42366, //hard coded product id
       reviews: [],
+      displayReviews: [],
       recommendations: 0,
       stars: [],
       avgStars: 0,
@@ -27,8 +30,10 @@ class RatingsReviews extends React.Component {
     this.getReviews()
   }
 
+
+  // i want get reviews to pull all reviews on the data base, but display should only show two reviews at a time.
   getReviews () {
-    axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews', {params: {product_id: this.state.currentProduct, count: this.state.reviewCount}, headers: {Authorization: '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' }})
+    axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews', {params: {product_id: this.state.currentProduct, count: this.state.reviewCount}, headers: {Authorization: apiKey }})
       .then(({ data }) => this.setState({reviews: data.results, reviewCount: this.state.reviewCount + 2}))
       .then(() => this.getAvgStars())
       .then(() => this.getPercRecs())
@@ -68,7 +73,7 @@ class RatingsReviews extends React.Component {
         </div>
         <div className="col-sm">
           <Reviews reviews={this.state.reviews}/>
-          <Footer getMoreReviews={this.getReviews} />
+          <Footer currentItemId={this.state.currentProduct} getMoreReviews={this.getReviews} />
         </div>
         </div>
       </div>
