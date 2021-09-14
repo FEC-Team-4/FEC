@@ -32,6 +32,7 @@ class RatingsReviews extends React.Component {
     this.sortByLowestStars = this.sortByLowestStars.bind(this)
     this.sortByHighestStars = this.sortByHighestStars.bind(this)
     this.sortByRecent = this.sortByRecent.bind(this)
+    this.sortByHelpfulness = this.sortByHelpfulness.bind(this)
   }
 
   componentDidMount() {
@@ -81,6 +82,12 @@ class RatingsReviews extends React.Component {
     }
     this.setState({reviews: this.state.reviews.sort(sorter)})
   }
+  sortByHelpfulness() {
+    const sorter = (a, b) => {
+      return b.helpfulness - a.helpfulness
+    }
+    this.setState({reviews: this.state.reviews.sort(sorter)})
+  }
   sortByRecent() {
     const sorter = (a, b) => {
       return new Date(b.date) - new Date(a.date)
@@ -99,7 +106,7 @@ class RatingsReviews extends React.Component {
         <div className="col-sm">
           Sort By
           <Button variant="outline-secondary" size="sm" style={style} onClick={this.sortByRecent}>Recent</Button>
-          <Button variant="outline-secondary" size="sm" style={style}>Relevant</Button>
+          <Button variant="outline-secondary" size="sm" style={style} onClick={this.sortByHelpfulness}>Relevant</Button>
           <Button variant="outline-secondary" size="sm" style={style} onClick={this.sortByHighestStars}>Highest Rated</Button>
           <Button variant="outline-secondary" size="sm" style={style} onClick={this.sortByLowestStars}>Lowest Rated</Button>
           <Reviews reviews={this.state.reviews}/>
