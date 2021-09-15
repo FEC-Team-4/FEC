@@ -5,7 +5,7 @@ function StyleSelector () {
   return (
     <Row className="py-5">
       <Col>
-      <label for="sizeSelect">Size</label>
+      <label htmlFor="sizeSelect">Size</label>
       <select name="sizeSelect" id="sizeSelect"
       className="custom-select form-control  mb-4">
         <option selected="">Size</option>
@@ -15,7 +15,7 @@ function StyleSelector () {
       </select>
       </Col>
       <Col>
-        <label for="quantitySelect">Quantity:</label>
+        <label htmlFor="quantitySelect">Quantity:</label>
         <input id="quantitySelect" type="number"
         className="form-control quantity  mb-4" name="" value="1" />
       </Col>
