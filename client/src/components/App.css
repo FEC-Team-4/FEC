@@ -1,8 +1,7 @@
-.container {
+/* .container {
   display: grid;
   height: 100%;
   width: 100%;
-  /* grid-template-rows: 25% 25% 25% 25% 25%; */
 }
 
 .Navbar {
@@ -15,7 +14,7 @@
   border: 2px solid grey;
   height: 100%;
   grid-row: 2 / 3;
-}
+} */
 
 .RelatedItems-OutfitCreation {
   border: 2px solid grey;

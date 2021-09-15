@@ -1,7 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import { Container } from 'react-bootstrap';
 import NavBar from './NavBar/NavBar.jsx';
-import Products from './ProductDetail/ProductDetail.jsx';
+import ProductDetails from './ProductDetail/ProductDetails.jsx';
 import RelatedItems from './RelatedItems/RelatedItems.jsx';
 import Questions from './Questions/Questions.jsx';
 import RatingsReviews from './RatingsReviews/RatingsReviews.jsx';
@@ -31,13 +32,11 @@ const App = () => {
 
   return (
       <dataContext.Provider value={{products}}>
-        <div className="container">
-          <div className="Navbar">
+        <Container>
             <NavBar/>
+          <div className="ProductDetails">
+            <ProductDetails/>
           </div>
-          {/* <div className="Products">
-            <ProductDetail/>
-          </div> */}
           <div className="RelatedItems-OutfitCreation">
             <RelatedItems/>
           </div>
@@ -47,7 +46,7 @@ const App = () => {
           <div className="Ratings-Reviews">
             <RatingsReviews/>
           </div>
-        </div>
+        </Container>
       </dataContext.Provider>
     );
 }
