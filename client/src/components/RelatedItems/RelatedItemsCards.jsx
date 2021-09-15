@@ -6,7 +6,7 @@ import { Card } from 'react-bootstrap';
 const RelatedItemsCards = () => {
 
   const { products } = useContext(dataContext);
-  console.log('products', products);
+  // console.log('products', products);
 
   return(
     <div>
