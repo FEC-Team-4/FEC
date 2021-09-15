@@ -7,7 +7,7 @@ import './RelatedItems.css';
 const RelatedItemsCards = () => {
 
   const { product } = useContext(dataContext);
-  // console.log('product', product);
+
 
   return(
     <div className="carousel-container">

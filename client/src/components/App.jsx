@@ -47,7 +47,7 @@ const App = () => {
             <Questions/>
           </div> */}
           <div className="Ratings-Reviews">
-            <RatingsReviews/>
+            <RatingsReviews productId={productId}/>
           </div>
         </Container>
       </dataContext.Provider>
