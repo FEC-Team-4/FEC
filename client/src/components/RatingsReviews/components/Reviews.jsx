@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useContext } from 'react';
+import { dataContext } from '../../context/dataContext.js';
 import Review from './Review.jsx'
 
 const Reviews = (props) => {

@@ -1,24 +1,31 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
 import Header from './components/Header.jsx'
 import RatingsGraph from './components/RatingsGraph.jsx'
 import Reviews from './components/Reviews.jsx'
 import Footer from './components/Footer.jsx'
 import axios from 'axios'
 import Button from 'react-bootstrap/Button'
+import { dataContext } from '../context/dataContext.js';
 
 const apiKey = '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'
 
 const style = {
   marginLeft:"10px",
-  marginRight:"10px"
+  marginRight:"10px",
+  marginTop: "25px",
+  marginBottom: "10px"
+}
+const style2 = {
+  marginTop: "40px"
 }
 
+
 class RatingsReviews extends React.Component {
-  constructor () {
-    super();
+  constructor (props) {
+    super(props);
     this.state = {
       reviewCount: 2,
-      currentProduct: 42366, //hard coded product id
+      currentProduct: this.props.productId, //hard coded product id
       reviews: [],
       displayReviews: [],
       recommendations: 0,
@@ -34,11 +41,9 @@ class RatingsReviews extends React.Component {
     this.sortByRecent = this.sortByRecent.bind(this)
     this.sortByHelpfulness = this.sortByHelpfulness.bind(this)
   }
-
   componentDidMount() {
     this.getReviews()
   }
-
   getReviews () {
     axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews', {params: {product_id: this.state.currentProduct, count: this.state.reviewCount}, headers: {Authorization: apiKey }})
       .then(({ data }) => this.setState({reviews: data.results, reviewCount: this.state.reviewCount + 2}))
@@ -98,17 +103,19 @@ class RatingsReviews extends React.Component {
   render () {
     return (
       <div className="container">
-          <Header />
         <div className="row">
         <div className="col-sm">
+          <Header />
           <RatingsGraph recs={this.state.recommendations} stars={this.state.stars} avgStars={this.state.avgStars}/>
         </div>
         <div className="col-sm">
-          Sort By
+          <span>
+          <div style={style2}>Sort By</div>
           <Button variant="outline-secondary" size="sm" style={style} onClick={this.sortByRecent}>Recent</Button>
           <Button variant="outline-secondary" size="sm" style={style} onClick={this.sortByHelpfulness}>Relevant</Button>
           <Button variant="outline-secondary" size="sm" style={style} onClick={this.sortByHighestStars}>Highest Rated</Button>
           <Button variant="outline-secondary" size="sm" style={style} onClick={this.sortByLowestStars}>Lowest Rated</Button>
+          </span>
           <Reviews reviews={this.state.reviews}/>
           <Footer currentItemId={this.state.currentProduct} getMoreReviews={this.getReviews} />
         </div>
@@ -119,5 +126,4 @@ class RatingsReviews extends React.Component {
 }
 
 
-
-export default RatingsReviews
+export default RatingsReviews;
