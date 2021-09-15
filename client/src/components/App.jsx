@@ -16,21 +16,28 @@ console.log('datacontext:', dataContext);
 const App = () => {
 
   // const [items, setItems] = useState(['Shirt', 'pant', 'shoe', 'sock']);
-  const [products, setProducts] = useState();
-  const [reviews, setReviews] = useState();
+  const [product, setProduct] = useState([]);
+  const [reviews, setReviews] = useState([]);
+  const [productId, setProductId] = useState(42366);
 
   useEffect(() => {
-    axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products',{params: {count: 50}, headers: {Authorization: token}})
-      .then((results) => setProducts(() => results))
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${productId}/styles`,{params: {count: 50}, headers: {Authorization: token}})
+      .then(({data}) => setProduct(data))
     axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews',{params: {product_id: 42366}, headers: {Authorization: token }})
       .then((results) => setReviews(() => results))
   }, [])
+  console.log('reviews from api:', reviews);
+  console.log('product from api:', product);
 
+  //setProductId helper function
 
   //producuts:fdiapfsdia
 
   return (
-      <dataContext.Provider value={{products}}>
+      <dataContext.Provider value={{
+        product: product,
+        reviews: reviews
+        }}>
         <div className="container">
           <div className="Navbar">
             <NavBar/>

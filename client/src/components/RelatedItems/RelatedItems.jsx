@@ -7,9 +7,9 @@ import YourOutfit from './YourOutfit.jsx';
 
 var RelatedItems = () => {
   return (
-    <div>
+    <div style={{ maxWidth: 1200, marginLeft: 'auto', marginRight: 'auto', marginTop: 64 }}>
       <h3>Related Items</h3>
-      <RelatedItemsCards />
+      <RelatedItemsCards/>
       <h3>Your Outfit</h3>
       <YourOutfit />
     </div>

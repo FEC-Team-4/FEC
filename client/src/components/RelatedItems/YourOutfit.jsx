@@ -1,19 +1,24 @@
-import React from 'react';
+import React, {useContext, useState} from 'react';
 import { Card } from 'react-bootstrap';
+import { dataContext } from '../context/dataContext.js';
+
 
 const YourOutfit = () => {
+
+  const { product } = useContext(dataContext);
+  // console.log('product', product);
+
   return(
     <div>
       <Card style={{ width: "22rem"}}>
         <Card.Body>
-          <Card.Title style={{ color: "grey"}}>Your Outfit</Card.Title>
+          <Card.Title style={{ color: "grey"}}>{product.name}</Card.Title>
           <Card.Subtitle className="mb-2 text-muted">
-            Sample Subtitle
+            {product.category}
           </Card.Subtitle>
           <Card.Text>
-            Sample text at bottom of card.
+            {`$${product.default_price}`}
           </Card.Text>
-          <Card.Link href="#">Sample link text</Card.Link>
         </Card.Body>
       </Card>
     </div>
