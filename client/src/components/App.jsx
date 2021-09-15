@@ -9,7 +9,6 @@ import "./App.css";
 import axios from 'axios';
 import { dataContext } from './context/dataContext.js';
 import token from '../../../token/token.js';
-console.log('datacontext:', dataContext);
 
 
 
