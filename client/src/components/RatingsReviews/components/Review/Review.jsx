@@ -3,12 +3,18 @@ import axios from 'axios'
 
 const apiKey = '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'
 
+const bg = {
+  padding: "5px",
+  backgroundColor: '#d3d3d3',
+  borderRadius: '10px'
+}
+
 
 class Review extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      feedback: false
+      feedback: false,
     }
     this.helpful = this.helpful.bind(this)
   }
@@ -17,6 +23,29 @@ class Review extends React.Component {
     if (this.props.review.recommend) {
       return (
         <p> &#10004; I recommend this product</p>
+      )
+    }
+  }
+  addColor() {
+    if (this.props.bgCount % 2 === 0) {
+      return (
+        <div>
+          {this.oneStars()}
+          <h6>User: {this.props.review.reviewer_name} | {this.props.review.date.split('T')[0]}</h6>
+          <h4>{this.props.review.summary}</h4>
+          <p className="text-justify">{this.props.review.body}</p>
+          {this.thanks()}
+        </div>
+      )
+    } else {
+      return (
+        <div style={bg}>
+          {this.oneStars()}
+          <h6>User: {this.props.review.reviewer_name} | {this.props.review.date.split('T')[0]}</h6>
+          <h4>{this.props.review.summary}</h4>
+          <p className="text-justify">{this.props.review.body}</p>
+          {this.thanks()}
+        </div>
       )
     }
   }
@@ -94,11 +123,7 @@ class Review extends React.Component {
   render() {
     return (
       <div>
-        {this.oneStars()}
-        <h6>User: {this.props.review.reviewer_name} | {this.props.review.date.split('T')[0]}</h6>
-        <h4>{this.props.review.summary}</h4>
-        <p className="text-justify">{this.props.review.body}</p>
-        {this.thanks()}
+        {this.addColor()}
       </div>
     )
   }

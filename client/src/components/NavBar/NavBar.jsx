@@ -15,15 +15,17 @@ export default class NavBar extends React.Component {
           navbarScroll
         >
         </Nav>
-        <Form className="d-flex">
-          <FormControl
-            type="search"
-            placeholder="Search"
-            className="mr-2"
-            aria-label="Search"
-          />
-          <Button variant="outline-success">Search</Button>
-        </Form>
+        <Nav className ="me-auto">
+          <Form className="d-flex">
+            <FormControl
+              type="search"
+              placeholder="Search"
+              className="mr-2"
+              aria-label="Search"
+            />
+            <Button variant="outline-success">Search</Button>
+          </Form>
+        </Nav>
       </Navbar.Collapse>
     </Navbar>
     );

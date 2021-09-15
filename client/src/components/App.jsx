@@ -1,7 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import { Container } from 'react-bootstrap';
 import NavBar from './NavBar/NavBar.jsx';
-import Products from './ProductDetail/ProductDetail.jsx';
+import ProductDetails from './ProductDetail/ProductDetails.jsx';
 import RelatedItems from './RelatedItems/RelatedItems.jsx';
 import Questions from './Questions/Questions.jsx';
 import RatingsReviews from './RatingsReviews/RatingsReviews.jsx';
@@ -20,7 +21,7 @@ const App = () => {
 
 
   useEffect(() => {
-    axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products',{params: {count: 50}, headers: {Authorization: token}})
+    axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products',{params: {count: 5}, headers: {Authorization: token}})
       .then((results) => setProducts(() => results))
   }, [])
 
@@ -29,13 +30,11 @@ const App = () => {
 
   return (
       <dataContext.Provider value={{products}}>
-        <div className="container">
-          <div className="Navbar">
+        <Container>
             <NavBar/>
+          <div className="ProductDetails">
+            <ProductDetails/>
           </div>
-          {/* <div className="Products">
-            <ProductDetail/>
-          </div> */}
           <div className="RelatedItems-OutfitCreation">
             <RelatedItems/>
           </div>
@@ -45,7 +44,7 @@ const App = () => {
           <div className="Ratings-Reviews">
             <RatingsReviews productId={productId}/>
           </div>
-        </div>
+        </Container>
       </dataContext.Provider>
     );
 }

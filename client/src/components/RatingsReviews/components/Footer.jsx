@@ -12,9 +12,8 @@ const apiKey = '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'
 
 
 const style = {
-    marginLeft:"10px",
-    marginRight:"10px",
-    marginBottom:"10px"
+    margin: "10px"
+
   }
 
 class Footer extends React.Component {
