@@ -28,7 +28,7 @@
   grid-row: 4 / 5;
 }
 
-.Ratings-Reviews {
+/* .Ratings-Reviews {
   border: 2px solid grey;
   height: 100%;
   grid-row: 5 / 6;
