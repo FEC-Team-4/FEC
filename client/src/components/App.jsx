@@ -12,12 +12,11 @@ import { dataContext } from './context/dataContext.js';
 import token from '../../../token/token.js';
 
 
-
 const App = () => {
 
   // const [items, setItems] = useState(['Shirt', 'pant', 'shoe', 'sock']);
   const [products, setProducts] = useState([]);
-  const [productId, setProductId] = useState(42366)
+  const [productId, setProductId] = useState(42367);
 
 
   useEffect(() => {
@@ -33,7 +32,7 @@ const App = () => {
         <Container>
             <NavBar/>
           <div className="ProductDetails">
-            <ProductDetails/>
+            <ProductDetails id={productId}/>
           </div>
           <div className="RelatedItems-OutfitCreation">
             <RelatedItems/>
