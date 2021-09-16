@@ -17,7 +17,7 @@ function ProductDetails () {
       return (
       <>
       <Announcement />
-      <section className="pt-4 pb-5">
+      <section className="pb-5">
           <Row>
             <Col md={7}>
               <ProductGallery />
