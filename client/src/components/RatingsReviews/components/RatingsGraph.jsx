@@ -14,7 +14,7 @@ const RatingsGraph = (props) => (
           />
         </Col>
         <Col sm={2}>
-          <h2>{props.avgStars}</h2>
+          <h2>{props.avgStars.toFixed(1)}</h2>
         </Col>
       </Row>
       <div> {props.recs} of buyers recommend this product</div>

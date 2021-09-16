@@ -67,7 +67,7 @@ class RatingsReviews extends React.Component {
     this.state.reviews.forEach(ele => {
       if (ele.recommend) total ++;
     });
-    this.setState({recommendations: total / this.state.reviews.length * 100 + '%'})
+    this.setState({recommendations: (total / this.state.reviews.length * 100).toFixed(0) + '%'})
   }
 
   getAllStars () {
