@@ -16,7 +16,7 @@ const App = () => {
 
   // const [items, setItems] = useState(['Shirt', 'pant', 'shoe', 'sock']);
   const [products, setProducts] = useState([]);
-  const [productId, setProductId] = useState(42366)
+  const [productId, setProductId] = useState(42367);
 
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const App = () => {
         <Container>
             <NavBar/>
           <div className="ProductDetails">
-            <ProductDetails productId={productId}/>
+            <ProductDetails id={productId}/>
           </div>
           <div className="RelatedItems-OutfitCreation">
             <RelatedItems/>

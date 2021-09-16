@@ -17,7 +17,7 @@ app.post('/reviews', (req, res) => {
   const count = req.body.count;
   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews', {params: {product_id: productId, count: count}, headers: {Authorization: apiKey }})
     .then((result) => res.status(200).send(result.data))
-    .catch(err => console.log(err))
+    // .catch(err => console.log(err))
 });
 
 

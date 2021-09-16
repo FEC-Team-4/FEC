@@ -3,10 +3,10 @@ import { Row, Col, Spinner } from 'react-bootstrap';
 import Announcement from './Announcement/Announcement.jsx'
 import ProductMeta from './ProductMeta/ProductMeta.jsx'
 import ProductGallery from './ProductGallery/ProductGallery.jsx'
-import StarRatings from './StarRatings/StarRatings.jsx'
+import Productratings from './StarRatings/StarRatings.jsx'
 import StyleSelector from './StyleSelector/StyleSelector.jsx'
 
-function ProductDetails () {
+function ProductDetails (props) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ function ProductDetails () {
               <ProductGallery />
             </Col>
             <Col md={5}>
-              <StarRatings />
+              <Productratings id = {props.id}/>
               <ProductMeta />
               <StyleSelector />
             </Col>
