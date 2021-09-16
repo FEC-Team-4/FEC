@@ -4,10 +4,17 @@ import axios from 'axios'
 const apiKey = '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'
 
 const bg = {
-  padding: "5px",
+  padding: "15px",
   backgroundColor: '#d3d3d3',
   borderRadius: '10px'
 }
+
+const bg2 = {
+  padding: "15px",
+  // backgroundColor: '#d3d3d3',
+  borderRadius: '10px'
+}
+
 
 
 class Review extends React.Component {
@@ -29,7 +36,7 @@ class Review extends React.Component {
   addColor() {
     if (this.props.bgCount % 2 === 0) {
       return (
-        <div>
+        <div style={bg2}>
           {this.oneStars()}
           <h6>User: {this.props.review.reviewer_name} | {this.props.review.date.split('T')[0]}</h6>
           <h4>{this.props.review.summary}</h4>
@@ -67,7 +74,7 @@ class Review extends React.Component {
   }
 
   helpful() {
-    axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/${this.props.review.review_id}/helpful`, {}, {headers: {Authorization: apiKey }})
+    axios.put('/helpful', {productId: this.props.review.review_id})
     .then(() => this.setState({feedback: true}))
   }
 

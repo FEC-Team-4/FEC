@@ -50,7 +50,7 @@ class Footer extends React.Component {
 
   onSubmit(e) {
     e.preventDefault()
-    axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews', {
+    axios.post('/submitreview', {
       product_id: this.props.currentItemId,
       rating: this.state.rating,
       summary: this.state.summary,
@@ -60,7 +60,7 @@ class Footer extends React.Component {
       email: this.state.email,
       photos: [],
       characteristics: {},
-  }, {headers: {Authorization: apiKey }})
+  })
     .then(() => this.setState({
       email: '',
       name: '',

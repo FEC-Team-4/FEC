@@ -18,8 +18,6 @@ const style2 = {
   marginTop: "40px"
 }
 
-
-
 class RatingsReviews extends React.Component {
   constructor (props) {
     super(props);
@@ -40,6 +38,7 @@ class RatingsReviews extends React.Component {
     this.sortByHighestStars = this.sortByHighestStars.bind(this)
     this.sortByRecent = this.sortByRecent.bind(this)
     this.sortByHelpfulness = this.sortByHelpfulness.bind(this)
+    this.displayRev = this.displayRev.bind(this)
   }
   componentDidMount() {
     this.getReviews()
@@ -47,11 +46,26 @@ class RatingsReviews extends React.Component {
 
   getReviews () {
     axios.post('/reviews', {count: this.state.reviewCount, productId: this.state.currentProduct })
-      .then(({data}) => this.setState({reviews: data.results, reviewCount: this.state.reviewCount + 2}))
+      .then(({data}) => this.setState({reviews: data.results}))
+      .then(() => this. displayRev())
       .then(() => this.getAvgStars())
       .then(() => this.getPercRecs())
       .then(() => this.getAllStars())
       .catch((err) => console.error(err))
+  }
+
+  displayRev() {
+    if (this.state.reviewCount < this.state.reviews.length) {
+      const dispArr = [];
+      for (var i =0; i < this.state.reviewCount; i++) {
+        dispArr.push(this.state.reviews[i])
+      }
+      if (this.state.reviews.length - this.state.reviewCount > 1) {
+        this.setState({displayReviews: dispArr, reviewCount: this.state.reviewCount + 2})
+      } else {
+        this.setState({displayReviews: dispArr, reviewCount: this.state.reviewCount + 1})
+      }
+    }
   }
 
   getAvgStars () {
@@ -80,31 +94,31 @@ class RatingsReviews extends React.Component {
     const sorter = (a, b) => {
       return a.rating - b.rating
     }
-    this.setState({reviews: this.state.reviews.sort(sorter)})
+    this.setState({displayReviews: this.state.displayReviews.sort(sorter)})
   }
   sortByHighestStars() {
     const sorter = (a, b) => {
       return b.rating - a.rating
     }
-    this.setState({reviews: this.state.reviews.sort(sorter)})
+    this.setState({displayReviews: this.state.displayReviews.sort(sorter)})
   }
   sortByHelpfulness() {
     const sorter = (a, b) => {
       return b.helpfulness - a.helpfulness
     }
-    this.setState({reviews: this.state.reviews.sort(sorter)})
+    this.setState({displayReviews: this.state.displayReviews.sort(sorter)})
   }
   sortByRecent() {
     const sorter = (a, b) => {
       return new Date(b.date) - new Date(a.date)
     }
-    this.setState({reviews: this.state.reviews.sort(sorter)})
+    this.setState({displayReviews: this.state.displayReviews.sort(sorter)})
   }
 
   render () {
     return (
       <div className="container">
-        <div className="row">
+        <Row>
         <div className="col-sm">
           <Header />
           <RatingsGraph recs={this.state.recommendations} stars={this.state.stars} avgStars={this.state.avgStars}/>
@@ -121,10 +135,10 @@ class RatingsReviews extends React.Component {
               <Button variant="outline-secondary" size="sm" style={style} onClick={this.sortByLowestStars}>Lowest Rated</Button>
             </Col>
           </Row>
-          <Reviews reviews={this.state.reviews}/>
-          <Footer currentItemId={this.state.currentProduct} getMoreReviews={this.getReviews} />
+          <Reviews reviews={this.state.displayReviews}/>
+          <Footer currentItemId={this.state.currentProduct} getMoreReviews={this.displayRev} />
         </div>
-        </div>
+        </Row>
       </div>
     )
   }

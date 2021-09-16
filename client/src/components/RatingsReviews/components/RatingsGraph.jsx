@@ -5,19 +5,21 @@ import { Row, Col } from 'react-bootstrap';
 const RatingsGraph = (props) => (
     <div className="container">
       <Row>
-        <Col sm={8}>
+        <Col sm={7}>
           <StarRatings
               rating={props.avgStars}
-              starRatedColor="red"
+              starRatedColor="#93D2DF"
               numberOfStars={5}
               name='rating'
           />
         </Col>
         <Col sm={2}>
-          <h2>{props.avgStars.toFixed(1)}</h2>
+          <h1>{props.avgStars.toFixed(1)}</h1>
         </Col>
       </Row>
-      <div> {props.recs} of buyers recommend this product</div>
+      <Col>
+      <div> <i>{props.recs} of buyers recommend this product</i></div>
+      </Col>
     </div>
   )
 
