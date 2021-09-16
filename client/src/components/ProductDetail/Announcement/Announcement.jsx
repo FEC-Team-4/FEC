@@ -5,9 +5,8 @@ function Announcement () {
     <section className="py-2">
     <div className="container text-center">
       <p className="mb-0"><span
-          className="badge badge-primary badge-pill mr-2">New</span> We are
-        offering free quotation for any type of projects,
-        <a href="#">request a free quote!</a>
+          className="mr-2">SITEWIDE ANNOUNCEMENT MESSAGE! - </span> SALE / DISCOUNT <strong>OFFER</strong>  -
+        <a href="#">NEW PRODUCT HIGHLIGHT</a>
       </p>
     </div>
   </section>

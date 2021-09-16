@@ -5,10 +5,12 @@ const path = require('path');
 const app = express();
 const apiKey = require('./../token/token.js')
 
-app.use(express.json())
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '/../client/dist')));
 
 const port = 3000;
+
 
 app.post('/reviews', (req, res) => {
   const productId = req.body.productId;
@@ -16,7 +18,7 @@ app.post('/reviews', (req, res) => {
   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews', {params: {product_id: productId, count: count}, headers: {Authorization: apiKey }})
     .then((result) => res.status(200).send(result.data))
     .catch(err => console.log(err))
-})
+});
 
 
 app.listen(port, (err) => {

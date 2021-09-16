@@ -32,7 +32,7 @@ const App = () => {
         <Container>
             <NavBar/>
           <div className="ProductDetails">
-            <ProductDetails/>
+            <ProductDetails productId={productId}/>
           </div>
           <div className="RelatedItems-OutfitCreation">
             <RelatedItems/>
