@@ -10,20 +10,20 @@ export default class NavBar extends React.Component {
       <Navbar.Toggle aria-controls="navbarScroll" />
       <Navbar.Collapse id="navbarScroll">
         <Nav
-          className="mr-auto my-2 my-lg-0"
+          className="ms-auto my-2 my-lg-0"
           style={{ maxHeight: '100px' }}
           navbarScroll
         >
         </Nav>
-        <Nav className ="me-auto">
-          <Form className="d-flex">
+        <Nav className ="ms-auto">
+          <Form className="me-auto d-flex">
             <FormControl
               type="search"
               placeholder="Search"
               className="mr-2"
               aria-label="Search"
             />
-            <Button variant="outline-success">Search</Button>
+            <Button variant="outline-primary">Search</Button>
           </Form>
         </Nav>
       </Navbar.Collapse>
