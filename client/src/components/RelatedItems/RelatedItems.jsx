@@ -8,34 +8,67 @@ import token from '../../../../token/token.js';
 import axios from 'axios';
 
 
-
-
 var RelatedItems = () => {
   var productId = 42370;
 
-  const { product } = useContext(dataContext);
-  const { reviews } = useContext(dataContext);
-  var { productId } = useContext(dataContext);
+  var { product, reviews, productId } = useContext(dataContext);
 
-  console.log('product', product);
-  console.log('reviews', reviews);
-  console.log('productId', productId);
-
+  //holds only related style numbers
   const [relatedList, setRelatedList] = useState([]);
+  //holds final object w everythign needed
   const [relatedItems, setRelatedItems] = useState({});
 
   //use context to pull current product ID
   //pull products related to current item
-    //pull category, name, rating, price, first image for each item.
-      //load that info into the cards
-
+  //pull category, name, rating, price, first image for each item.
+  //load that info into the cards
 
   useEffect(() => {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${productId}/styles`,{params: {count: 50}, headers: {Authorization: token}})
-      .then(({data}) => setRelatedList(data))
-      .then(() => console.log('results:', results))
-      .catch((err) => console.log('related items ajax err:', err))
+    .then(({data}) => setRelatedList(data.results))
+    .catch((err) => console.log('related items ajax err:', err))
+    axios.get()
   }, []);
+
+
+  const createRelatedItems = () => {
+    const allRelatedItems = {};
+    for (var i = 0; i < relatedList.length; i++) {
+      const it = relatedList[i]
+      allRelatedItems[it.style_id] = {
+        name: it.name,
+        price: it.original_price,
+        pic: it.photos[0].thumbnail_url
+      }
+    }
+    // console.log('all related items:', allRelatedItems);
+    return allRelatedItems;
+  }
+
+  //does this need to run upon loading of page? maybe need to add something here.
+  createRelatedItems();
+  var hi = createRelatedItems();
+  console.log('create', hi);
+  setRelatedItems(hi);
+  // const [relatedItems, setRelatedItems] = useState(allRelatedItems);
+
+  // setRelatedItems();
+  console.log('relateditems state:', relatedItems);
+
+  // const addRating = () => {
+  //   //use related items array
+  //   //search for each item by their id inside of the ratings api results
+  //   //average out all of the stars
+  //   //assign the rating to rating: in allRelatedItems
+  // }
+
+  // const addCategory = () => {
+  //   //use related items array
+  //   //search for each item by their id inside of the products api results
+  //   //assign the category to the category: in allRelatedItems
+  // }
+
+
 
   // getAvgStars () {
   //   var total = 0;
@@ -45,7 +78,6 @@ var RelatedItems = () => {
   //   setRelatedItems({avgStars: total/this.state.reviews.length})
   // }
 
-  console.log('related list from relateditems:', relatedList.results);
 
   return (
     <div style={{ maxWidth: 1200, marginLeft: 'auto', marginRight: 'auto', marginTop: 64 }}>
