@@ -65,10 +65,10 @@ var RelatedItems = () => {
   const getAvg = () => {
     var total = 0;
     oneRating.forEach(item => {total += item})
-    setRelatedItems({
+    setRelatedItems(currentState => ({
       ...currentState,
       rating: total/oneRating.length
-    })
+    }))
   }
 
   // console.log(id, name, price, pic, category, rating);
