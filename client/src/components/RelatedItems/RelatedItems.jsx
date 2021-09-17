@@ -71,7 +71,7 @@ var RelatedItems = () => {
     })
   }
 
-  console.log(id, name, price, pic, category, rating);
+  // console.log(id, name, price, pic, category, rating);
 
   return (
     <div style={{ maxWidth: 1200, marginLeft: 'auto', marginRight: 'auto', marginTop: 64 }}>
