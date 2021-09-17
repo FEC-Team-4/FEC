@@ -56,13 +56,11 @@ const AddReview = (props) => {
     .then(reset(setRating))
     .then(setRecommend((prev) => !prev))
     .catch((err) => console.log(err))
-
   }
 
   const reset = (cb) => {
     cb(() => '')
   }
-
 
   return (
     <Form style={padding}>
