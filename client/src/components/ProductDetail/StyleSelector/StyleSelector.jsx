@@ -8,7 +8,7 @@ function StyleSelector () {
       <label htmlFor="sizeSelect">Size</label>
       <select name="sizeSelect" id="sizeSelect"
       className="custom-select form-control  mb-4">
-        <option selected="">Size</option>
+        <option value="">Size</option>
         <option value="1">Small</option>
         <option value="2">Medium</option>
         <option value="3">Large</option>

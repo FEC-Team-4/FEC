@@ -1,18 +1,64 @@
 import React from 'react'
+import axios from 'axios'
+import token from '../token'
+import StarRatings from 'react-star-ratings';
 import { Row, Col } from 'react-bootstrap';
-function StarRatings () {
-  return (
-    <Row className ="d-inline">
-    <span>
-    <span className="fa fa-star checked"></span>
-    <span className="fa fa-star checked"></span>
-    <span className="fa fa-star checked"></span>
-    <span className="fa fa-star checked"></span>
-    </span>
-    <span><a href ="#">Read All Reviews</a></span>
-    </Row>
-  )
+import './StarRatings.css'
+
+class Productratings extends React.Component {
+  constructor(props) {
+    super(props)
+      this.state = {
+        ratings: {},
+        avgRating: 0
+      }
+      this.getRatings = this.getRatings.bind(this)
+      this.roundedAvg = this.roundedAvg.bind(this)
+  }
+
+  componentDidMount() {
+    this.getRatings();
+  }
+
+  getRatings() {
+    axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/meta/', {
+      params: {
+        product_id: this.props.id
+      },
+      headers: {Authorization: token}
+    })
+    .then(results => this.roundedAvg(results.data.ratings))
+    .catch(error => console.log(error))
+  }
+
+  roundedAvg(rating) {
+    console.log(rating)
+    const ratings = Object.entries(rating);
+    let weightedRating = 0;
+    let totalRatings = 0;
+    for (const [key, value] of ratings) {
+      totalRatings += Number(value);
+      weightedRating += key * Number(value);
+    }
+    const finalAvg = ratings.length ? (Math.round(weightedRating / totalRatings * 4) / 4).toFixed(2) : 0;
+    this.setState( {avgRating: finalAvg} )
+  }
+
+  render() {
+    return (
+      <>
+        <StarRatings
+          rating={Number(this.state.avgRating)}
+          starDimension="14px"
+          starSpacing="2px"
+        />
+        <span className ="read-reviews"><a href ="#">Read All Reviews</a></span>
+
+      </>
+    )
+  }
+
 
 }
 
-export default StarRatings;
+export default Productratings;

@@ -38,7 +38,7 @@ const App = () => {
         <Container>
             <NavBar/>
           <div className="ProductDetails">
-            <ProductDetails/>
+            <ProductDetails id={productId}/>
           </div>
           <div className="RelatedItems-OutfitCreation">
             <RelatedItems/>
