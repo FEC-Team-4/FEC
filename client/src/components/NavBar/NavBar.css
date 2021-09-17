@@ -1,0 +1,13 @@
+img.logo {
+  margin-left: 10px;
+}
+.navbar-brand {
+  font-weight: 500;
+  font-size: 1.15rem;
+}
+.search {
+  margin-right: 10px;
+}
+.top-search-input {
+  border-radius: 0;
+}
