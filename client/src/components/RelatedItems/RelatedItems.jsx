@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { dataContext } from '../context/dataContext.js';
-// import './RelatedItems.css'
-// import { Card } from 'react-bootstrap';
+import './RelatedItems.css'
+import { CardGroup } from 'react-bootstrap';
 import RelatedItemsCards from './RelatedItemsCards.jsx';
 import YourOutfit from './YourOutfit.jsx';
 import token from '../../../../token/token.js';
@@ -9,82 +9,78 @@ import axios from 'axios';
 
 
 var RelatedItems = () => {
-  var productId = 42370;
 
   var { product, reviews, productId } = useContext(dataContext);
 
-  //holds only related style numbers
-  const [relatedList, setRelatedList] = useState([]);
-  //holds final object w everythign needed
-  const [relatedItems, setRelatedItems] = useState({});
+  const [relatedList, setRelatedList] = useState([]); //array of related style id's
+  const [oneRating, setOneRating] = useState([]); //array of ratings for one item (to be averaged)
 
-  //use context to pull current product ID
-  //pull products related to current item
-  //pull category, name, rating, price, first image for each item.
-  //load that info into the cards
+  //holds final object w everything needed
+  const [{id, name, price, pic, category, rating}, setRelatedItems] = useState({id: 42370, name: 'a', price: 1, pic: '', category: 'a', rating: 4});
 
   useEffect(() => {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${productId}/styles`,{params: {count: 50}, headers: {Authorization: token}})
-    .then(({data}) => setRelatedList(data.results))
+    .then(({data}) => setRelatedList(data.results.map(item => {
+      return(
+        setRelatedItems(currentState => ({
+          ...currentState,
+          id: item.style_id,
+          name: item.name,
+          price: item.original_price,
+          pic: item.photos[0].thumbnail_url
+        }))
+      )
+    })))
+    .then(() => addCategory(42366))
+    .then(() => getAllRatings(42366))
+    .then(() => getAvg())
     .catch((err) => console.log('related items ajax err:', err))
-    axios.get()
   }, []);
 
 
-  const createRelatedItems = () => {
-    const allRelatedItems = {};
-    for (var i = 0; i < relatedList.length; i++) {
-      const it = relatedList[i]
-      allRelatedItems[it.style_id] = {
-        name: it.name,
-        price: it.original_price,
-        pic: it.photos[0].thumbnail_url
-      }
-    }
-    // console.log('all related items:', allRelatedItems);
-    return allRelatedItems;
+  const addCategory = (currentId) => (
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${currentId}`, {headers: {Authorization: token}})
+    .then(({data}) => (
+      setRelatedItems(currentState => ({
+        ...currentState,
+        category: data.category
+      }))
+      ))
+      .catch((err) => console.log('products ajax err:', err))
+  )
+
+  const getAllRatings = (currentId) => {
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews`, {params: {product_id: currentId}, headers: {Authorization: token}})
+    .then(({data}) => {
+      var resultsOnly = data.results.map(item => (
+        item.rating
+      ))
+      return(
+        setOneRating(resultsOnly)
+      );
+    })
+      .catch((err) => console.log('products ajax err:', err))
   }
 
-  //does this need to run upon loading of page? maybe need to add something here.
-  createRelatedItems();
-  var hi = createRelatedItems();
-  console.log('create', hi);
-  setRelatedItems(hi);
-  // const [relatedItems, setRelatedItems] = useState(allRelatedItems);
+  const getAvg = () => {
+    var total = 0;
+    oneRating.forEach(item => {total += item})
+    setRelatedItems({
+      ...currentState,
+      rating: total/oneRating.length
+    })
+  }
 
-  // setRelatedItems();
-  console.log('relateditems state:', relatedItems);
-
-  // const addRating = () => {
-  //   //use related items array
-  //   //search for each item by their id inside of the ratings api results
-  //   //average out all of the stars
-  //   //assign the rating to rating: in allRelatedItems
-  // }
-
-  // const addCategory = () => {
-  //   //use related items array
-  //   //search for each item by their id inside of the products api results
-  //   //assign the category to the category: in allRelatedItems
-  // }
-
-
-
-  // getAvgStars () {
-  //   var total = 0;
-  //   relatedItems.forEach(item => {
-  //     total += item.rating
-  //   })
-  //   setRelatedItems({avgStars: total/this.state.reviews.length})
-  // }
-
+  console.log(id, name, price, pic, category, rating);
 
   return (
     <div style={{ maxWidth: 1200, marginLeft: 'auto', marginRight: 'auto', marginTop: 64 }}>
       <h3>Related Items</h3>
-      <RelatedItemsCards/>
+      <CardGroup>
+        <RelatedItemsCards/>
+        <YourOutfit />
+      </CardGroup>
       <h3>Your Outfit</h3>
-      <YourOutfit />
     </div>
   );
 }

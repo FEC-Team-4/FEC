@@ -21,8 +21,10 @@ const App = () => {
   useEffect(() => {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${productId}`,{params: {count: 50}, headers: {Authorization: token}})
       .then(({data}) => setProduct(data))
+      .catch(err => console.log(err));
     axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews',{params: {product_id: `${productId}`}, headers: {Authorization: token }})
       .then((results) => setReviews(() => results))
+      .catch(err => console.log(err));
   }, [])
 
   //setProductId helper function needed
