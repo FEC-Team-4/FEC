@@ -10,6 +10,13 @@ router.post('/reviews', (req, res) => {
     .then((result) => res.status(200).send(result.data))
     .catch(err => console.log(err))
 })
+//reviews metadata
+router.post('/reviews/meta', (req, res) => {
+  const productId = req.body.productId;
+  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/meta', {params: {product_id: productId}, headers: {Authorization: apiKey }})
+    .then((result) => res.status(200).send(result.data))
+    .catch(err => console.log(err))
+})
 //reviews helpful
 router.put('/helpful', (req, res) => {
   const productId = req.body.productId;
@@ -26,8 +33,7 @@ router.post('/submitreview', (req, res) => {
   const recommend = req.body.recommend
   const name = req.body.name
   const email = req.body.email
-  const photos = []
-  const characteristics = {}
+  const characteristics = req.body.characteristics
   axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews', {
     product_id: productId,
     rating: rating,
