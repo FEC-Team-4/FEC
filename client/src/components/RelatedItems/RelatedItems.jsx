@@ -76,11 +76,9 @@ var RelatedItems = () => {
   return (
     <div style={{ maxWidth: 1200, marginLeft: 'auto', marginRight: 'auto', marginTop: 64 }}>
       <h3>Related Items</h3>
-      <CardGroup>
         <RelatedItemsCards/>
-        <YourOutfit />
-      </CardGroup>
       <h3>Your Outfit</h3>
+        {/* <YourOutfit /> */}
     </div>
   );
 }

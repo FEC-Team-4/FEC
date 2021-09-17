@@ -9,6 +9,8 @@ const RatingsGraph = (props) => (
           <StarRatings
               rating={props.avgStars}
               starRatedColor="red"
+              starDimension="15px"
+              starSpacing="0.5px"
               numberOfStars={5}
               name='rating'
           />
