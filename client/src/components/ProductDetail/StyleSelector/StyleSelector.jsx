@@ -1,18 +1,16 @@
 import React from 'react'
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Form } from 'react-bootstrap';
 
-function StyleSelector () {
+function StyleSelector (props) {
+  // console.log(props.styles)
   return (
     <Row className="py-5">
+      <p className="style">STYLE <span>Selected</span></p>
       <Col>
-      <label htmlFor="sizeSelect">Size</label>
-      <select name="sizeSelect" id="sizeSelect"
-      className="custom-select form-control  mb-4">
-        <option value="">Size</option>
+        <option>Select Size</option>
         <option value="1">Small</option>
         <option value="2">Medium</option>
         <option value="3">Large</option>
-      </select>
       </Col>
       <Col>
         <label htmlFor="quantitySelect">Quantity:</label>

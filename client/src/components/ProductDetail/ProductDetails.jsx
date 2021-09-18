@@ -1,34 +1,61 @@
 import React, { useState, useContext, useEffect } from 'react';
+import axios from 'axios'
+import token from './token'
 import { Row, Col, Spinner } from 'react-bootstrap';
 import Announcement from './Announcement/Announcement.jsx'
 import ProductMeta from './ProductMeta/ProductMeta.jsx'
 import ProductGallery from './ProductGallery/ProductGallery.jsx'
 import Productratings from './StarRatings/StarRatings.jsx'
 import StyleSelector from './StyleSelector/StyleSelector.jsx'
+import AdditionalInfo from './AdditionalInfo/AdditionalInfo.jsx'
+
+
 
 function ProductDetails (props) {
-  const [mounted, setMounted] = useState(false);
+  const [productinfo, setProductinfo] = useState({});
+  const [selectedStyle, setSelectedstyle] = useState(null);
+  const [styleList, setStylelist] = useState([]);
+  const [images, setImages] = useState([]);
 
   useEffect(() => {
-    setMounted(true);
+    const loadinfo = async () => {
+      const response = await axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${props.id}`, {
+        headers: {Authorization: token}
+      });
+      setProductinfo(response.data)
+    }
+    loadinfo();
   }, [])
 
-    if (mounted) {
+  useEffect(() => {
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${props.id}/styles`, {
+        headers: {Authorization: token}
+      })
+      .then(results => {
+        setStylelist(results.data.results);
+        setSelectedstyle(results.data.results[0].style_id);
+      })
+  }, [])
+
+
+
+    if (productinfo && styleList) {
       return (
       <>
       <Announcement />
       <section className="pb-5">
           <Row>
-            <Col md={7}>
-              <ProductGallery />
+            <Col md={8}>
+                <ProductGallery styleList = {styleList} styleId = {selectedStyle}/>
             </Col>
-            <Col md={5}>
+            <Col md={4}>
               <Productratings id = {props.id}/>
-              <ProductMeta />
-              <StyleSelector />
+              <ProductMeta product = {productinfo}/>
+              <StyleSelector styles = {styleList}/>
             </Col>
           </Row>
       </section>
+      <AdditionalInfo product = {productinfo}/>
       </>
       )
     } else {
