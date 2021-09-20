@@ -5,6 +5,7 @@ function StyleSelector (props) {
   // console.log(props.styles)
   const [imageList, setImageList] = useState([]);
   const [currentStyleInfo, setCurrentstyleinfo] = useState(null);
+  const [skus, setSkus] = useState(null);
 
   useEffect(() => {
     const currentStyle = props.styles.find(style => {
@@ -15,19 +16,24 @@ function StyleSelector (props) {
           //   return {img: photo.url, thumb: photo.thumbnail_url}
           // })
           setCurrentstyleinfo(currentStyle)
+          setSkus(currentStyle.skus)
         }
   },[props.styleId])
 
   const clickhandler = (e)=> {
-    props.clickSelector(e.target.value)
+    props.clickSelector(parseInt(e.target.value))
+    console.log(Object.entries(skus))
   }
 
+  const processSku = () => {
+    console.log(currentStyleInfo)
+  }
 
   if(currentStyleInfo) {
   return (
     <div className="form">
       <Row>
-        {currentStyleInfo.sales_price !== null ? <span className="sale">${currentStyleInfo.sale_price}&nbsp;&nbsp;<s>${currentStyleInfo.original_price}</s></span> :
+        {currentStyleInfo.sale_price !== null ? <span className="sale">${currentStyleInfo.sale_price}&nbsp;&nbsp;<s>${currentStyleInfo.original_price}</s></span> :
         <span>${currentStyleInfo.original_price}</span>
         }
 
@@ -37,12 +43,12 @@ function StyleSelector (props) {
         <Form>
         {props.styles.map(style => {
               return style.style_id !== props.styleId ?
-                <label>
-                  <input onChange={(e)=> clickhandler(e)} type="radio" name= {style.name} value = {style.style_id} />
+                <label key = {style.style_id}>
+                  <input onChange={(e)=> clickhandler(e)} type="radio" name= "styleelector" value = {style.style_id} />
                   <img src={style.photos[0].thumbnail_url} />
               </label> :
-              <label>
-              <input type="radio" name= {style.name} value = {style.style_id} defaultChecked/>
+              <label key = {style.style_id}>
+              <input type="radio" name= "styleelector" value = {style.style_id} defaultChecked/>
               <img src={style.photos[0].thumbnail_url} />
           </label>
             })}

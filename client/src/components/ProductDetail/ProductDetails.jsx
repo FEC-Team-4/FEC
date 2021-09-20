@@ -33,14 +33,19 @@ function ProductDetails (props) {
       })
       .then(results => {
         setStylelist(results.data.results);
-        setSelectedstyle(results.data.results[3].style_id);
+        setSelectedstyle(results.data.results[2].style_id);
+      })
+  }, [])
+  useEffect(() => {
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${props.id}/styles`, {
+        headers: {Authorization: token}
+      })
+      .then(results => {
+        setStylelist(results.data.results);
       })
   }, [selectedStyle])
-
   const clickSelector = styleId => {
-    console.log('before',selectedStyle)
     setSelectedstyle(styleId)
-    console.log('after',selectedStyle)
   }
 
     if (productinfo && styleList) {
