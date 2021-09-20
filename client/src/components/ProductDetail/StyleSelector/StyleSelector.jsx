@@ -2,30 +2,38 @@ import React, {useState, useEffect} from 'react'
 import { Row, Col, Form, Spinner } from 'react-bootstrap';
 import './style-selector.css'
 function StyleSelector (props) {
-  // console.log(props.styles)
-  const [imageList, setImageList] = useState([]);
   const [currentStyleInfo, setCurrentstyleinfo] = useState(null);
-  const [skus, setSkus] = useState(null);
+  const [skus, setSkus] = useState([]);
+  const [size, setSize] = useState('Select Size');
 
   useEffect(() => {
     const currentStyle = props.styles.find(style => {
           return style.style_id === props.styleId
         });
         if (currentStyle) {
-          // const images = currentStyle.photos.map(photo => {
-          //   return {img: photo.url, thumb: photo.thumbnail_url}
-          // })
-          setCurrentstyleinfo(currentStyle)
-          setSkus(currentStyle.skus)
+          setCurrentstyleinfo(currentStyle);
         }
   },[props.styleId])
 
-  const clickhandler = (e)=> {
+  useEffect(() => {
+    if (currentStyleInfo) {
+      const instockSku = [];
+      for (var key in currentStyleInfo.skus) {
+        if (currentStyleInfo.skus[key].quantity > 0) {
+          instockSku.push({id: key, qty: currentStyleInfo.skus[key].quantity, size: currentStyleInfo.skus[key].size})
+        }
+      }
+      setSkus(instockSku);
+    }
+    console.log(skus)
+  },[currentStyleInfo])
+
+  const clickHandler = (e) => {
     props.clickSelector(parseInt(e.target.value))
   }
 
-  const processSku = () => {
-    console.log(currentStyleInfo)
+  const handleChange = (e) => {
+    setSize(parseInt(e.target.value));
   }
 
   if(currentStyleInfo) {
@@ -43,11 +51,11 @@ function StyleSelector (props) {
         {props.styles.map(style => {
               return style.style_id !== props.styleId ?
                 <label key = {style.style_id}>
-                  <input onChange={(e)=> clickhandler(e)} type="radio" name= "styleelector" value = {style.style_id} />
+                  <input onChange={(e)=> clickHandler(e)} type="radio" name= "styleselector" value = {style.style_id} />
                   <img src={style.photos[0].thumbnail_url} />
               </label> :
               <label key = {style.style_id}>
-              <input type="radio" name= "styleelector" value = {style.style_id} defaultChecked/>
+              <input type="radio" name= "styleselector" value = {style.style_id} defaultChecked/>
               <img src={style.photos[0].thumbnail_url} />
           </label>
             })}
@@ -55,21 +63,12 @@ function StyleSelector (props) {
       </Row>
       <Row className="py-5">
       <Col>
-      {props.styles.map(style => {
-              return style.style_id !== props.styleId ?
-                <label key = {style.style_id}>
-                  <input onChange={(e)=> clickhandler(e)} type="radio" name= "styleelector" value = {style.style_id} />
-                  <img src={style.photos[0].thumbnail_url} />
-              </label> :
-              <label key = {style.style_id}>
-              <input type="radio" name= "styleelector" value = {style.style_id} defaultChecked/>
-              <img src={style.photos[0].thumbnail_url} />
-          </label>
-            })}
-        <option>Select Size</option>
-        <option value="1">Small</option>
-        <option value="2">Medium</option>
-        <option value="3">Large</option>
+      <select value={size} onChange={handleChange}>
+      <option value="Select Size">Select Size</option>
+        {skus.map(sku => {
+          return <option key ={sku.id} value={sku.id}>{sku.size}</option>
+        })}
+          </select>
       </Col>
       <Col>
         <label htmlFor="quantitySelect">Quantity:</label>
