@@ -31,8 +31,6 @@ const App = () => {
     setProductId(id)
   };
 
-  //setProductId helper function needed
-
   return (
       <dataContext.Provider value={{
         product: [product],

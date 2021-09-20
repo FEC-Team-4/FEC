@@ -11,69 +11,59 @@ import axios from 'axios';
 var RelatedItems = () => {
 
   var { product, reviews, productId } = useContext(dataContext);
-  console.log('productid', productId);
-  const [listRelated, setListRelated] = useState([]); //arr of related style ID's
+
   const [oneRating, setOneRating] = useState([]); //array of ratings for one item (to be averaged)
   const [relatedItems, setRelatedItems] = useState([]);  //arr of all info for related styles
 
-  useEffect(() => {
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${productId}/related`, {headers: {Authorization: token}})
-    .then(({data}) => setListRelated(data))
-    .then(() => createRelatedList())
-    .catch((err) => console.log('related items ajax err:', err))
+  const getProductStyles = async (id) => {
+    const {data} = await axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${id}/styles`, {params: {count: 50}, headers: {Authorization: token}});
+    return data;
+  };
 
-    // axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${productId}/styles`,{params: {count: 50}, headers: {Authorization: token}})
-    // .then(({data}) => data.results.map(item => {
-    //   let newObj = {
-    //     id: item.style_id,
-    //     name: item.name,
-    //     price: item.original_price,
-    //     pic: item.photos[0].thumbnail_url
-    //   }
-    //   let arr = relatedItems.concat(newObj);
-    //   console.log('data results', data.results)
-    //   return(
-    //     setRelatedItems(arr)
-    //   )
-    // }))
-
-    // .then(() => addCategory(42366))
-    // .then(() => getAllRatings(42366))
-    // .then(() => getAvg())
-    .catch((err) => console.log('related items ajax err:', err))
-  }, [productId]); //maybe 2nd argument should change here?
-
-
-  const createRelatedList = () => {
-    listRelated.map(style => {
-      axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${style}/styles`,{params: {count: 50}, headers: {Authorization: token}})
-      .then(({data}) => {
-        let item = data.results[0];
-        let newObj = {
-          id: item.style_id,
-          name: item.name,
-          price: item.original_price,
-          pic: item.photos[0].thumbnail_url
-        }
-        let arr = relatedItems.concat(newObj);
-        return setRelatedItems(arr);
-      })
-      .catch((err) => console.log('products ajax err:', err))
-      })
+  const addCategory = async (currentId) => {
+    const {data} = await axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${currentId}`, {headers: {Authorization: token}})
+    for (let i = 0; i < relatedItems.length; i++) {
+      if (parseInt(relatedItems[i].product_id) === data.id) {
+        setRelatedItems(relatedItems[i].category = data.category);
+      }
     }
+  }
 
-    console.log('list of related ids:', listRelated);
-    console.log('relatedItemsList', relatedItems);
-  // const addCategory = (currentId) => (
-  //   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${currentId}`, {headers: {Authorization: token}})
-  //   .then(({data}) => (
-  //     setRelatedItems(currentState => ({
-  //       ...currentState,
-  //       category: data.category
-  //     }))
-  //     ))
-  //     .catch((err) => console.log('products ajax err:', err))
-  // )
+  useEffect( () => {
+    async function fetchData(){
+      try {
+        const {data} = await axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${productId}/related`, {headers: {Authorization: token}});
+        let newData = [...new Set(data)];  //no duplicates
+        let productStylesArr = [];
+        // await addCategory(...data);
+        for(let i = 0; i < newData.length; i++){
+          const products = await getProductStyles(newData[i]);
+          productStylesArr.push(products);
+        }
+        setRelatedItems(productStylesArr);
+      }
+      catch(err){
+        console.log(err);
+      }
+    }
+    fetchData();
+  },[productId]);
+
+  addCategory(42367); //how do we get this to run on its own?
+  console.log('relatedItemsOutsideFunc:', relatedItems);
+
+  //below functions need to be updated after above issue is solved.
+
+
+
+    // .then(({data}) => (
+    //   setRelatedItems(currentState => ({
+    //     ...currentState,
+    //     category: data.category
+    //   }))
+    //   ))
+    //   .catch((err) => console.log('products ajax err:', err))
+
 
   // const getAllRatings = (currentId) => {
   //   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews`, {params: {product_id: currentId}, headers: {Authorization: token}})
