@@ -15,7 +15,7 @@ function ProductDetails (props) {
   const [productinfo, setProductinfo] = useState({});
   const [selectedStyle, setSelectedstyle] = useState(null);
   const [styleList, setStylelist] = useState([]);
-  const [images, setImages] = useState([]);
+  // const [images, setImages] = useState([]);
 
   useEffect(() => {
     const loadinfo = async () => {
@@ -33,11 +33,15 @@ function ProductDetails (props) {
       })
       .then(results => {
         setStylelist(results.data.results);
-        setSelectedstyle(results.data.results[0].style_id);
+        setSelectedstyle(results.data.results[3].style_id);
       })
-  }, [])
+  }, [selectedStyle])
 
-
+  const clickSelector = styleId => {
+    console.log('before',selectedStyle)
+    setSelectedstyle(styleId)
+    console.log('after',selectedStyle)
+  }
 
     if (productinfo && styleList) {
       return (
@@ -51,7 +55,7 @@ function ProductDetails (props) {
             <Col md={4}>
               <Productratings id = {props.id}/>
               <ProductMeta product = {productinfo}/>
-              <StyleSelector styles = {styleList}/>
+              <StyleSelector styles = {styleList} styleId = {selectedStyle} clickSelector = {clickSelector}/>
             </Col>
           </Row>
       </section>

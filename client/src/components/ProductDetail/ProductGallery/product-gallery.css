@@ -24,8 +24,12 @@
   margin-left: 25px;
   height: 542px;
 }
+
+.slick-prev, .slick-next {
+  z-index: 999;
+}
 .slick-prev {
-  left: 75px;
+  left: 100px;
 }
 .slick-next {
   right: 50px;
@@ -36,12 +40,13 @@
 }
 .slick-vertical .slick-next {
   left: 20px;
-  top: 440px;
+  top: 480px;
   transform: rotate(90deg);
 }
 img.main {
   width: 100%;
   height: 575px;
+  object-fit: contain;
 }
 img.thumb {
   width: 60px;
@@ -49,4 +54,14 @@ img.thumb {
   background-color: #fff;
   padding: 3px;
   border: 1px solid #333;
+  cursor: pointer;
+}
+.slick-next:before, .slick-prev:before {
+  font-size: 20px;
+  line-height: 1;
+  opacity: .75;
+  color: #FF550B;
+}
+.slick-current {
+  border-bottom: 3px solid #fff;
 }

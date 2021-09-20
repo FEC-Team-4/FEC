@@ -14,22 +14,27 @@ import token from '../../../token/token.js';
 
 const App = () => {
 
-  // const [items, setItems] = useState(['Shirt', 'pant', 'shoe', 'sock']);
-  const [products, setProducts] = useState([]);
-  const [productId, setProductId] = useState(42369);
-
-
+  const [product, setProduct] = useState([]);
+  const [reviews, setReviews] = useState([]);
+  const [productId, setProductId] = useState(42368);
 
   useEffect(() => {
-    axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products',{params: {count: 5}, headers: {Authorization: token}})
-      .then((results) => setProducts(() => results))
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${productId}`,{params: {count: 10}, headers: {Authorization: token}})
+      .then(({data}) => setProduct(data))
+      .catch(err => console.log(err));
+    axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews',{params: {product_id: `${productId}`}, headers: {Authorization: token }})
+      .then((results) => setReviews(() => results))
+      .catch(err => console.log(err));
   }, [])
 
-
-  //producuts:fdiapfsdia
+  //setProductId helper function needed
 
   return (
-      <dataContext.Provider value={{products}}>
+      <dataContext.Provider value={{
+        product: [product],
+        reviews: [reviews],
+        productId: [productId]
+      }}>
         <Container>
             <NavBar/>
           <div className="ProductDetails">

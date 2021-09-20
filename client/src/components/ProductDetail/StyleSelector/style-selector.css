@@ -1,0 +1,35 @@
+.sale {
+  color: orangered;
+}
+
+.sale s{
+  color: #333;
+}
+
+p.style {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+p.style span {
+  font-weight: 300;
+}
+[type=radio] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+[type=radio] + img {
+  cursor: pointer;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+[type=radio]:checked:before {
+  content: '←';
+  font-size: 20px;
+  line-height: 1;
+  opacity: .75;
+  color: #d21111;
+  display: block;
+}

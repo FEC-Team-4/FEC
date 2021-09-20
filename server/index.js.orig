@@ -12,7 +12,19 @@ app.use(express.static(path.join(__dirname, '/../client/dist')));
 
 const port = 3000;
 
+<<<<<<< HEAD
 app.use('/', router);
+=======
+
+app.post('/reviews', (req, res) => {
+  const productId = req.body.productId;
+  const count = req.body.count;
+  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews', {params: {product_id: productId, count: count}, headers: {Authorization: apiKey }})
+    .then((result) => res.status(200).send(result.data))
+    // .catch(err => console.log(err))
+});
+
+>>>>>>> 339782a8c75a85042bc249293d78267e20a2f8ab
 
 app.listen(port, (err) => {
   if (err) {

@@ -8,15 +8,12 @@ import './product-gallery.css'
 function ProductGallery (props) {
   const [nav1, setNav1] = useState(null);
   const [nav2, setNav2] = useState(null);
-  // const [id, setId] = useState(props.styleId);
-  // const [styleList, setStylelist] = useState(props.styleList)
   const [imageList, setImageList] = useState([]);
 
   useEffect(() => {
     const currentStyle = props.styleList.find(style => {
           return style.style_id === props.styleId
         });
-        console.log(currentStyle)
         if (currentStyle) {
           const images = currentStyle.photos.map(photo => {
             return {img: photo.url, thumb: photo.thumbnail_url}
