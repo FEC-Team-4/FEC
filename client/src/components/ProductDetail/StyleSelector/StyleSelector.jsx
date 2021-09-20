@@ -22,7 +22,6 @@ function StyleSelector (props) {
 
   const clickhandler = (e)=> {
     props.clickSelector(parseInt(e.target.value))
-    console.log(Object.entries(skus))
   }
 
   const processSku = () => {
@@ -40,7 +39,7 @@ function StyleSelector (props) {
       </Row>
       <Row className="py-5">
         <p className="style">STYLE > <span>{currentStyleInfo.name}</span></p>
-        <Form>
+        <Form className="style-select-main">
         {props.styles.map(style => {
               return style.style_id !== props.styleId ?
                 <label key = {style.style_id}>
@@ -56,6 +55,17 @@ function StyleSelector (props) {
       </Row>
       <Row className="py-5">
       <Col>
+      {props.styles.map(style => {
+              return style.style_id !== props.styleId ?
+                <label key = {style.style_id}>
+                  <input onChange={(e)=> clickhandler(e)} type="radio" name= "styleelector" value = {style.style_id} />
+                  <img src={style.photos[0].thumbnail_url} />
+              </label> :
+              <label key = {style.style_id}>
+              <input type="radio" name= "styleelector" value = {style.style_id} defaultChecked/>
+              <img src={style.photos[0].thumbnail_url} />
+          </label>
+            })}
         <option>Select Size</option>
         <option value="1">Small</option>
         <option value="2">Medium</option>

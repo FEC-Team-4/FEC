@@ -64,7 +64,7 @@ function ProductDetails (props) {
             </Col>
           </Row>
       </section>
-      <AdditionalInfo product = {productinfo}/>
+      <AdditionalInfo productInfo = {productinfo}/>
       </>
       )
     } else {
