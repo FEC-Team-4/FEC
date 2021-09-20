@@ -16,10 +16,10 @@ const App = () => {
 
   const [product, setProduct] = useState([]);
   const [reviews, setReviews] = useState([]);
-  const [productId, setProductId] = useState(42366);
+  const [productId, setProductId] = useState(42368);
 
   useEffect(() => {
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${productId}`,{params: {count: 50}, headers: {Authorization: token}})
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${productId}`,{params: {count: 10}, headers: {Authorization: token}})
       .then(({data}) => setProduct(data))
       .catch(err => console.log(err));
     axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews',{params: {product_id: `${productId}`}, headers: {Authorization: token }})

@@ -32,7 +32,6 @@ class Productratings extends React.Component {
   }
 
   roundedAvg(rating) {
-    console.log(rating)
     const ratings = Object.entries(rating);
     let weightedRating = 0;
     let totalRatings = 0;
