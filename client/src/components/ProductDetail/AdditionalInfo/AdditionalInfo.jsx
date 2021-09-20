@@ -4,14 +4,6 @@ import './additional-info.css'
 
 function AdditionalInfo (props) {
   const [featureList, setfeatureList] = useState([]);
-
-  // useEffect(() => {
-  //   const featureList = props.product.features.map(item => {
-  //     return `<li>${item.feature} : ${item.value}</li>`
-  //   });
-  //   setfeatureList(featureList);
-  // })
-  console.log(props.productInfo)
   return (
     <section className="additional-info py-3">
       <div className="container ">
@@ -24,8 +16,8 @@ function AdditionalInfo (props) {
           <Col md={4} style={{borderLeft: "2px solid #999",  display: "flex", alignItems: "center"}}>
           <ul className="list-features">
               {props.productInfo.features ?
-                props.productInfo.features.map(feature => {
-                  return <li><strong>{feature.feature} : </strong>{feature.value}</li>
+                props.productInfo.features.map((feature, i) => {
+                  return <li key = {i}><strong>{feature.feature} : </strong>{feature.value}</li>
                 }) : null
               }
           </ul>
