@@ -24,7 +24,7 @@ function ProductGallery (props) {
   if (imageList) {
     return (
       <Row>
-        <Col md={12}>
+        <Col md={12} className ="hero">
           <Slider
           asNavFor= {nav2}
           ref= {slider1 => setNav1(slider1)}
