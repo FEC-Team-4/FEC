@@ -48,7 +48,8 @@ class Productratings extends React.Component {
   }
 
   render() {
-    return (
+    return this.state.ratings > 0 ?
+    (
       <>
         <StarRatings
           rating={Number(this.state.avgRating)}
@@ -58,7 +59,7 @@ class Productratings extends React.Component {
         <span className ="read-reviews"><a href ="#">Read All {this.state.ratings} Reviews</a></span>
 
       </>
-    )
+    ) : null;
   }
 
 
