@@ -15,7 +15,7 @@ function ProductDetails (props) {
   const [productinfo, setProductinfo] = useState({});
   const [selectedStyle, setSelectedstyle] = useState(null);
   const [styleList, setStylelist] = useState([]);
-  // const [images, setImages] = useState([]);
+  const [expandedClass, setExpandedclass] = useState(8);
 
   useEffect(() => {
     const loadinfo = async () => {
@@ -33,7 +33,7 @@ function ProductDetails (props) {
       })
       .then(results => {
         setStylelist(results.data.results);
-        setSelectedstyle(results.data.results[2].style_id);
+        setSelectedstyle(results.data.results[0].style_id);
       })
   }, [])
   useEffect(() => {
@@ -44,18 +44,27 @@ function ProductDetails (props) {
         setStylelist(results.data.results);
       })
   }, [selectedStyle])
+
   const clickSelector = styleId => {
     setSelectedstyle(styleId)
   }
 
+  const expandedView = (e) => {
+    if (expandedClass === 8) {
+      setExpandedclass(12)
+    } else {
+      setExpandedclass(8)
+    }
+    console.log(expandedClass)
+  }
     if (productinfo && styleList) {
       return (
       <>
       <Announcement />
       <section className="pb-5">
           <Row>
-            <Col md={8}>
-                <ProductGallery styleList = {styleList} styleId = {selectedStyle}/>
+            <Col md={expandedClass}>
+                <ProductGallery styleList = {styleList} styleId = {selectedStyle} zoomIn = {expandedView}/>
             </Col>
             <Col md={4}>
               <Productratings id = {props.id}/>
