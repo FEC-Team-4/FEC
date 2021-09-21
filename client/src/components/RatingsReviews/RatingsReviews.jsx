@@ -18,8 +18,72 @@ const style = {
   marginBottom: "10px"
 }
 const style2 = {
-  marginTop: "40px"
+  marginTop: "40px",
+  overflowY:"auto"
+
 }
+
+const RatingsReviews = (props) => {
+
+  const [reviews, setReviews] = useState([]);
+  const [counter, setCounter] = useState(2);
+  const [more, setMore] = useState(0);
+  const [avgStars, setAvgStars] = useState(0);
+  const [stars, setStars] = useState([]);
+  const [characteristics, setCharacteristics] = useState([]);
+  const [recommend, setRecommend] = useState([]);
+  const [meta, setMeta] = useState([]);
+  const [sort, setSort] = useState(null);
+  const [hide, setHide] = useState(false);
+
+  useEffect(() => {
+    getReviews();
+  }, [more, sort])
+
+  const getReviews = () => {
+    axios.post('/reviews', {count: counter, productId: props.productId, sort: sort})
+      .then((results) => setReviews(() => results.data.results))
+      .then(() => setCounter((prev) => prev + 2))
+      .then(() => counter - reviews.length > 2 ? setHide(prev => !prev) : console.log(null) )
+      .catch(err => console.log('here', err))
+  }
+
+  useEffect(() => {
+    axios.post('/reviews/meta', {productId: props.productId})
+      .then((results) => {
+        setStars(() => results.data.ratings)
+        setCharacteristics(() => results.data.characteristics)
+        setMeta(() => results.data)
+        setRecommend(() => results.data.recommended)
+      })
+  }, [])
+
+  return (
+    <div className="container">
+      <div className="row">
+      <div className="col-sm">
+        <Header />
+        <RatingsGraph recommend={recommend} characteristics={characteristics} stars={stars}/>
+      </div>
+      <div className="col-sm">
+        <span>
+        <div style={style2}>Sort By</div>
+        <Button variant="outline-secondary" size="sm" style={style} onClick={(e) => setSort(() => e.target.value)} value="newest">Recent</Button>
+        <Button variant="outline-secondary" size="sm" style={style} onClick={(e) => setSort(() => e.target.value)} value="relevant">Relevant</Button>
+        <Button variant="outline-secondary" size="sm" style={style} onClick={(e) => setSort(() => e.target.value)} value="helpful">Highest Rated</Button>
+        </span>
+        <Reviews reviews={reviews}/>
+        <Footer currentItemId={props.productId} getMoreReviews={setMore} hide={hide}/>
+      </div>
+      </div>
+    </div>
+  )
+}
+
+export default RatingsReviews;
+
+
+
 
 // class RatingsReviews extends React.Component {
 //   constructor (props) {
@@ -146,88 +210,3 @@ const style2 = {
 //     )
 //   }
 // }
-const RatingsReviews = (props) => {
-
-  const [reviews, setReviews] = useState([]);
-  const [counter, setCounter] = useState(2);
-  const [more, setMore] = useState(0);
-  const [avgStars, setAvgStars] = useState(0);
-  const [stars, setStars] = useState([]);
-  const [characteristics, setCharacteristics] = useState([]);
-  const [recommend, setRecommend] = useState([]);
-  const [meta, setMeta] = useState([]);
-
-  const updateAvgStars = () => {
-    var total = 0;
-    reviews.forEach(ele => {
-      total += ele.rating
-      console.log(total)
-    })
-    setAvgStars(() => total/reviews.length)
-  }
-
-  const sortByLowestStars = () => {
-    const sorted = [...reviews].sort((a, b) => {
-      return a.rating - b.rating;
-    });
-    setReviews(() => sorted)
-  }
-  const sortByHighestStars = () => {
-    const sorted = [...reviews].sort((a, b) => {
-      return b.rating - a.rating;
-    });
-    setReviews(() => sorted)
-  }
-  const sortByHelpfulness = () => {
-    const sorted = [...reviews].sort((a, b) => {
-      return b.helpfulness - a.helpfulness;
-    });
-    setReviews(() => sorted)
-  }
-  const sortByRecent = () => {
-    const sorted = [...reviews].sort((a, b) => {
-      return new Date(b.date) - new Date(a.date)
-    });
-    setReviews(() => sorted)
-  }
-
-  useEffect(() => {
-    axios.post('/reviews', {count: counter, productId: props.productId})
-      .then((results) => setReviews(() => results.data.results))
-      .then(() => setCounter((prev) => prev + 2))
-    axios.post('/reviews/meta', {productId: props.productId})
-      .then((results) => {
-        setStars(() => results.data.ratings)
-        setCharacteristics(() => results.data.characteristics)
-        setMeta(() => results.data)
-        setRecommend(() => results.data.recommended)
-      })
-  }, [more])
-
-  return (
-    <div className="container">
-      <div className="row">
-      <div className="col-sm">
-        <Header />
-        <RatingsGraph recommend={recommend} characteristics={characteristics} stars={stars}/>
-      </div>
-      <div className="col-sm">
-        <span>
-        <div style={style2}>Sort By</div>
-        <Button variant="outline-secondary" size="sm" style={style} onClick={sortByRecent}>Recent</Button>
-        <Button variant="outline-secondary" size="sm" style={style} onClick={sortByHelpfulness}>Relevant</Button>
-        <Button variant="outline-secondary" size="sm" style={style} onClick={sortByHighestStars}>Highest Rated</Button>
-        <Button variant="outline-secondary" size="sm" style={style} onClick={sortByLowestStars}>Lowest Rated</Button>
-        </span>
-        <Reviews reviews={reviews}/>
-        <Footer currentItemId={props.productId} getMoreReviews={setMore} />
-      </div>
-      </div>
-    </div>
-  )
-}
-
-export default RatingsReviews;
-
-
-

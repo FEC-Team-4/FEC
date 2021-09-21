@@ -1,7 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-
-const apiKey = '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'
+import StarRating from 'react-star-ratings'
 
 const bg = {
   padding: "15px",
@@ -11,8 +10,10 @@ const bg = {
 
 const bg2 = {
   padding: "15px",
-  // backgroundColor: '#d3d3d3',
   borderRadius: '10px'
+}
+const scroll = {
+  overflowY:"auto"
 }
 
 
@@ -37,7 +38,13 @@ class Review extends React.Component {
     if (this.props.bgCount % 2 === 0) {
       return (
         <div style={bg2}>
-          {this.oneStars()}
+          <StarRating
+            rating={this.props.review.rating}
+            numberOfStars={5}
+            starDimension="20px"
+            starSpacing="1px"
+            starRatedColor="blue"
+          />
           <h6>User: {this.props.review.reviewer_name} | {this.props.review.date.split('T')[0]}</h6>
           <h4>{this.props.review.summary}</h4>
           <p className="text-justify">{this.props.review.body}</p>
@@ -47,7 +54,14 @@ class Review extends React.Component {
     } else {
       return (
         <div style={bg}>
-          {this.oneStars()}
+          <StarRating
+            rating={this.props.review.rating}
+            numberOfStars={5}
+            starDimension="20px"
+            starSpacing="1px"
+            starRatedColor="blue"
+
+          />
           <h6>User: {this.props.review.reviewer_name} | {this.props.review.date.split('T')[0]}</h6>
           <h4>{this.props.review.summary}</h4>
           <p className="text-justify">{this.props.review.body}</p>
@@ -129,7 +143,7 @@ class Review extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={scroll}>
         {this.addColor()}
       </div>
     )

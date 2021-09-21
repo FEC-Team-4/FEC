@@ -10,10 +10,12 @@ const RatingsGraph = (props) => {
   const [fourStar, set4] = useState(0);
   const [fiveStar, set5] = useState(0);
   const [recommend, setRecommend] = useState(0);
+  const [avgStars, setAvgStars] = useState(0);
 
 
   useEffect(() => {
     loop(props.stars, setStars)
+    loopForAvg(props.stars, setAvgStars)
   },[props.stars])
 
   useEffect(() => {
@@ -25,13 +27,21 @@ const RatingsGraph = (props) => {
       setFunc((prev) => prev +=parseInt(obj[star]))
     }
   }
+
+  const loopForAvg = (obj, setFunc) => {
+    for (const star in obj) {
+      setFunc((prev) => prev += parseInt(obj[star] * star))
+    }
+  }
   const setAllStars = () => {
     set1(() => parseInt(props.stars[1]) / stars * 100)
     set2(() => parseInt(props.stars[2]) / stars * 100)
     set3(() => parseInt(props.stars[3]) / stars * 100)
     set4(() => parseInt(props.stars[4]) / stars * 100)
     set5(() => parseInt(props.stars[5]) / stars * 100)
+    setAvgStars((prev) => (stars > 0) ? prev / stars : prev)
   }
+
   const progressBar = () => {
     for (var i = 0; i < 5; i++) {
       return (
@@ -66,15 +76,14 @@ const RatingsGraph = (props) => {
       <Row>
         <Col sm={7}>
           <StarRatings
-              rating={5}
+              rating={avgStars}
               starRatedColor="#93D2DF"
               numberOfStars={5}
               name='rating'
           />
         </Col>
         <Col sm={2}>
-          {/* <h1>{props.avgStars.toFixed(1)}</h1> */}
-          <h1>hi</h1>
+          <h1>{avgStars.toFixed(1)}</h1>
         </Col>
       </Row>
       <Col sm={7}>

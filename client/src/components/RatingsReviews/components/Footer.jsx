@@ -14,6 +14,22 @@ const Footer = (props) => {
   const changeModal = () => {
     setModal((prev) => !prev);
   }
+  const show = () => {
+    if (!props.hide) {
+      return (
+        <div>
+          <Button onClick={props.getMoreReviews} style={style}>More Reviews</Button>
+          <Button onClick={() => changeModal()} style={style}>Add a Review +</Button>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <Button onClick={() => changeModal()} style={style}>Add a Review +</Button>
+        </div>
+      )
+    }
+  }
 
   const view = () => {
     return (
@@ -21,8 +37,7 @@ const Footer = (props) => {
         <Modal show={showModal} size="xl">
           <AddReview cancel={changeModal} productId={props.currentItemId} />
         </Modal>
-        <Button onClick={props.getMoreReviews} style={style}>More Reviews</Button>
-        <Button onClick={() => changeModal()} style={style}>Add a Review +</Button>
+        {show()}
       </div>
       )
   }
