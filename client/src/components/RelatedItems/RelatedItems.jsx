@@ -6,6 +6,7 @@ import RelatedItemsCards from './RelatedItemsCards.jsx';
 import YourOutfit from './YourOutfit.jsx';
 import token from '../../../../token/token.js';
 import axios from 'axios';
+import CarouselTwo from './carousel2.jsx';
 
 
 var RelatedItems = () => {
@@ -20,42 +21,59 @@ var RelatedItems = () => {
     return data;
   };
 
+  //input needs to be each individual product id-
   const addCategory = async (currentId) => {
     const {data} = await axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${currentId}`, {headers: {Authorization: token}})
-    for (let i = 0; i < relatedItems.length; i++) {
-      if (parseInt(relatedItems[i].product_id) === data.id) {
-        setRelatedItems(relatedItems[i].category = data.category);
+
+    const temp = relatedItems;
+    for (let i = 0; i < temp.length; i++) {
+      if (parseInt(temp[i].product_id) === data.id) {
+        temp[i].category = data.category
       }
     }
+    setRelatedItems(temp);
+    return relatedItems;
   }
 
   useEffect( () => {
     async function fetchData(){
       try {
         const {data} = await axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${productId}/related`, {headers: {Authorization: token}});
-        let newData = [...new Set(data)];  //no duplicates
+        let newData = data;
+        console.log('newdata', newData)
         let productStylesArr = [];
-        // await addCategory(...data);
+
         for(let i = 0; i < newData.length; i++){
           const products = await getProductStyles(newData[i]);
           productStylesArr.push(products);
         }
         setRelatedItems(productStylesArr);
       }
-      catch(err){
-        console.log(err);
+      catch(err){console.log('useEffect err:', err)}
+    }
+    fetchData()
+
+  }, [productId]);
+
+  useEffect(() => {
+    if((relatedItems.length !== 0) && !relatedItems[0].category) {
+      for(let i = 0; i < relatedItems.length; i++){
+        addCategory(relatedItems[i].product_id)
       }
     }
-    fetchData();
-  },[productId]);
+    console.log('relatedItemsOutsideFunc:', relatedItems);
+  }, [relatedItems])
 
-  addCategory(42367); //how do we get this to run on its own?
-  console.log('relatedItemsOutsideFunc:', relatedItems);
+
+
+  // addCategory(42367);
+ //how do we get this to run on its own?
+
+
 
   //below functions need to be updated after above issue is solved.
 
-
-
+  //previous add category logic
     // .then(({data}) => (
     //   setRelatedItems(currentState => ({
     //     ...currentState,
@@ -94,7 +112,8 @@ var RelatedItems = () => {
       <h3>Related Items</h3>
         <RelatedItemsCards info={relatedItems}/>
       <h3>Your Outfit</h3>
-        {/* <YourOutfit /> */}
+        {/* <Example /> */}
+        <CarouselTwo />
     </div>
   );
 }
