@@ -21,9 +21,10 @@ p.style span {
 }
 .style-select-main [type=radio] + img {
   cursor: pointer;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  border-radius: 150px;
+  padding: 10px;
 }
 .style-select-main [type=radio]:checked:before {
   content: '←';
@@ -33,11 +34,12 @@ p.style span {
   color: #d21111;
   display: block;
 }
-.fec-size select {
+.fec-size select, .fec-qty select {
   cursor: pointer;
   width: 100%;
   border-radius: 3px;
   border-color: #ccc;
-  padding: 5px 10px;
+  padding: 6px 10px;
   text-transform: uppercase;
+  font-weight: 300;
 }

@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import { Row, Col, Form, Spinner } from 'react-bootstrap';
 import './style-selector.css'
+import Renderqty from './Renderqty.jsx'
 function StyleSelector (props) {
-  const [currentStyleInfo, setCurrentstyleinfo] = useState(null);
+  const [currentStyleInfo, setCurrentstyleinfo] = useState({});
   const [skus, setSkus] = useState([]);
   const [size, setSize] = useState('default');
   const [qty, setQty] = useState('-');
@@ -26,20 +27,7 @@ function StyleSelector (props) {
       }
       setSkus(instockSku);
     }
-    // console.log(skus)
   },[currentStyleInfo])
-
-  useEffect(() => {
-    // if (currentStyleInfo) {
-      console.log(skus, size)
-      const count = skus.find(sku => {
-        return sku.id === size
-      })
-      console.log(count);
-      // setSkus(instockSku);
-    // }
-    console.log(skus)
-  },[size])
 
   const clickHandler = (e) => {
     props.clickSelector(parseInt(e.target.value))
@@ -47,6 +35,9 @@ function StyleSelector (props) {
 
   const handleChange = (e) => {
     setSize(parseInt(e.target.value));
+  }
+  const handleQtyChange = (e) => {
+    setQty(e.target.value);
   }
 
   if(currentStyleInfo) {
@@ -58,45 +49,52 @@ function StyleSelector (props) {
         }
 
       </Row>
-      <Row className="py-5">
+      <Row className="pt-5 pb-3">
         <p className="style">STYLE > <span>{currentStyleInfo.name}</span></p>
         <Form className="style-select-main">
+          <Row>
         {props.styles.map(style => {
               return style.style_id !== props.styleId ?
+              <Col md={3}>
                 <label key = {style.style_id}>
                   <input onChange={(e)=> clickHandler(e)} type="radio" name= "styleselector" value = {style.style_id} />
                   <img src={style.photos[0].thumbnail_url} />
-              </label> :
+              </label> </Col>:
+              <Col md={3}>
               <label key = {style.style_id}>
               <input type="radio" name= "styleselector" value = {style.style_id} defaultChecked/>
               <img src={style.photos[0].thumbnail_url} />
-          </label>
+          </label></Col>
             })}
+            </Row>
         </Form>
       </Row>
-      <Row className="py-5">
-      <Col md={6} className="fec-size">
-        {skus.length > 0 ? (
-          <select value={size} onChange={handleChange}>
-          <option value="deafult">Select Size</option>
-            {skus.map(sku => {
-              return <option key ={sku.id} value={sku.id}>{sku.size}</option>
-            })}
-            </select>
-          ) : (
-            <fieldset disabled="disabled">
-              <select>
-                  <option value="0" disabled="disabled" selected="selected">OUT OF STOCK</option>
+      <Row className="py-3">
+        <Col md={9} className="fec-size">
+          {skus.length > 0 ? (
+            <select value={size} onChange={handleChange}>
+            <option value="default">Select Size</option>
+              {skus.map(sku => {
+                return <option key ={sku.id} value={sku.id}>{sku.size}</option>
+              })}
               </select>
-            </fieldset>
-          )
-        }
-      </Col>
-      <Col md={6}>
-        <input id="quantitySelect" type="number"
-        className="form-control quantity  mb-4" name="" value="1" />
-      </Col>
-      <a href="#" className="btn w-100 btn-lg btn-outline-primary">Add to cart</a>
+            ) : (
+              <fieldset disabled="disabled">
+                <select>
+                    <option disabled="disabled" defaultValue="selected">OUT OF STOCK</option>
+                </select>
+              </fieldset>
+            )
+          }
+        </Col>
+        <Col md={3} className="fec-qty">
+          <Renderqty skus = {skus} size = {size}/>
+        </Col>
+      </Row>
+      <Row>
+        <Col md={12}>
+          <a href="#" className="btn w-100 btn-lg btn-outline-primary">Add to cart</a>
+        </Col>
     </Row>
     </div>
   )
