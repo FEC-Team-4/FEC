@@ -31,7 +31,7 @@ function ProductGallery (props) {
           arrows= {true}>
             {imageList.map((image, i) => {
               return <div key ="{i}">
-                <img onClick = {(e) => console.log('clicked')} className = "main" src={image.img} />
+                <img onClick = {() => props.zoomIn()} className = "main" src={image.img} />
                 </div>
             })}
           </Slider>

@@ -16,11 +16,13 @@ function Renderqty (props) {
     options.push(<option value={i}>{i}</option>)
   }
   return props.size === 'default' ? (
-    <select defaultValue="-" >
-    <option value="-">-</option>
-  </select>
+    <fieldset disabled="disabled">
+      <select defaultValue="-" >
+        <option value="-">{props.qty}</option>
+      </select>
+    </fieldset>
   ) : (
-    <select value="1" onChange={()=> console.log(e.target.value)}>
+    <select defaultValue={props.qty} > value="1" onChange={(e) => props.handleQtyChange(e.target.value)}>
           {options}
     </select>
   )

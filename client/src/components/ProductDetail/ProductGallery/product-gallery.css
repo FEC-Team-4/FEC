@@ -23,6 +23,7 @@
   margin-top: -560px;
   margin-left: 25px;
   width: 100px;
+  height: 550px
 }
 
 .slick-prev, .slick-next {
@@ -65,4 +66,7 @@ img.thumb {
 }
 .slick-current {
   border-bottom: 3px solid #fff;
+}
+.col-md-12 .col-md-12 img.main {
+  cursor: crosshair;
 }

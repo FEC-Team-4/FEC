@@ -36,8 +36,9 @@ function StyleSelector (props) {
   const handleChange = (e) => {
     setSize(parseInt(e.target.value));
   }
-  const handleQtyChange = (e) => {
-    setQty(e.target.value);
+  const handleQtyChange = (qty) => {
+    console.log(qty)
+    setQty(qty);
   }
 
   if(currentStyleInfo) {
@@ -88,7 +89,7 @@ function StyleSelector (props) {
           }
         </Col>
         <Col md={3} className="fec-qty">
-          <Renderqty skus = {skus} size = {size}/>
+          <Renderqty handleQtyChange = {handleQtyChange} skus = {skus} size = {size} qty = {qty}/>
         </Col>
       </Row>
       <Row>
