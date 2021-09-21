@@ -2,61 +2,97 @@ import React, {useState, useEffect} from 'react'
 import { Row, Col, Form, Spinner } from 'react-bootstrap';
 import './style-selector.css'
 function StyleSelector (props) {
-  // console.log(props.styles)
-  const [imageList, setImageList] = useState([]);
   const [currentStyleInfo, setCurrentstyleinfo] = useState(null);
+  const [skus, setSkus] = useState([]);
+  const [size, setSize] = useState('default');
+  const [qty, setQty] = useState('-');
 
   useEffect(() => {
     const currentStyle = props.styles.find(style => {
           return style.style_id === props.styleId
         });
         if (currentStyle) {
-          // const images = currentStyle.photos.map(photo => {
-          //   return {img: photo.url, thumb: photo.thumbnail_url}
-          // })
-          setCurrentstyleinfo(currentStyle)
+          setCurrentstyleinfo(currentStyle);
         }
   },[props.styleId])
 
-  const clickhandler = (e)=> {
-    props.clickSelector(e.target.value)
+  useEffect(() => {
+    if (currentStyleInfo) {
+      const instockSku = [];
+      for (var key in currentStyleInfo.skus) {
+        if (currentStyleInfo.skus[key].quantity > 0) {
+          instockSku.push({id: key, qty: currentStyleInfo.skus[key].quantity, size: currentStyleInfo.skus[key].size})
+        }
+      }
+      setSkus(instockSku);
+    }
+    // console.log(skus)
+  },[currentStyleInfo])
+
+  useEffect(() => {
+    // if (currentStyleInfo) {
+      console.log(skus, size)
+      const count = skus.find(sku => {
+        return sku.id === size
+      })
+      console.log(count);
+      // setSkus(instockSku);
+    // }
+    console.log(skus)
+  },[size])
+
+  const clickHandler = (e) => {
+    props.clickSelector(parseInt(e.target.value))
   }
 
+  const handleChange = (e) => {
+    setSize(parseInt(e.target.value));
+  }
 
   if(currentStyleInfo) {
   return (
     <div className="form">
       <Row>
-        {currentStyleInfo.sales_price !== null ? <span className="sale">${currentStyleInfo.sale_price}&nbsp;&nbsp;<s>${currentStyleInfo.original_price}</s></span> :
+        {currentStyleInfo.sale_price !== null ? <span className="sale">${currentStyleInfo.sale_price}&nbsp;&nbsp;<s>${currentStyleInfo.original_price}</s></span> :
         <span>${currentStyleInfo.original_price}</span>
         }
 
       </Row>
       <Row className="py-5">
         <p className="style">STYLE > <span>{currentStyleInfo.name}</span></p>
-        <Form>
+        <Form className="style-select-main">
         {props.styles.map(style => {
               return style.style_id !== props.styleId ?
-                <label>
-                  <input onChange={(e)=> clickhandler(e)} type="radio" name= {style.name} value = {style.style_id} />
+                <label key = {style.style_id}>
+                  <input onChange={(e)=> clickHandler(e)} type="radio" name= "styleselector" value = {style.style_id} />
                   <img src={style.photos[0].thumbnail_url} />
               </label> :
-              <label>
-              <input type="radio" name= {style.name} value = {style.style_id} defaultChecked/>
+              <label key = {style.style_id}>
+              <input type="radio" name= "styleselector" value = {style.style_id} defaultChecked/>
               <img src={style.photos[0].thumbnail_url} />
           </label>
             })}
         </Form>
       </Row>
       <Row className="py-5">
-      <Col>
-        <option>Select Size</option>
-        <option value="1">Small</option>
-        <option value="2">Medium</option>
-        <option value="3">Large</option>
+      <Col md={6} className="fec-size">
+        {skus.length > 0 ? (
+          <select value={size} onChange={handleChange}>
+          <option value="deafult">Select Size</option>
+            {skus.map(sku => {
+              return <option key ={sku.id} value={sku.id}>{sku.size}</option>
+            })}
+            </select>
+          ) : (
+            <fieldset disabled="disabled">
+              <select>
+                  <option value="0" disabled="disabled" selected="selected">OUT OF STOCK</option>
+              </select>
+            </fieldset>
+          )
+        }
       </Col>
-      <Col>
-        <label htmlFor="quantitySelect">Quantity:</label>
+      <Col md={6}>
         <input id="quantitySelect" type="number"
         className="form-control quantity  mb-4" name="" value="1" />
       </Col>

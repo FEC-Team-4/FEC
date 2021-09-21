@@ -13,23 +13,31 @@ p.style {
 p.style span {
   font-weight: 300;
 }
-[type=radio] {
+.style-select-main [type=radio] {
   position: absolute;
   opacity: 0;
   width: 0;
   height: 0;
 }
-[type=radio] + img {
+.style-select-main [type=radio] + img {
   cursor: pointer;
   width: 60px;
   height: 60px;
   border-radius: 50%;
 }
-[type=radio]:checked:before {
+.style-select-main [type=radio]:checked:before {
   content: '←';
   font-size: 20px;
   line-height: 1;
   opacity: .75;
   color: #d21111;
   display: block;
+}
+.fec-size select {
+  cursor: pointer;
+  width: 100%;
+  border-radius: 3px;
+  border-color: #ccc;
+  padding: 5px 10px;
+  text-transform: uppercase;
 }
