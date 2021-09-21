@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import StarRating from 'react-star-ratings'
 
@@ -12,67 +12,22 @@ const bg2 = {
   padding: "15px",
   borderRadius: '10px'
 }
-const scroll = {
-  overflowY:"auto"
-}
 
+const Review = (props) => {
+  const [feedback, setFeedback] = useState(false);
+  const [date, setDate] = useState(new Date(props.review.date.split('T')[0].split('-')[0], props.review.date.split('T')[0].split('-')[1], props.review.date.split('T')[0].split('-')[2]).toLocaleString('default', {month: 'long', day: 'numeric', year: 'numeric'}));
+  const [see, setSee] = useState(false);
 
-
-class Review extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      feedback: false,
-    }
-    this.helpful = this.helpful.bind(this)
-  }
-
-  ifRec() {
-    if (this.props.review.recommend) {
+  const ifRec = () => {
+    if (props.review.recommend) {
       return (
         <p> &#10004; I recommend this product</p>
       )
     }
   }
-  addColor() {
-    if (this.props.bgCount % 2 === 0) {
-      return (
-        <div style={bg2}>
-          <StarRating
-            rating={this.props.review.rating}
-            numberOfStars={5}
-            starDimension="20px"
-            starSpacing="1px"
-            starRatedColor="blue"
-          />
-          <h6>User: {this.props.review.reviewer_name} | {this.props.review.date.split('T')[0]}</h6>
-          <h4>{this.props.review.summary}</h4>
-          <p className="text-justify">{this.props.review.body}</p>
-          {this.thanks()}
-        </div>
-      )
-    } else {
-      return (
-        <div style={bg}>
-          <StarRating
-            rating={this.props.review.rating}
-            numberOfStars={5}
-            starDimension="20px"
-            starSpacing="1px"
-            starRatedColor="blue"
 
-          />
-          <h6>User: {this.props.review.reviewer_name} | {this.props.review.date.split('T')[0]}</h6>
-          <h4>{this.props.review.summary}</h4>
-          <p className="text-justify">{this.props.review.body}</p>
-          {this.thanks()}
-        </div>
-      )
-    }
-  }
-
-  thanks() {
-    if (this.state.feedback) {
+  const thanks = () => {
+    if (feedback) {
       return (
         <p>
           Thanks for your feedback :)
@@ -81,73 +36,72 @@ class Review extends React.Component {
     } else {
       return (
         <div>
-        <p><i>Helpful? <a href="#" onClick={this.helpful} >Yes</a> ({this.props.review.helpfulness}) </i> || <a href="#">Report</a></p>
+        <p><i>Helpful? <a href="#" onClick={helpful} >Yes</a> ({props.review.helpfulness}) </i> || <a href="#">Report</a></p>
         </div>
       )
     }
   }
-
-  helpful() {
-    axios.put('/helpful', {productId: this.props.review.review_id})
-    .then(() => this.setState({feedback: true}))
-  }
-
-  oneStars() {
-    if (this.props.review.rating === 1) {
+  const showMore = () => {
+    if (props.review.body.length > 250) {
       return (
-        <span>
-        <span className="fa fa-star checked"></span>
-        </span>
+        <div>
+          <p className="text-justify">{props.review.body.substring(0, 250)}</p>
+          <i>Read More</i>
+        </div>
       )
-    }
-    if (this.props.review.rating === 2) {
+    } else {
       return (
-        <span>
-        <span className="fa fa-star checked"></span>
-        <span className="fa fa-star checked"></span>
-        </span>
-      )
-    }
-    if (this.props.review.rating === 3) {
-      return (
-        <span>
-        <span className="fa fa-star checked"></span>
-        <span className="fa fa-star checked"></span>
-        <span className="fa fa-star checked"></span>
-        </span>
-      )
-    }
-    if (this.props.review.rating === 4) {
-      return (
-        <span>
-        <span className="fa fa-star checked"></span>
-        <span className="fa fa-star checked"></span>
-        <span className="fa fa-star checked"></span>
-        <span className="fa fa-star checked"></span>
-        </span>
-      )
-    }
-    if (this.props.review.rating === 5) {
-      return (
-        <span>
-        <span className="fa fa-star checked"></span>
-        <span className="fa fa-star checked"></span>
-        <span className="fa fa-star checked"></span>
-        <span className="fa fa-star checked"></span>
-        <span className="fa fa-star checked"></span>
-        </span>
+        <p className="text-justify">{props.review.body}</p>
       )
     }
   }
 
+  const helpful = () => {
+    axios.put('/helpful', {productId: props.review.review_id})
+    .then(() => setFeedback(() => true))
+    }
 
-  render() {
-    return (
-      <div style={scroll}>
-        {this.addColor()}
-      </div>
+  const addColor = () => {
+    if (props.bgCount % 2 === 0) {
+      return (
+        <div style={bg2}>
+          <StarRating
+            rating={props.review.rating}
+            numberOfStars={5}
+            starDimension="20px"
+            starSpacing="1px"
+            starRatedColor="blue"
+          />
+          <h6>User: {props.review.reviewer_name} | {date} </h6>
+          <h4>{props.review.summary}</h4>
+          {showMore()}
+          {ifRec()}
+          {thanks()}
+        </div>
+      )
+    } else {
+      return (
+        <div style={bg}>
+          <StarRating
+            rating={props.review.rating}
+            numberOfStars={5}
+            starDimension="20px"
+            starSpacing="1px"
+            starRatedColor="blue"
+          />
+          <h6>User: {props.review.reviewer_name} | {date}</h6>
+          <h4>{props.review.summary}</h4>
+          <p className="text-justify">{props.review.body}</p>
+          {thanks()}
+        </div>
+      )
+    }
+  }
+  return (
+    <div>
+      {addColor()}
+    </div>
     )
   }
-}
 
 export default Review

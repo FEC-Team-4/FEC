@@ -4,11 +4,8 @@ import RatingsGraph from './components/RatingsGraph.jsx'
 import Reviews from './components/Review/Reviews.jsx'
 import Footer from './components/Footer.jsx'
 import axios from 'axios'
-import Button from 'react-bootstrap/Button'
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Button, Dropdown, ButtonGroup } from 'react-bootstrap';
 import { dataContext } from '../context/dataContext.js';
-
-const token ='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'
 
 
 const style = {
@@ -44,7 +41,7 @@ const RatingsReviews = (props) => {
     axios.post('/reviews', {count: counter, productId: props.productId, sort: sort})
       .then((results) => setReviews(() => results.data.results))
       .then(() => setCounter((prev) => prev + 2))
-      .then(() => counter - reviews.length > 2 ? setHide(prev => !prev) : console.log(null) )
+      .then(() => counter - reviews.length > 2 ? setHide(prev => !prev) : setHide(prev => (prev)))
       .catch(err => console.log('here', err))
   }
 
@@ -67,10 +64,19 @@ const RatingsReviews = (props) => {
       </div>
       <div className="col-sm">
         <span>
-        <div style={style2}>Sort By</div>
+        {/* <div style={style2}>Sort By</div>
         <Button variant="outline-secondary" size="sm" style={style} onClick={(e) => setSort(() => e.target.value)} value="newest">Recent</Button>
         <Button variant="outline-secondary" size="sm" style={style} onClick={(e) => setSort(() => e.target.value)} value="relevant">Relevant</Button>
-        <Button variant="outline-secondary" size="sm" style={style} onClick={(e) => setSort(() => e.target.value)} value="helpful">Highest Rated</Button>
+        <Button variant="outline-secondary" size="sm" style={style} onClick={(e) => setSort(() => e.target.value)} value="helpful">Highest Rated</Button> */}
+        <Dropdown as={ButtonGroup}>
+          <Button variant="success">Sort By</Button>
+          <Dropdown.Toggle split variant="success"/>
+          <Dropdown.Menu>
+            <Dropdown.Item onClick={(e) => setSort(() => "newest")} value="newest">Newest</Dropdown.Item>
+            <Dropdown.Item onClick={(e) => setSort(() => "relevent")} value="relevent">Relevent</Dropdown.Item>
+            <Dropdown.Item onClick={(e) => setSort(() => "helpful")} value="helpful">Helpful</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
         </span>
         <Reviews reviews={reviews}/>
         <Footer currentItemId={props.productId} getMoreReviews={setMore} hide={hide}/>
