@@ -33,7 +33,7 @@ function ProductDetails (props) {
       })
       .then(results => {
         setStylelist(results.data.results);
-        setSelectedstyle(results.data.results[2].style_id);
+        setSelectedstyle(results.data.results[0].style_id);
       })
   }, [])
   useEffect(() => {
