@@ -12,8 +12,6 @@ import CarouselTwo from './carousel2.jsx';
 var RelatedItems = () => {
 
   var { product, reviews, productId } = useContext(dataContext);
-
-  const [oneRating, setOneRating] = useState([]); //array of ratings for one item (to be averaged)
   const [relatedItems, setRelatedItems] = useState([]);  //arr of all info for related styles
 
   const getProductStyles = async (id) => {
@@ -21,9 +19,8 @@ var RelatedItems = () => {
     return data;
   };
 
-  //input needs to be each individual product id-
-  const addCategory = async (currentId) => {
-    const {data} = await axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${currentId}`, {headers: {Authorization: token}})
+  const addCategory = async (eachId) => {
+    const {data} = await axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${eachId}`, {headers: {Authorization: token}})
     const temp = relatedItems;
     for (let i = 0; i < temp.length; i++) {
       if (parseInt(temp[i].product_id) === data.id) {
@@ -34,26 +31,26 @@ var RelatedItems = () => {
     return relatedItems;
   }
 
-  const getAllRatings = (currentId) => {
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews`, {params: {product_id: currentId}, headers: {Authorization: token}})
+  const addRatingAvg = (eachId) => {
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews`, {params: {product_id: eachId}, headers: {Authorization: token}})
     .then(({data}) => {
-      var resultsOnly = data.results.map(item => (
-        item.rating
-        ))
-        return(
-          setOneRating(resultsOnly)
-          );
-        })
-        .catch((err) => console.log('products ajax err:', err))
-      }
-
-  const getAvg = () => {
-    var total = 0;
-    oneRating.forEach(item => {total += item})
-    setRelatedItems(currentState => ({
-      ...currentState,
-      rating: parseInt(total/oneRating.length)
-    }))
+        var oneRating = [];
+        data.results.forEach(item => (oneRating.push(item.rating)))
+        var total = 0;
+        oneRating.forEach(item => {total += item});
+        var rating = parseInt(total/oneRating.length);
+        return [rating, eachId];
+      })
+      .then((result) => {
+        const temp = relatedItems;
+        for (let i = 0; i < temp.length; i++) {
+          if (parseInt(temp[i].product_id) === eachId) {
+            temp[i].rating = result[0];
+          }
+        }
+        setRelatedItems(temp);
+      })
+    .catch((err) => console.log('rating avg err:', err));
   }
 
   useEffect( () => {
@@ -61,9 +58,7 @@ var RelatedItems = () => {
       try {
         const {data} = await axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${productId}/related`, {headers: {Authorization: token}});
         let newData = data;
-        console.log('newdata', newData)
         let productStylesArr = [];
-
         for(let i = 0; i < newData.length; i++){
           const products = await getProductStyles(newData[i]);
           productStylesArr.push(products);
@@ -73,8 +68,6 @@ var RelatedItems = () => {
       catch(err){console.log('useEffect err:', err)}
     }
     fetchData()
-    getAllRatings()
-
   }, [productId]);
 
   useEffect(() => {
@@ -83,19 +76,23 @@ var RelatedItems = () => {
         addCategory(relatedItems[i].product_id)
       }
     }
-    console.log('relatedItemsOutsideFunc:', relatedItems);
+
+    //too many requests coming since I added this function in - FIX
+    if((relatedItems.length !== 0) && !relatedItems[0].rating) {
+      for(let i = 0; i < relatedItems.length; i++){
+        const num = parseInt(relatedItems[i].product_id);
+        addRatingAvg(num)
+      }
+    }
+    console.log('relatedItemsResult:', relatedItems);
   }, [relatedItems])
-
-
-
 
   return (
     <div style={{ maxWidth: 1200, marginLeft: 'auto', marginRight: 'auto', marginTop: 64 }}>
       <h3>Related Items</h3>
         <RelatedItemsCards info={relatedItems}/>
       <h3>Your Outfit</h3>
-        {/* <Example /> */}
-        <CarouselTwo />
+        <CarouselTwo info={relatedItems}/>
     </div>
   );
 }
