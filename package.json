@@ -2,6 +2,12 @@
   "name": "front-end",
   "version": "0.1.0",
   "private": true,
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less)$": "identity-obj-proxy"
+    }
+  },
   "scripts": {
     "start": "nodemon server/index.js",
     "build": "webpack --mode development -w",
@@ -19,6 +25,7 @@
     "axios": "^0.21.1",
     "bootstrap": "^5.1.1",
     "express": "^4.17.1",
+    "identity-obj-proxy": "^3.0.0",
     "lodash": "^4.17.21",
     "mongoose": "^5.13.3",
     "postcss-loader": "^6.1.1",

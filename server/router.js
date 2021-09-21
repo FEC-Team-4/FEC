@@ -6,7 +6,8 @@ const apiKey = require('./../token/token.js')
 router.post('/reviews', (req, res) => {
   const productId = req.body.productId;
   const count = req.body.count;
-  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews', {params: {product_id: productId, count: 30}, headers: {Authorization: apiKey }})
+  const sort = req.body.sort;
+  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews', {params: {product_id: productId, count: count, sort: sort}, headers: {Authorization: apiKey }})
     .then((result) => res.status(200).send(result.data))
     .catch(err => console.log(err))
 })
