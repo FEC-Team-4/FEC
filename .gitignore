@@ -24,4 +24,4 @@ hs_err_pid*
 node_modules
 node_modules
 token
-dist/bundle.js
+client/dist/bundle.js
