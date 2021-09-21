@@ -4,7 +4,8 @@ import './style-selector.css'
 function StyleSelector (props) {
   const [currentStyleInfo, setCurrentstyleinfo] = useState(null);
   const [skus, setSkus] = useState([]);
-  const [size, setSize] = useState('Select Size');
+  const [size, setSize] = useState('default');
+  const [qty, setQty] = useState('-');
 
   useEffect(() => {
     const currentStyle = props.styles.find(style => {
@@ -25,8 +26,20 @@ function StyleSelector (props) {
       }
       setSkus(instockSku);
     }
-    console.log(skus)
+    // console.log(skus)
   },[currentStyleInfo])
+
+  useEffect(() => {
+    // if (currentStyleInfo) {
+      console.log(skus, size)
+      const count = skus.find(sku => {
+        return sku.id === size
+      })
+      console.log(count);
+      // setSkus(instockSku);
+    // }
+    console.log(skus)
+  },[size])
 
   const clickHandler = (e) => {
     props.clickSelector(parseInt(e.target.value))
@@ -62,16 +75,24 @@ function StyleSelector (props) {
         </Form>
       </Row>
       <Row className="py-5">
-      <Col>
-      <select value={size} onChange={handleChange}>
-      <option value="Select Size">Select Size</option>
-        {skus.map(sku => {
-          return <option key ={sku.id} value={sku.id}>{sku.size}</option>
-        })}
-          </select>
+      <Col md={6} className="fec-size">
+        {skus.length > 0 ? (
+          <select value={size} onChange={handleChange}>
+          <option value="deafult">Select Size</option>
+            {skus.map(sku => {
+              return <option key ={sku.id} value={sku.id}>{sku.size}</option>
+            })}
+            </select>
+          ) : (
+            <fieldset disabled="disabled">
+              <select>
+                  <option value="0" disabled="disabled" selected="selected">OUT OF STOCK</option>
+              </select>
+            </fieldset>
+          )
+        }
       </Col>
-      <Col>
-        <label htmlFor="quantitySelect">Quantity:</label>
+      <Col md={6}>
         <input id="quantitySelect" type="number"
         className="form-control quantity  mb-4" name="" value="1" />
       </Col>

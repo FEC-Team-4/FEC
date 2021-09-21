@@ -33,3 +33,11 @@ p.style span {
   color: #d21111;
   display: block;
 }
+.fec-size select {
+  cursor: pointer;
+  width: 100%;
+  border-radius: 3px;
+  border-color: #ccc;
+  padding: 5px 10px;
+  text-transform: uppercase;
+}
