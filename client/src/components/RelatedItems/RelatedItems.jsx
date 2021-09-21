@@ -24,7 +24,6 @@ var RelatedItems = () => {
   //input needs to be each individual product id-
   const addCategory = async (currentId) => {
     const {data} = await axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${currentId}`, {headers: {Authorization: token}})
-
     const temp = relatedItems;
     for (let i = 0; i < temp.length; i++) {
       if (parseInt(temp[i].product_id) === data.id) {
@@ -33,6 +32,28 @@ var RelatedItems = () => {
     }
     setRelatedItems(temp);
     return relatedItems;
+  }
+
+  const getAllRatings = (currentId) => {
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews`, {params: {product_id: currentId}, headers: {Authorization: token}})
+    .then(({data}) => {
+      var resultsOnly = data.results.map(item => (
+        item.rating
+        ))
+        return(
+          setOneRating(resultsOnly)
+          );
+        })
+        .catch((err) => console.log('products ajax err:', err))
+      }
+
+  const getAvg = () => {
+    var total = 0;
+    oneRating.forEach(item => {total += item})
+    setRelatedItems(currentState => ({
+      ...currentState,
+      rating: parseInt(total/oneRating.length)
+    }))
   }
 
   useEffect( () => {
@@ -52,6 +73,7 @@ var RelatedItems = () => {
       catch(err){console.log('useEffect err:', err)}
     }
     fetchData()
+    getAllRatings()
 
   }, [productId]);
 
@@ -64,46 +86,6 @@ var RelatedItems = () => {
     console.log('relatedItemsOutsideFunc:', relatedItems);
   }, [relatedItems])
 
-
-
-  // addCategory(42367);
- //how do we get this to run on its own?
-
-
-
-  //below functions need to be updated after above issue is solved.
-
-  //previous add category logic
-    // .then(({data}) => (
-    //   setRelatedItems(currentState => ({
-    //     ...currentState,
-    //     category: data.category
-    //   }))
-    //   ))
-    //   .catch((err) => console.log('products ajax err:', err))
-
-
-  // const getAllRatings = (currentId) => {
-  //   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews`, {params: {product_id: currentId}, headers: {Authorization: token}})
-  //   .then(({data}) => {
-  //     var resultsOnly = data.results.map(item => (
-  //       item.rating
-  //     ))
-  //     return(
-  //       setOneRating(resultsOnly)
-  //     );
-  //   })
-  //     .catch((err) => console.log('products ajax err:', err))
-  // }
-
-  // const getAvg = () => {
-  //   var total = 0;
-  //   oneRating.forEach(item => {total += item})
-  //   setRelatedItems(currentState => ({
-  //     ...currentState,
-  //     rating: parseInt(total/oneRating.length)
-  //   }))
-  // }
 
 
 
