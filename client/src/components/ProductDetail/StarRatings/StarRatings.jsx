@@ -9,7 +9,7 @@ class Productratings extends React.Component {
   constructor(props) {
     super(props)
       this.state = {
-        ratings: {},
+        ratings: 0,
         avgRating: 0
       }
       this.getRatings = this.getRatings.bind(this)
@@ -40,21 +40,26 @@ class Productratings extends React.Component {
       weightedRating += key * Number(value);
     }
     const finalAvg = ratings.length ? (Math.round(weightedRating / totalRatings * 4) / 4).toFixed(2) : 0;
-    this.setState( {avgRating: finalAvg} )
+    console.log(totalRatings)
+    this.setState( {
+      ratings: totalRatings,
+      avgRating: finalAvg
+    } )
   }
 
   render() {
-    return (
+    return this.state.ratings > 0 ?
+    (
       <>
         <StarRatings
           rating={Number(this.state.avgRating)}
           starDimension="14px"
           starSpacing="2px"
         />
-        <span className ="read-reviews"><a href ="#">Read All Reviews</a></span>
+        <span className ="read-reviews"><a href ="#">Read All {this.state.ratings} Reviews</a></span>
 
       </>
-    )
+    ) : null;
   }
 
 
