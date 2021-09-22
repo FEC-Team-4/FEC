@@ -74,7 +74,7 @@ const Review = (props) => {
             numberOfStars={5}
             starDimension="20px"
             starSpacing="1px"
-            starRatedColor="blue"
+            starRatedColor="#93D2DF"
           />
           <h6>User: {props.review.reviewer_name} | {date} </h6>
           <h4>{props.review.summary}</h4>
@@ -91,7 +91,7 @@ const Review = (props) => {
             numberOfStars={5}
             starDimension="20px"
             starSpacing="1px"
-            starRatedColor="blue"
+            starRatedColor="#93D2DF"
           />
           <h6>User: {props.review.reviewer_name} | {date}</h6>
           <h4>{props.review.summary}</h4>

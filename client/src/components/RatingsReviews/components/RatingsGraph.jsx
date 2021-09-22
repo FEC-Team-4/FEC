@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import StarRatings from 'react-star-ratings';
 import Nouislider from 'react-nouislider';
+import './../RatingsReviews.css'
 import { Row, Col, ProgressBar, Form } from 'react-bootstrap';
 
-const style = {
-  paddingBottom: '25px',
-}
 
 const RatingsGraph = (props) => {
   const [stars, setStars] = useState(0);
@@ -17,7 +15,6 @@ const RatingsGraph = (props) => {
   const [recommend, setRecommend] = useState(0);
   const [avgStars, setAvgStars] = useState(0);
   const [characteristics, setCharacteristics] = useState([])
-
 
   useEffect(() => {
     loop(props.stars, setStars)
@@ -60,10 +57,8 @@ const RatingsGraph = (props) => {
         <div>
           <Row>
             <Col sm={4}>
-            <i className="fas fa-star"></i>
-            <i className="fas fa-star"></i>
-            <i className="fas fa-star"></i>
-            <i className="fas fa-star"></i>
+            <i className="fas fa-star"></i><i className="fas fa-star"></i>
+            <i className="fas fa-star"></i><i className="fas fa-star"></i>
             <i className="fas fa-star"></i>
             </Col>
             <Col sm={7}>
@@ -75,10 +70,8 @@ const RatingsGraph = (props) => {
           </Row>
           <Row>
             <Col sm={4}>
-            <i className="fas fa-star"></i>
-            <i className="fas fa-star"></i>
-            <i className="fas fa-star"></i>
-            <i className="fas fa-star"></i>
+            <i className="fas fa-star"></i><i className="fas fa-star"></i>
+            <i className="fas fa-star"></i><i className="fas fa-star"></i>
             </Col>
             <Col sm={7}>
             <ProgressBar striped variant="success" now={fourStar}/>
@@ -89,8 +82,7 @@ const RatingsGraph = (props) => {
           </Row>
           <Row>
             <Col sm={4}>
-            <i className="fas fa-star"></i>
-            <i className="fas fa-star"></i>
+            <i className="fas fa-star"></i><i className="fas fa-star"></i>
             <i className="fas fa-star"></i>
             </Col>
             <Col sm={7}>
@@ -102,8 +94,7 @@ const RatingsGraph = (props) => {
           </Row>
           <Row>
             <Col sm={4}>
-            <i className="fas fa-star"></i>
-            <i className="fas fa-star"></i>
+            <i className="fas fa-star"></i><i className="fas fa-star"></i>
             </Col>
             <Col sm={7}>
             <ProgressBar striped variant="success" now={twoStar}/>
@@ -150,19 +141,22 @@ const RatingsGraph = (props) => {
         }}>
         <p>{stars} total reviews</p>
       </div>
-      <div style={style}>
+      <div className="status-bars">
         {progressBar()}
       </div>
       <h6 style={{textAlign:"center", paddingTop: "10px", paddingBottom:'0px'}}>Product Breakdown</h6>
       <div>
-        {characteristics.map(ele =>
-            <div style={style}>
+        {characteristics.map((ele, ind) =>
+            <div key={ind} className="status-bars">
               {ele[0]}
             <ProgressBar label={Math.round(ele[1])} now={Math.round(ele[1] / 5 * 100)} />
             </div>)}
-
       </div>
-      <div> <i>{Math.floor(props.recommend.true / stars * 100)}% of buyers recommend this product</i></div>
+      <div>
+        <i className="side-text">
+          {Math.floor(props.recommend.true / stars * 100)}% of buyers recommend this product
+        </i>
+      </div>
       </Col>
     </div>
   )
