@@ -52,3 +52,6 @@ p.style span {
   font-size: 12px;
   justify-content: space-between;
 }
+.share a:hover {
+  color: #fff;
+}
