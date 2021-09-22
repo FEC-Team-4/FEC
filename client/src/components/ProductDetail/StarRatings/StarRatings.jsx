@@ -56,13 +56,11 @@ class Productratings extends React.Component {
           starDimension="14px"
           starSpacing="2px"
         />
-        <span className ="read-reviews"><a href ="#">Read All {this.state.ratings} Reviews</a></span>
+        <span className ="read-reviews"><a href ="#ratings">Read All {this.state.ratings} Reviews</a></span>
 
       </>
     ) : null;
   }
-
-
 }
 
 export default Productratings;

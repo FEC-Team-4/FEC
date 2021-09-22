@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import StarRatings from 'react-star-ratings';
-import { Row, Col, ProgressBar } from 'react-bootstrap';
+import './../RatingsReviews.css'
+import { Row, Col, ProgressBar, Form } from 'react-bootstrap';
 
-const style = {
-  paddingTop: '25px',
-}
 
 const RatingsGraph = (props) => {
   const [stars, setStars] = useState(0);
@@ -15,7 +13,7 @@ const RatingsGraph = (props) => {
   const [fiveStar, set5] = useState(0);
   const [recommend, setRecommend] = useState(0);
   const [avgStars, setAvgStars] = useState(0);
-
+  const [characteristics, setCharacteristics] = useState([])
 
   useEffect(() => {
     loop(props.stars, setStars)
@@ -24,6 +22,7 @@ const RatingsGraph = (props) => {
 
   useEffect(() => {
     setAllStars()
+    updateChar()
   }, [stars])
 
   const loop = (obj, setFunc) => {
@@ -45,6 +44,11 @@ const RatingsGraph = (props) => {
     set5(() => parseInt(props.stars[5]) / stars * 100)
     setAvgStars((prev) => (stars > 0) ? prev / stars : prev)
   }
+  const updateChar = () => {
+    for (const character in props.characteristics) {
+      setCharacteristics((prev) => [...prev, [character, props.characteristics[character].value]])
+    }
+  }
 
   const progressBar = () => {
     for (var i = 0; i < 5; i++) {
@@ -52,46 +56,21 @@ const RatingsGraph = (props) => {
         <div>
           <Row>
             <Col sm={4}>
-            <i class="fas fa-star"></i>
+            <i className="fas fa-star"></i><i className="fas fa-star"></i>
+            <i className="fas fa-star"></i><i className="fas fa-star"></i>
+            <i className="fas fa-star"></i>
             </Col>
             <Col sm={7}>
-            <ProgressBar striped variant="success" now={oneStar}/>
+            <ProgressBar striped variant="success" now={fiveStar}/>
             </Col>
             <Col sm={1}>
-              {props.stars[1] || 0}
+              {props.stars[5]}
             </Col>
           </Row>
           <Row>
             <Col sm={4}>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            </Col>
-            <Col sm={7}>
-            <ProgressBar striped variant="success" now={twoStar}/>
-            </Col>
-            <Col sm={1}>
-              {props.stars[2]}
-            </Col>
-          </Row>
-          <Row>
-            <Col sm={4}>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            </Col>
-            <Col sm={7}>
-            <ProgressBar striped variant="success" now={threeStars}/>
-            </Col>
-            <Col sm={1}>
-              {props.stars[3]}
-            </Col>
-          </Row>
-          <Row>
-            <Col sm={4}>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
+            <i className="fas fa-star"></i><i className="fas fa-star"></i>
+            <i className="fas fa-star"></i><i className="fas fa-star"></i>
             </Col>
             <Col sm={7}>
             <ProgressBar striped variant="success" now={fourStar}/>
@@ -102,17 +81,36 @@ const RatingsGraph = (props) => {
           </Row>
           <Row>
             <Col sm={4}>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
+            <i className="fas fa-star"></i><i className="fas fa-star"></i>
+            <i className="fas fa-star"></i>
             </Col>
             <Col sm={7}>
-            <ProgressBar striped variant="success" now={fiveStar}/>
+            <ProgressBar striped variant="success" now={threeStars}/>
             </Col>
             <Col sm={1}>
-              {props.stars[5]}
+              {props.stars[3]}
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={4}>
+            <i className="fas fa-star"></i><i className="fas fa-star"></i>
+            </Col>
+            <Col sm={7}>
+            <ProgressBar striped variant="success" now={twoStar}/>
+            </Col>
+            <Col sm={1}>
+              {props.stars[2]}
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={4}>
+            <i className="fas fa-star"></i>
+            </Col>
+            <Col sm={7}>
+            <ProgressBar striped variant="success" now={oneStar}/>
+            </Col>
+            <Col sm={1}>
+              {props.stars[1] || 0}
             </Col>
           </Row>
         </div>
@@ -136,16 +134,28 @@ const RatingsGraph = (props) => {
         </Col>
       </Row>
       <Col sm={7}>
-      <div style={{
-        paddingTop: '25px',
-        textAlign: 'center'
-      }}>
+        <div style={{
+          paddingTop: '25px',
+          textAlign: 'center'
+        }}>
         <p>{stars} total reviews</p>
       </div>
-      <div style={style}>
+      <div className="status-bars">
         {progressBar()}
       </div>
-      <div> <i>{Math.floor(props.recommend.true / stars * 100)}% of buyers recommend this product</i></div>
+      <h6 style={{textAlign:"center", paddingTop: "10px", paddingBottom:'0px'}}>Product Breakdown</h6>
+      <div>
+        {characteristics.map((ele, ind) =>
+            <div key={ind} className="status-bars">
+              {ele[0]}
+            <ProgressBar label={Math.round(ele[1])} now={Math.round(ele[1] / 5 * 100)} />
+            </div>)}
+      </div>
+      <div>
+        <i className="side-text">
+          {Math.floor(props.recommend.true / stars * 100)}% of buyers recommend this product
+        </i>
+      </div>
       </Col>
     </div>
   )
