@@ -1,14 +1,17 @@
 import React from 'react'
 import { Row, Col} from 'react-bootstrap';
-// import './style-selector.css'
+import { Facebook, Twitter, Pinterest } from 'react-social-sharing'
+import './style-selector.css';
 
 function Socialshare (props) {
 
 
   return (
-    <Row>
-      <Col md ={3}>Share</Col>
-      <Col md ={9}> Icons
+    <Row className="py-4">
+      <Col md ={12} className ="share">
+        <Facebook solid big link="https://github.com" />
+        <Twitter solid big link="https://github.com" />
+        <Pinterest solid big link="https://github.com" />
       </Col>
     </Row>
   )
