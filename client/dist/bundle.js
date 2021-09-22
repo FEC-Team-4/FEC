@@ -1409,7 +1409,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \************************/
 /***/ ((module) => {
 
-eval("var token = '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';\nmodule.exports = token;\n\n//# sourceURL=webpack://front-end/./token/token.js?");
+eval("var token = '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';\nmodule.exports = token;\n\n//# sourceURL=webpack://front-end/./token/token.js?");
 
 /***/ }),
 
