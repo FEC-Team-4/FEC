@@ -9,7 +9,7 @@ import RatingsReviews from './RatingsReviews/RatingsReviews.jsx';
 import "./App.css";
 import axios from 'axios';
 import { dataContext } from './context/dataContext.js';
-import token from '../../../token/token.js';
+import token from './ProductDetail/token.js';
 
 
 const App = () => {
@@ -22,7 +22,7 @@ const App = () => {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${productId}`,{params: {count: 10}, headers: {Authorization: token}})
       .then(({data}) => setProduct(data))
       .catch(err => console.log(err));
-    axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews',{params: {product_id: `${productId}`}, headers: {Authorization: token }})
+    axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/',{params: {product_id: `${productId}`}, headers: {Authorization: token }})
       .then((results) => setReviews(() => results))
       .catch(err => console.log(err));
   }, [])

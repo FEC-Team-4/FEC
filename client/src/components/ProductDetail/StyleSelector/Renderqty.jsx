@@ -28,18 +28,5 @@ function Renderqty (props) {
   )
 }
 
-// {size !== null ? (
-//   <select value={1} onChange={handleQtyChange}>
-//     {for (let i = 1; i <= 15; i++) {
-//        <option key ={i} value={i}>{i}</option>
-//     }}
-//     </select>
-//   ) : (
-//       <select>
-//           <option value="0" disabled="disabled" selected="selected">-</option>
-//       </select>
-//   )
-// }
-
 
 export default Renderqty;

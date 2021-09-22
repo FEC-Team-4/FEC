@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import StarRatings from 'react-star-ratings';
-import Nouislider from 'react-nouislider';
 import './../RatingsReviews.css'
 import { Row, Col, ProgressBar, Form } from 'react-bootstrap';
 

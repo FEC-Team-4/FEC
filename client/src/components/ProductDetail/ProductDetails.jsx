@@ -50,12 +50,12 @@ function ProductDetails (props) {
   }
 
   const expandedView = (e) => {
-    if (expandedClass === 8) {
-      setExpandedclass(12)
-    } else {
-      setExpandedclass(8)
-    }
-    console.log(expandedClass)
+    // if (expandedClass === 8) {
+    //   setExpandedclass(12)
+    // } else {
+    //   setExpandedclass(8)
+    // }
+    setExpandedclass(12)
   }
     if (productinfo && styleList) {
       return (
@@ -66,7 +66,7 @@ function ProductDetails (props) {
             <Col md={expandedClass}>
                 <ProductGallery styleList = {styleList} styleId = {selectedStyle} zoomIn = {expandedView}/>
             </Col>
-            <Col md={4}>
+            <Col md={4} className="product-meta">
               <Productratings id = {props.id}/>
               <ProductMeta product = {productinfo}/>
               <StyleSelector styles = {styleList} styleId = {selectedStyle} clickSelector = {clickSelector}/>
