@@ -11,8 +11,8 @@ const Item =  styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 375px;
-  width: 100%;
+  min-height: 400px;
+  width: 250px;
   margin: 0 15px;
 `;
 
@@ -20,7 +20,6 @@ const FlexContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-
 `;
 
 const breakPoints = [
@@ -30,43 +29,48 @@ const breakPoints = [
   { width: 1200, itemsToShow: 4 },
 ];
 
-const CarouselTwo = () => {
+const CarouselTwo = (props) => {
   return (
     <>
       <h1 style={{ textAlign: "left" }}>Related Items</h1>
       <FlexContainer>
         <Carousel breakPoints={breakPoints} control={false}>
-          <Item>
-            <Card style={{ width: '15rem' }}>
-              <Card.Img variant="top" src="https://images.unsplash.com/photo-1544441892-794166f1e3be?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" />
-              <Card.Body>
-              <Card.Text>
-              Category
-              </Card.Text>
-              <Card.Text>
-                Name
-              </Card.Text>
-              <Card.Text>
-                Price
-              </Card.Text>
-              <StarRatings
-                  rating={3}
-                  starDimension="15px"
-                  starSpacing="0.5px"
-                  starRatedColor="black"
-                  numberOfStars={5}
-                  name='rating'
-              />
-              </Card.Body>
-            </Card>
-          </Item>
-          <Item>Two</Item>
-          <Item>Three</Item>
-          <Item>Four</Item>
-          <Item>Five</Item>
-          <Item>Six</Item>
-          <Item>Seven</Item>
-          <Item>Eight</Item>
+          {props.info.map(item => {
+            return(
+              <Item>
+                <Card style={{ width: '15rem' }}>
+                  <Card.Img variant="top" src={
+                    item.results[0].photos[0].thumbnail_url
+                    ? item.results[0].photos[0].thumbnail_url
+                    : "https://images.unsplash.com/photo-1449505278894-297fdb3edbc1?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"
+                  } />
+                  <Card.Body>
+                  <Card.Text>
+                  {item.category}
+                  </Card.Text>
+                  <Card.Text>
+                    {item.results[0].name}
+                  </Card.Text>
+                  <Card.Text>
+                    {`$${item.results[0].original_price}`}
+                  </Card.Text>
+                  <StarRatings
+                      rating={
+                        item.rating
+                        ? item.rating
+                        : 0
+                      }
+                      starDimension="15px"
+                      starSpacing="0.5px"
+                      starRatedColor="black"
+                      numberOfStars={5}
+                      name='rating'
+                  />
+                  </Card.Body>
+                </Card>
+              </Item>
+            )
+          })}
         </Carousel>
       </FlexContainer>
     </>

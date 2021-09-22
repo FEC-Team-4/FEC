@@ -77,8 +77,7 @@ var RelatedItems = () => {
       }
     }
 
-    //too many requests coming since I added this function in - FIX
-    if((relatedItems.length !== 0) && !relatedItems[0].rating) {
+    if(relatedItems.length !== 0 && !relatedItems[0].hasOwnProperty('rating')) {
       for(let i = 0; i < relatedItems.length; i++){
         const num = parseInt(relatedItems[i].product_id);
         addRatingAvg(num)
@@ -89,9 +88,6 @@ var RelatedItems = () => {
 
   return (
     <div style={{ maxWidth: 1200, marginLeft: 'auto', marginRight: 'auto', marginTop: 64 }}>
-      <h3>Related Items</h3>
-        <RelatedItemsCards info={relatedItems}/>
-      <h3>Your Outfit</h3>
         <CarouselTwo info={relatedItems}/>
     </div>
   );
