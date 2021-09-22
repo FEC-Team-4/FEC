@@ -36,6 +36,7 @@ img.thumb {
   padding: 3px;
   border: 1px solid #333;
   cursor: pointer;
+  object-fit: cover;
 }
 .slick-next:before, .slick-prev:before {
   font-size: 20px;

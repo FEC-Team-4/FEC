@@ -25,6 +25,7 @@ p.style span {
   height: 100px;
   border-radius: 150px;
   padding: 10px;
+  object-fit: cover;
 }
 .style-select-main [type=radio]:checked:before {
   content: '←';
