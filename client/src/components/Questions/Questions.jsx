@@ -4,12 +4,11 @@ import { dataContext } from '../context/dataContext.js';
 import QuestionSearch from './QuestionCom/QuestionSearch.jsx';
 import { addQuestion, getQuestions, getProducts } from './helperFunction.js';
 import sampleData from './sampleData.js';
-import Button from '@material-ui/core/Button';
 import axios from 'axios';
+import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 
 const Questions = (props) => {
-  // var { productId } = useContext(dataContext);
   const [data, setData] = useState([]);
   const [questionsDisplay, setquestionsDisplay] = useState(4);
   const [expanded, setExpanded] = useState(false);
