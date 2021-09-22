@@ -4,21 +4,9 @@ import RatingsGraph from './components/RatingsGraph.jsx'
 import Reviews from './components/Review/Reviews.jsx'
 import Footer from './components/Footer.jsx'
 import axios from 'axios'
+import './RatingsReviews.css'
 import { Row, Col, Button, Dropdown, ButtonGroup } from 'react-bootstrap';
 import { dataContext } from '../context/dataContext.js';
-
-
-const style = {
-  marginLeft:"10px",
-  marginRight:"10px",
-  marginTop: "25px",
-  marginBottom: "10px"
-}
-const style2 = {
-  marginTop: "40px",
-  overflowY:"auto"
-
-}
 
 const RatingsReviews = (props) => {
 
@@ -64,22 +52,33 @@ const RatingsReviews = (props) => {
       </div>
       <div className="col-sm">
         <span>
-        {/* <div style={style2}>Sort By</div>
-        <Button variant="outline-secondary" size="sm" style={style} onClick={(e) => setSort(() => e.target.value)} value="newest">Recent</Button>
-        <Button variant="outline-secondary" size="sm" style={style} onClick={(e) => setSort(() => e.target.value)} value="relevant">Relevant</Button>
-        <Button variant="outline-secondary" size="sm" style={style} onClick={(e) => setSort(() => e.target.value)} value="helpful">Highest Rated</Button> */}
         <Dropdown as={ButtonGroup}>
           <Button variant="success">Sort By</Button>
           <Dropdown.Toggle split variant="success"/>
           <Dropdown.Menu>
-            <Dropdown.Item onClick={(e) => setSort(() => "newest")} value="newest">Newest</Dropdown.Item>
-            <Dropdown.Item onClick={(e) => setSort(() => "relevent")} value="relevent">Relevent</Dropdown.Item>
-            <Dropdown.Item onClick={(e) => setSort(() => "helpful")} value="helpful">Helpful</Dropdown.Item>
+            <Dropdown.Item onClick={(e) => {
+              setSort(() => "newest")
+              setCounter(() => 2)}}
+              value="newest">
+                Newest
+            </Dropdown.Item>
+            <Dropdown.Item onClick={(e) => {
+              setSort(() => "relevent")
+              setCounter(() => 2)}}
+               value="relevent">
+                 Relevent
+            </Dropdown.Item>
+            <Dropdown.Item onClick={(e) => {
+              setSort(() => "helpful")
+              setCounter(() => 2)}}
+              value="helpful">
+                Helpful
+            </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
         </span>
         <Reviews reviews={reviews}/>
-        <Footer currentItemId={props.productId} getMoreReviews={setMore} hide={hide}/>
+        <Footer reviewLength={reviews.length} currentItemId={props.productId} getMoreReviews={setMore} hide={hide}/>
       </div>
       </div>
     </div>
@@ -87,132 +86,3 @@ const RatingsReviews = (props) => {
 }
 
 export default RatingsReviews;
-
-
-
-
-// class RatingsReviews extends React.Component {
-//   constructor (props) {
-//     super(props);
-//     this.state = {
-//       reviewCount: 2,
-//       currentProduct: this.props.productId, //hard coded product id
-//       reviews: [],
-//       displayReviews: [],
-//       recommendations: 0,
-//       stars: [],
-//       avgStars: 0,
-//     }
-//     this.getReviews = this.getReviews.bind(this)
-//     this.getAgetAvgStarsvg = this.getAvgStars.bind(this)
-//     this.getPercRecs = this.getPercRecs.bind(this)
-//     this.getAllStars = this.getAllStars.bind(this)
-//     this.sortByLowestStars = this.sortByLowestStars.bind(this)
-//     this.sortByHighestStars = this.sortByHighestStars.bind(this)
-//     this.sortByRecent = this.sortByRecent.bind(this)
-//     this.sortByHelpfulness = this.sortByHelpfulness.bind(this)
-//     this.displayRev = this.displayRev.bind(this)
-//   }
-//   componentDidMount() {
-//     this.getReviews()
-//   }
-
-//   getReviews () {
-//     axios.post('/reviews', {count: this.state.reviewCount, productId: this.state.currentProduct })
-//       .then(({data}) => this.setState({reviews: data.results}))
-//       .then(() => this. displayRev())
-//       .then(() => this.getAvgStars())
-//       .then(() => this.getPercRecs())
-//       .then(() => this.getAllStars())
-//       .catch((err) => console.error(err))
-//   }
-
-//   displayRev() {
-//     if (this.state.reviewCount < this.state.reviews.length) {
-//       const dispArr = [];
-//       for (var i =0; i < this.state.reviewCount; i++) {
-//         dispArr.push(this.state.reviews[i])
-//       }
-//       if (this.state.reviews.length - this.state.reviewCount > 1) {
-//         this.setState({displayReviews: dispArr, reviewCount: this.state.reviewCount + 2})
-//       } else {
-//         this.setState({displayReviews: dispArr, reviewCount: this.state.reviewCount + 1})
-//       }
-//     }
-//   }
-
-//   getAvgStars () {
-//     var total = 0;
-//     this.state.reviews.forEach(ele => {
-//       total += ele.rating
-//     })
-//     this.setState({avgStars: total/this.state.reviews.length})
-//   }
-
-//   getPercRecs () {
-//     var total = 0;
-//     this.state.reviews.forEach(ele => {
-//       if (ele.recommend) total ++;
-//     });
-//     this.setState({recommendations: (total / this.state.reviews.length * 100).toFixed(0) + '%'})
-//   }
-
-//   getAllStars () {
-//     this.state.reviews.forEach(ele => {
-//       this.setState({stars: [...this.state.stars, ele.rating]})
-//     })
-//   }
-
-//   sortByLowestStars() {
-//     const sorter = (a, b) => {
-//       return a.rating - b.rating
-//     }
-//     this.setState({displayReviews: this.state.displayReviews.sort(sorter)})
-//   }
-//   sortByHighestStars() {
-//     const sorter = (a, b) => {
-//       return b.rating - a.rating
-//     }
-//     this.setState({displayReviews: this.state.displayReviews.sort(sorter)})
-//   }
-//   sortByHelpfulness() {
-//     const sorter = (a, b) => {
-//       return b.helpfulness - a.helpfulness
-//     }
-//     this.setState({displayReviews: this.state.displayReviews.sort(sorter)})
-//   }
-//   sortByRecent() {
-//     const sorter = (a, b) => {
-//       return new Date(b.date) - new Date(a.date)
-//     }
-//     this.setState({displayReviews: this.state.displayReviews.sort(sorter)})
-//   }
-
-//   render () {
-//     return (
-//       <div className="container">
-//         <Row>
-//         <div className="col-sm">
-//           <Header />
-//           {/* <RatingsGraph recs={this.state.recommendations} stars={this.state.stars} avgStars={this.state.avgStars}/> */}
-//         </div>
-//         <div className="col-sm">
-//           <Row>
-//             <Col sm={2}>
-//               <p style={style2}>Sort By </p>
-//             </Col>
-//             <Col sm={10}>
-//               <Button variant="outline-secondary" size="sm" style={style} onClick={this.sortByRecent}>Recent</Button>
-//               <Button variant="outline-secondary" size="sm" style={style} onClick={this.sortByHelpfulness}>Relevant</Button>
-//               <Button variant="outline-secondary" size="sm" style={style} onClick={this.sortByHighestStars}>Highest Rated</Button>
-//               <Button variant="outline-secondary" size="sm" style={style} onClick={this.sortByLowestStars}>Lowest Rated</Button>
-//             </Col>
-//           </Row>
-//           <Reviews reviews={this.state.displayReviews}/>
-//           <Footer currentItemId={this.state.currentProduct} getMoreReviews={this.displayRev} />
-//         </div>
-//         </Row>
-//       </div>
-//     )
-//   }
-// }

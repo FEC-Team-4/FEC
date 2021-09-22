@@ -15,17 +15,17 @@ const Footer = (props) => {
     setModal((prev) => !prev);
   }
   const show = () => {
-    if (!props.hide) {
+    if (!props.hide && props.reviewLength !== 0) {
       return (
         <div>
-          <Button onClick={props.getMoreReviews} style={style}>More Reviews</Button>
-          <Button onClick={() => changeModal()} style={style}>Add a Review +</Button>
+          <Button onClick={props.getMoreReviews} style={style} title="more-review">More Reviews</Button>
+          <Button onClick={() => changeModal()} style={style} title="add-review">Add a Review +</Button>
         </div>
       )
     } else {
       return (
         <div>
-          <Button onClick={() => changeModal()} style={style}>Add a Review +</Button>
+        <Button onClick={() => changeModal()} style={style} title="add-review">Add a Review +</Button>
         </div>
       )
     }
