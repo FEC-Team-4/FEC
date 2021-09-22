@@ -1,55 +1,67 @@
-import React, { useState } from 'react'
-import { Carousel } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react'
+import { Row, Col } from 'react-bootstrap'
+import _ from "lodash"
 
-function ProductGallery () {
-  const [index, setIndex] = useState(0);
+import Slider from "react-slick";
+import './product-gallery.css'
 
-  const handleSelect = (selectedIndex, e) => {
-    setIndex(selectedIndex);
-  };
+function ProductGallery (props) {
+  const [nav1, setNav1] = useState(null);
+  const [nav2, setNav2] = useState(null);
+  const [imageList, setImageList] = useState([]);
 
-  return (
-    <Carousel activeIndex={index} onSelect={handleSelect}>
-      <Carousel.Item>
-        <img
-          className="d-block w-100"
-          src="https://placeimg.com/640/480/tech/sepia"
-          alt="First slide"
-        />
-        <Carousel.Caption>
-          <h3>First slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img
-          className="d-block w-100"
-          src="https://picsum.photos/640/480"
-          alt="Second slide"
-        />
-
-        <Carousel.Caption>
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img
-          className="d-block w-100"
-          src="https://placeimg.com/640/480/tech"
-          alt="Third slide"
-        />
-
-        <Carousel.Caption>
-          <h3>Third slide label</h3>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-          </p>
-        </Carousel.Caption>
-      </Carousel.Item>
-    </Carousel>
-  );
-
+  useEffect(() => {
+    const currentStyle = props.styleList.find(style => {
+          return style.style_id === props.styleId
+        });
+        if (currentStyle) {
+          const images = currentStyle.photos.map(photo => {
+            return {img: photo.url, thumb: photo.thumbnail_url}
+          })
+          setImageList(images)
+        }
+  },[props.styleId])
+  if (imageList) {
+    return (
+      <Row>
+        <Col md={12}>
+          <Slider
+          asNavFor= {nav2}
+          ref= {slider1 => setNav1(slider1)}
+          arrows= {true}>
+            {imageList.map((image, i) => {
+              return <div key ="{i}">
+                <img onClick = {() => props.zoomIn()} className = "main" src={image.img} />
+                </div>
+            })}
+          </Slider>
+          <div className ="thumbs">
+          <Slider
+              asNavFor= {nav1}
+              ref= {slider2 => setNav2(slider2)}
+              slidesToShow= {imageList.length >= 7 ? 7 : imageList.length}
+              swipeToSlide= {true}
+              focusOnSelect= {true}
+              vertical= {true}
+              arrows= {true}
+          >
+            {imageList.map((image, i) => {
+              return <div key ="{i}">
+                <img className="thumb" src={image.thumb} />
+                </div>
+            })}
+          </Slider>
+        </div>
+        </Col>
+      </Row>
+    )
+  } else {
+    return (
+    <Spinner animation="border" role="status">
+      <span className="visually-hidden">Loading...</span>
+    </Spinner>
+    )
+  }
 }
 
-export default ProductGallery;
+export default ProductGallery
