@@ -27,39 +27,51 @@ const AddReview = (props) => {
   const [quality, setQuality] = useState(null)
   const [length, setLength] = useState(null)
   const [fit, setFit] = useState(null)
+  const [image, setImage] = useState([])
 
 
   const onSubmit = (e) => {
     e.preventDefault()
-    axios.post('/submitreview', {
-      product_id: props.productId,
-      rating: rating,
-      summary: summary,
-      body: review,
-      recommend: recommend,
-      name: name,
-      email: email,
-      photos: [],
-      characteristics: {
-        size: size,
-        width: width,
-        comfort: comfort,
-        quality: quality,
-        length: length,
-        fit: fit
-      },
-  })
-    .then(reset(setEmail))
-    .then(reset(setName))
-    .then(reset(setSummary))
-    .then(reset(setReview))
-    .then(reset(setRating))
-    .then(setRecommend((prev) => !prev))
-    .catch((err) => console.log(err))
+    if (review.length > 50 && summary.length < 60) {
+      axios.post('/submitreview', {
+        product_id: props.productId,
+        rating: rating,
+        summary: summary,
+        body: review,
+        recommend: recommend,
+        name: name,
+        email: email,
+        photos: [],
+        characteristics: {
+          size: size,
+          width: width,
+          comfort: comfort,
+          quality: quality,
+          length: length,
+          fit: fit
+        },
+    })
+      .then(reset(setEmail))
+      .then(reset(setName))
+      .then(reset(setSummary))
+      .then(reset(setReview))
+      .then(reset(setRating))
+      .then(setRecommend((prev) => !prev))
+      .catch((err) => console.log(err))
+    } else {
+      alert('Please check character length of summary and review!')
+    }
   }
 
   const reset = (cb) => {
     cb(() => '')
+  }
+  const addImage = (e) => {
+    if (image.length < 5) {
+      setImage(prev => [...prev, e.target.files[0]])
+    } else {
+      alert('image number exceeded')
+    }
   }
 
   return (
@@ -83,9 +95,11 @@ const AddReview = (props) => {
     <Row>
       <Form.Group className="mb-3" controlId="newReview">
         <Form.Label>Write Your Review Here!</Form.Label>
-        <Form.Control value={review} onChange={(e)=> setReview(() => e.target.value)} name="review"  as="textarea" rows={3} />
+        <Form.Control minLength={50} maxLength={1000} value={review} onChange={(e)=> setReview(() => e.target.value)} name="review"  as="textarea" rows={3} />
+        <p>{Math.abs(review.length - 1000)} characters remaining</p>
       </Form.Group>
     </Row>
+
     <Row className="mb-3">
       <Form.Label>Sizing</Form.Label>
       <Row>
@@ -139,7 +153,6 @@ const AddReview = (props) => {
     <Row className="mb-3">
       <Form.Label>Fit</Form.Label>
       <Row>
-
         <Col><Form.Check onChange={(e)=> setFit(() => e.target.value)} inline name="group5" value={1} type="radio" label="Runs tight"></Form.Check></Col>
         <Col><Form.Check onChange={(e)=> setFit(() => e.target.value)} inline name="group5" value={2} type="radio" label="Runs slightly tight"></Form.Check></Col>
         <Col><Form.Check onChange={(e)=> setFit(() => e.target.value)} inline name="group5" value={3} type="radio" label="Perfect"></Form.Check></Col>
@@ -151,6 +164,11 @@ const AddReview = (props) => {
       <Rating ratingValue={rating} onClick={(e)=> setRating(() => e)}/>
       <Form.Group>
         <Form.Check onChange={() => setRecommend((prev)=> !prev)} value={recommend} name="recommend" type="checkbox" label="I recommend this item" />
+      </Form.Group>
+    </Row>
+    <Row>
+      <Form.Group className="mb-3" controlId="newReview">
+        <input onChange={(e) => addImage(e)} type="file"/>
       </Form.Group>
     </Row>
     <Button onClick={onSubmit} style={style} variant="primary" type="submit">

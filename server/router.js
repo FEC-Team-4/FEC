@@ -2,11 +2,21 @@ const router = require('express').Router()
 const axios = require('axios')
 const apiKey = require('./../token/token.js')
 
+
+//Questions
+router.post('/questions', (req, res) => {
+  const productId = req.body.productId;
+  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/qa/questions', {params: {product_id: productId}, headers: {Authorization: apiKey }})
+    .then((result) => res.status(200).send(result.data))
+    .catch(err => console.log(err))
+})
+
 //reviews
 router.post('/reviews', (req, res) => {
   const productId = req.body.productId;
   const count = req.body.count;
-  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews', {params: {product_id: productId, count: 30}, headers: {Authorization: apiKey }})
+  const sort = req.body.sort;
+  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews', {params: {product_id: productId, count: count, sort: sort}, headers: {Authorization: apiKey }})
     .then((result) => res.status(200).send(result.data))
     .catch(err => console.log(err))
 })

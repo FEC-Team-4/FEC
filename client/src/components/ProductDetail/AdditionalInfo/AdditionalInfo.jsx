@@ -13,7 +13,7 @@ function AdditionalInfo (props) {
             <h5>{props.productInfo.slogan}</h5>
             <p>{props.productInfo.description}</p>
           </Col>
-          <Col md={4} style={{borderLeft: "2px solid #999",  display: "flex", alignItems: "center"}}>
+          <Col md={4} style={{borderLeft: "3px solid #999",  display: "flex", alignItems: "center"}}>
           <ul className="list-features">
               {props.productInfo.features ?
                 props.productInfo.features.map((feature, i) => {
