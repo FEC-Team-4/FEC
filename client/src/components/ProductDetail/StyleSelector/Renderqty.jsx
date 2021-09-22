@@ -3,7 +3,7 @@ import { Row, Col, Form } from 'react-bootstrap';
 import './style-selector.css'
 
 function Renderqty (props) {
-  console.log(props)
+  // console.log(props)
   let qty = null;
     for (let i = 0; i < props.skus.length; i++) {
       if (parseInt(props.skus[i].id) === props.size) {
@@ -27,19 +27,6 @@ function Renderqty (props) {
     </select>
   )
 }
-
-// {size !== null ? (
-//   <select value={1} onChange={handleQtyChange}>
-//     {for (let i = 1; i <= 15; i++) {
-//        <option key ={i} value={i}>{i}</option>
-//     }}
-//     </select>
-//   ) : (
-//       <select>
-//           <option value="0" disabled="disabled" selected="selected">-</option>
-//       </select>
-//   )
-// }
 
 
 export default Renderqty;

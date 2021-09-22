@@ -4,7 +4,6 @@ const path = require('path');
 const router = require('./router.js')
 
 const app = express();
-const apiKey = require('./../token/token.js')
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

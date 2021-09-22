@@ -43,3 +43,11 @@ p.style span {
   text-transform: uppercase;
   font-weight: 300;
 }
+
+/* Share */
+
+.share {
+  display: flex;
+  font-size: 12px;
+  justify-content: space-between;
+}

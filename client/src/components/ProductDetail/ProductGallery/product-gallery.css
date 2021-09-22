@@ -1,24 +1,3 @@
-.slick-slider h3 {
-  background: #5f9ea0;
-  color: #fff;
-  font-size: 36px;
-  line-height: 360px;
-  margin: 10px;
-  padding: 2%;
-  position: relative;
-  text-align: center;
-}
-.slick-slider h4 {
-  background: #5f9ea0;
-  color: #fff;
-  font-size: 12px;
-  height: 40px;
-  width: 40px;
-  margin: 10px;
-  padding: 2%;
-  position: relative;
-  text-align: center;
-}
 .thumbs {
   margin-top: -560px;
   margin-left: 25px;
@@ -44,7 +23,7 @@
   top: 480px;
   transform: rotate(90deg);
 }
-img.main {
+.hero img.main {
   width: 100%;
   height: 600px;
   object-fit: contain;
@@ -67,6 +46,15 @@ img.thumb {
 .slick-current {
   border-bottom: 3px solid #fff;
 }
-.col-md-12 .col-md-12 img.main {
+img.main.expanded {
   cursor: crosshair;
+  object-fit: cover;
+}
+img.main.zoomed {
+  cursor: vertical-text;
+  object-fit: cover;
+  transform: scale(2.5);
+}
+.col-md-12 + .product-meta {
+  display: none;
 }
