@@ -16,11 +16,7 @@ const App = () => {
 
   const [product, setProduct] = useState([]);
   const [reviews, setReviews] = useState([]);
-<<<<<<< HEAD
-  const [productId, setProductId] = useState(42367);
-=======
   const [productId, setProductId] = useState(42374);
->>>>>>> a5b9d42e178fdd93007bcf2c2a07b6c74356d784
 
   useEffect(() => {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${productId}`,{params: {count: 10}, headers: {Authorization: token}})

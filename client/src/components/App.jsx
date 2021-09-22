@@ -43,9 +43,9 @@ const App = () => {
           <div className="RelatedItems-OutfitCreation">
             <RelatedItems/>
           </div>
-          {/* <div className="Questions-Answers">
-            <Questions/>
-          </div> */}
+          <div className="Questions-Answers">
+            <Questions productId={productId}/>
+          </div>
           <div id="ratings" className="Ratings-Reviews">
             <RatingsReviews productId={productId}/>
           </div>
