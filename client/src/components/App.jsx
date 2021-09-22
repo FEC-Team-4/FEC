@@ -16,7 +16,7 @@ const App = () => {
 
   const [product, setProduct] = useState([]);
   const [reviews, setReviews] = useState([]);
-  const [productId, setProductId] = useState(42368);
+  const [productId, setProductId] = useState(42366);
 
   useEffect(() => {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${productId}`,{params: {count: 10}, headers: {Authorization: token}})
@@ -43,9 +43,9 @@ const App = () => {
           <div className="RelatedItems-OutfitCreation">
             <RelatedItems/>
           </div>
-          {/* <div className="Questions-Answers">
-            <Questions/>
-          </div> */}
+          <div className="Questions-Answers">
+            <Questions productId={productId}/>
+          </div>
           <div id="ratings" className="Ratings-Reviews">
             <RatingsReviews productId={productId}/>
           </div>

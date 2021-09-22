@@ -22,6 +22,7 @@ module.exports = {
               '@babel/preset-env',
               '@babel/preset-react'
             ],
+            "sourceType": "unambiguous",
             plugins: [
               ['@babel/plugin-transform-runtime',
                 {
