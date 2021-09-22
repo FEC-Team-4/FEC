@@ -18,8 +18,8 @@ const Footer = (props) => {
     if (!props.hide) {
       return (
         <div>
-          <Button onClick={props.getMoreReviews} style={style}>More Reviews</Button>
-          <Button onClick={() => changeModal()} style={style}>Add a Review +</Button>
+          <Button onClick={props.getMoreReviews} style={style} title="more-review">More Reviews</Button>
+          <Button onClick={() => changeModal()} style={style} title="add-review">Add a Review +</Button>
         </div>
       )
     } else {

@@ -15,7 +15,10 @@ const bg2 = {
 
 const Review = (props) => {
   const [feedback, setFeedback] = useState(false);
-  const [date, setDate] = useState(new Date(props.review.date.split('T')[0].split('-')[0], props.review.date.split('T')[0].split('-')[1], props.review.date.split('T')[0].split('-')[2]).toLocaleString('default', {month: 'long', day: 'numeric', year: 'numeric'}));
+  const [date, setDate] = useState(new Date(props.review.date.split('T')[0].split('-')[0],
+    props.review.date.split('T')[0].split('-')[1] - 1,
+    props.review.date.split('T')[0].split('-')[2]).toLocaleString('default',
+    {month: 'long', day: 'numeric', year: 'numeric'}));
   const [see, setSee] = useState(false);
 
   const ifRec = () => {
@@ -36,7 +39,8 @@ const Review = (props) => {
     } else {
       return (
         <div>
-        <p><i>Helpful? <a href="#" onClick={helpful} >Yes</a> ({props.review.helpfulness}) </i> || <a href="#">Report</a></p>
+        <p><i>Helpful? <a href="#" onClick={helpful} >Yes</a> ({props.review.helpfulness}) </i> ||
+          <a href="#">Report</a></p>
         </div>
       )
     }

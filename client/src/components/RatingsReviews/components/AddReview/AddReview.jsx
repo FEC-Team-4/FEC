@@ -13,8 +13,12 @@ const padding = {
   padding: "10px"
 }
 
-const AddReview = (props) => {
+function validateEmail(email) {
+  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+}
 
+const AddReview = (props) => {
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [summary, setSummary] = useState('')
@@ -29,10 +33,9 @@ const AddReview = (props) => {
   const [fit, setFit] = useState(null)
   const [image, setImage] = useState([])
 
-
   const onSubmit = (e) => {
     e.preventDefault()
-    if (review.length > 50 && summary.length < 60) {
+    if (review.length > 50 && summary.length < 60 && validateEmail(email) && name.length > 0) {
       axios.post('/submitreview', {
         product_id: props.productId,
         rating: rating,
@@ -57,6 +60,7 @@ const AddReview = (props) => {
       .then(reset(setReview))
       .then(reset(setRating))
       .then(setRecommend((prev) => !prev))
+      .then(() => alert('review sent!'))
       .catch((err) => console.log(err))
     } else {
       alert('Please check character length of summary and review!')
@@ -73,30 +77,44 @@ const AddReview = (props) => {
       alert('image number exceeded')
     }
   }
+  const changeText = () => {
+    if (review.length < 50) {
+      return (
+        <p>Minimum required characters left: {Math.abs(review.length - 50)} </p>
+      )
+    } else {
+      return (
+        <p>Minimum reached</p>
+      )
+    }
+  }
 
   return (
     <Form style={padding}>
     <Row className="mb-3">
       <Form.Group as={Col}>
         <Form.Label>Email</Form.Label>
-        <Form.Control value={email} onChange={(e)=> setEmail(() => e.target.value)} name="email" type="email" placeholder="Email" />
+        <Form.Control value={email} onChange={(e)=> setEmail(() => e.target.value)} name="email" type="email" placeholder="Example: jackson11@email.com" maxlength="60" />
       </Form.Group>
       <Form.Group as={Col} >
-        <Form.Label>Name</Form.Label>
-        <Form.Control value={name} onChange={(e)=> setName(() => e.target.value)} name="name" placeholder="Name" />
+        <Form.Label>Nickname</Form.Label>
+        <Form.Control value={name} onChange={(e)=> setName(() => e.target.value)} name="name" placeholder="Example: jackson11!"  maxlength="60"/>
       </Form.Group>
+    </Row>
+    <Row>
+      <b>For privacy reasons, do not use your full name or email address </b>
     </Row>
     <Row>
       <Form.Group className="mb-3">
         <Form.Label>Give us a summary!</Form.Label>
-        <Form.Control value={summary} onChange={(e)=> setSummary(() => e.target.value)} name="summary"  type="title" placeholder=""/>
+        <Form.Control value={summary} onChange={(e)=> setSummary(() => e.target.value)} name="summary"  type="title" />
       </Form.Group>
     </Row>
     <Row>
       <Form.Group className="mb-3" controlId="newReview">
         <Form.Label>Write Your Review Here!</Form.Label>
-        <Form.Control minLength={50} maxLength={1000} value={review} onChange={(e)=> setReview(() => e.target.value)} name="review"  as="textarea" rows={3} />
-        <p>{Math.abs(review.length - 1000)} characters remaining</p>
+        <Form.Control minLength={50} maxLength={1000} value={review} onChange={(e)=> setReview(() => e.target.value)} name="review"  as="textarea" rows={3} placeholder="Why did you like the product or not?" />
+        {changeText()}
       </Form.Group>
     </Row>
 

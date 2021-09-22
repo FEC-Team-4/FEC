@@ -3,7 +3,7 @@ import { Row, Col, Form } from 'react-bootstrap';
 import './style-selector.css'
 
 function Renderqty (props) {
-  console.log(props)
+  // console.log(props)
   let qty = null;
     for (let i = 0; i < props.skus.length; i++) {
       if (parseInt(props.skus[i].id) === props.size) {

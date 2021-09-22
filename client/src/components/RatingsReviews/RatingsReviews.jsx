@@ -64,17 +64,28 @@ const RatingsReviews = (props) => {
       </div>
       <div className="col-sm">
         <span>
-        {/* <div style={style2}>Sort By</div>
-        <Button variant="outline-secondary" size="sm" style={style} onClick={(e) => setSort(() => e.target.value)} value="newest">Recent</Button>
-        <Button variant="outline-secondary" size="sm" style={style} onClick={(e) => setSort(() => e.target.value)} value="relevant">Relevant</Button>
-        <Button variant="outline-secondary" size="sm" style={style} onClick={(e) => setSort(() => e.target.value)} value="helpful">Highest Rated</Button> */}
         <Dropdown as={ButtonGroup}>
           <Button variant="success">Sort By</Button>
           <Dropdown.Toggle split variant="success"/>
           <Dropdown.Menu>
-            <Dropdown.Item onClick={(e) => setSort(() => "newest")} value="newest">Newest</Dropdown.Item>
-            <Dropdown.Item onClick={(e) => setSort(() => "relevent")} value="relevent">Relevent</Dropdown.Item>
-            <Dropdown.Item onClick={(e) => setSort(() => "helpful")} value="helpful">Helpful</Dropdown.Item>
+            <Dropdown.Item onClick={(e) => {
+              setSort(() => "newest")
+              setCounter(() => 2)}}
+              value="newest">
+                Newest
+            </Dropdown.Item>
+            <Dropdown.Item onClick={(e) => {
+              setSort(() => "relevent")
+              setCounter(() => 2)}}
+               value="relevent">
+                 Relevent
+            </Dropdown.Item>
+            <Dropdown.Item onClick={(e) => {
+              setSort(() => "helpful")
+              setCounter(() => 2)}}
+              value="helpful">
+                Helpful
+            </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
         </span>
