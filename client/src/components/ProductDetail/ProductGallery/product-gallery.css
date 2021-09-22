@@ -46,6 +46,15 @@ img.thumb {
 .slick-current {
   border-bottom: 3px solid #fff;
 }
-.col-md-12 .col-md-12 img.main {
+img.main.expanded {
   cursor: crosshair;
+  object-fit: cover;
+}
+img.main.zoomed {
+  cursor: vertical-text;
+  object-fit: cover;
+  transform: scale(2.5);
+}
+.col-md-12 + .product-meta {
+  display: none;
 }

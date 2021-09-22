@@ -9,11 +9,11 @@ function AdditionalInfo (props) {
       <div className="container ">
         <Row>
           <Col md={1}></Col>
-          <Col md={6}>
+          <Col md={7}>
             <h5>{props.productInfo.slogan}</h5>
             <p>{props.productInfo.description}</p>
           </Col>
-          <Col md={4} style={{borderLeft: "3px solid #999",  display: "flex", alignItems: "center"}}>
+          <Col md={3} style={{borderLeft: "3px solid #999",  display: "flex", alignItems: "center"}}>
           <ul className="list-features">
               {props.productInfo.features ?
                 props.productInfo.features.map((feature, i) => {

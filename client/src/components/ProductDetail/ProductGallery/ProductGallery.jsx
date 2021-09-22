@@ -9,6 +9,7 @@ function ProductGallery (props) {
   const [nav1, setNav1] = useState(null);
   const [nav2, setNav2] = useState(null);
   const [imageList, setImageList] = useState([]);
+  const [zoom, setZoom] = useState('main normal');
 
   useEffect(() => {
     const currentStyle = props.styleList.find(style => {
@@ -21,6 +22,20 @@ function ProductGallery (props) {
           setImageList(images)
         }
   },[props.styleId])
+
+  const zoomHandler = (e) => {
+    console.log(e.target.className)
+    if (e.target.className === 'main normal') {
+      props.zoomIn();
+      setZoom('main expanded')
+    } else if (e.target.className === 'main expanded') {
+      setZoom('main zoomed')
+    } else if (e.target.className === 'main zoomed') {
+      setZoom('main expanded')
+    }
+  }
+
+
   if (imageList) {
     return (
       <Row>
@@ -31,7 +46,7 @@ function ProductGallery (props) {
           arrows= {true}>
             {imageList.map((image, i) => {
               return <div key ="{i}">
-                <img onClick = {() => props.zoomIn()} className = "main" src={image.img} />
+                <img onClick = {(e) => zoomHandler(e)} className = {zoom} src={image.img} />
                 </div>
             })}
           </Slider>

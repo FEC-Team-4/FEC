@@ -1,7 +1,6 @@
 const router = require('express').Router()
 const axios = require('axios')
 const apiKey = require('./../token/token.js')
-
 //reviews
 router.post('/reviews', (req, res) => {
   const productId = req.body.productId;
