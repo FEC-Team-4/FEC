@@ -14,15 +14,14 @@ import token from './ProductDetail/token.js';
 
 const App = () => {
 
-  const [product, setProduct] = useState([]);
-  const [productId, setProductId] = useState(42366);
+  const [productId, setProductId] = useState(42373);
   console.log('productId', productId);
 
-  useEffect(() => {
-    axios.post('/products' , {productId: productId})
-      .then(({data}) => setProduct(data))
-      .catch(err => console.log(err));
-  }, [productId])
+  // useEffect(() => {
+  //   axios.post('/products' , {productId: productId})
+  //     .then(({data}) => setProduct(data))
+  //     .catch(err => console.log(err));
+  // }, [productId])
 
   const relatedProductClick = (id) => {
     setProductId(id)
@@ -30,7 +29,6 @@ const App = () => {
 
   return (
       <dataContext.Provider value={{
-        product: [product],
         productId: [productId]
       }}>
         <Container>

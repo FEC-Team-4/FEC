@@ -25,13 +25,12 @@ const RatingsGraph = (props) => {
     updateChar()
   }, [stars])
 
-  // useEffect(() => {
-  //   clearAll()
-  //   setAllStars()
-  //   updateChar()
-  //   loop(props.stars, setStars)
-  //   loopForAvg(props.stars, setAvgStars)
-  // }, [props.productId])
+  useEffect(() => {
+    clearAll()
+    setAllStars()
+    loop(props.stars, setStars)
+    loopForAvg(props.stars, setAvgStars)
+  }, [props.currentItemId])
 
   const loop = (obj, setFunc) => {
     for (const star in obj) {
@@ -168,6 +167,7 @@ const RatingsGraph = (props) => {
       <div>
         {characteristics.map((ele, ind) =>
             <div key={ind} className="status-bars">
+              {console.log(ele)}
               {ele[0]}
             <ProgressBar label={Math.round(ele[1])} now={Math.round(ele[1] / 5 * 100)} />
             </div>)}
