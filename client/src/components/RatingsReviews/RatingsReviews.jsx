@@ -23,7 +23,7 @@ const RatingsReviews = (props) => {
 
   useEffect(() => {
     getReviews();
-  }, [more, sort])
+  }, [more, sort, props.productId])
 
   const getReviews = () => {
     axios.post('/reviews', {count: counter, productId: props.productId, sort: sort})
@@ -48,7 +48,7 @@ const RatingsReviews = (props) => {
       <div className="row">
       <div className="col-sm">
         <Header />
-        <RatingsGraph title="ratings-graph" recommend={recommend} characteristics={characteristics} stars={stars}/>
+        <RatingsGraph currentItemId={props.productId} title="ratings-graph" recommend={recommend} characteristics={characteristics} stars={stars}/>
       </div>
       <div className="col-sm">
         <div title="dropdown" className="py-4">

@@ -25,10 +25,31 @@ const RatingsGraph = (props) => {
     updateChar()
   }, [stars])
 
+  // useEffect(() => {
+  //   clearAll()
+  //   setAllStars()
+  //   updateChar()
+  //   loop(props.stars, setStars)
+  //   loopForAvg(props.stars, setAvgStars)
+  // }, [props.productId])
+
   const loop = (obj, setFunc) => {
     for (const star in obj) {
       setFunc((prev) => prev +=parseInt(obj[star]))
     }
+  }
+
+  const clearAll = () => {
+    setAvgStars(() => 0);
+    set1(() => 0);
+    set2(() => 0);
+    set3(() => 0);
+    set4(() => 0);
+    set5(() => 0);
+    setStars(() => 0);
+    setCharacteristics(() => []);
+    setRecommend(() => 0);
+    console.log()
   }
 
   const loopForAvg = (obj, setFunc) => {
