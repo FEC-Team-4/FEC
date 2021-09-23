@@ -1,4 +1,5 @@
 const path = require('path');
+const TerserPlugin = require("terser-webpack-plugin");
 
 const DIST_Path = path.join(__dirname, 'client/dist');
 const SRC_Path = path.join(__dirname, 'client/src');
@@ -7,6 +8,9 @@ const SRC_Path = path.join(__dirname, 'client/src');
 module.exports = {
   entry: `${SRC_Path}/index.jsx`,
   mode: 'production',
+  optimization: {
+    minimizer: [new TerserPlugin()],
+  },
   output: {
     filename: 'bundle.js',
     path: DIST_Path
