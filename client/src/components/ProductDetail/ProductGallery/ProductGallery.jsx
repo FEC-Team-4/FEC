@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Row, Col } from 'react-bootstrap'
 import _ from "lodash"
+import Img from "react-cool-img";
 
 import Slider from "react-slick";
 import './product-gallery.css'
@@ -47,7 +48,7 @@ function ProductGallery (props) {
           arrows= {true}>
             {imageList.map((image, i) => {
               return <div key ="{i}">
-                <img onClick = {(e) => zoomHandler(e)} className = {zoom} src={image.img} alt="product image"/>
+                <Img onClick = {(e) => zoomHandler(e)} className = {zoom} src={image.img} alt = "Gallery Image" />
                 </div>
             })}
           </Slider>
@@ -63,7 +64,7 @@ function ProductGallery (props) {
           >
             {imageList.map((image, i) => {
               return <div key ="{i}">
-                <img className="thumb" src={image.thumb} alt="product thumbnail"/>
+                <Img className="thumb" src={image.thumb} alt="Product Thumbnail"/>
                 </div>
             })}
           </Slider>
