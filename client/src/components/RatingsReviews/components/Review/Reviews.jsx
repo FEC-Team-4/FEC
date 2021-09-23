@@ -3,7 +3,7 @@ import Review from './Review.jsx'
 
 const style = {
   overflowY: 'auto',
-  height: '50vh'
+  height: '55vh'
 }
 const Reviews = (props) => {
   return  (
