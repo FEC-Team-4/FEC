@@ -1,23 +1,16 @@
-import React from 'react';
-import Input from '@material-ui/core/Input';
-import SearchIcon from '@material-ui/icons/Search';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import React from "react";
+import { InputGroup, FormControl } from "react-bootstrap";
 
 const QuestionSearch = () => (
   <div>
     <form className="qa-search" noValidate autoComplete="off">
-      <Input
-        id="qa-search-bar"
-        label="Search..."
-        variant="outlined"
-        size="small"
-        fullWidth
-        endAdornment={
-          <InputAdornment position="end">
-          <SearchIcon></SearchIcon>
-          </InputAdornment>
-        }
-      />
+      <InputGroup size="sm" className="mb-3">
+        <InputGroup.Text id="inputGroup-sizing-sm">Search</InputGroup.Text>
+        <FormControl
+          aria-label="Small"
+          aria-describedby="inputGroup-sizing-sm"
+        />
+      </InputGroup>
     </form>
   </div>
 );

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Answer from '../Answer.jsx';
 import { markQuestionHelpful, reportQuestion } from '../helperFunction.js';
-// import { Button, Card, CardContent, CardActions } from '@material-ui/core';
 import { Button, Card } from 'react-bootstrap';
 
 const Question = ({ question, handleChange }) => {
@@ -42,7 +41,7 @@ const Question = ({ question, handleChange }) => {
             })}
           </div>
         </Card.Body>
-        {/* <CardActions>
+        <Card.Footer>
           {answers.length > 2 ? (
             <Button color="default" onClick={showMore} size="small">
               {expanded ? (
@@ -52,7 +51,7 @@ const Question = ({ question, handleChange }) => {
               )}
             </Button>
           ) : null}
-        </CardActions> */}
+        </Card.Footer>
       </Card>
     </div>
   );
