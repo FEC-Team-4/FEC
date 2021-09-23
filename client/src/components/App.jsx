@@ -15,16 +15,12 @@ import token from './ProductDetail/token.js';
 const App = () => {
 
   const [product, setProduct] = useState([]);
-  const [reviews, setReviews] = useState([]);
   const [productId, setProductId] = useState(42366);
 
   useEffect(() => {
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${productId}`,{params: {count: 10}, headers: {Authorization: token}})
+    axios.post('/products' , {productId: productId})
       .then(({data}) => setProduct(data))
-      .catch(err => console.log(err));
-    axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/',{params: {product_id: `${productId}`}, headers: {Authorization: token }})
-      .then((results) => setReviews(() => results))
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
   }, [])
 
   //setProductId helper function needed
@@ -32,7 +28,6 @@ const App = () => {
   return (
       <dataContext.Provider value={{
         product: [product],
-        reviews: [reviews],
         productId: [productId]
       }}>
         <Container>

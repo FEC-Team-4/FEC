@@ -53,7 +53,7 @@ const RatingsGraph = (props) => {
   const progressBar = () => {
     for (var i = 0; i < 5; i++) {
       return (
-        <div>
+        <div title="stars-status">
           <Row>
             <Col sm={4}>
             <i className="fas fa-star"></i><i className="fas fa-star"></i>
@@ -129,7 +129,7 @@ const RatingsGraph = (props) => {
               name='rating'
           />
         </Col>
-        <Col sm={2}>
+        <Col sm={2} title="avg-rating">
           <h1>{avgStars.toFixed(1)}</h1>
         </Col>
       </Row>
@@ -140,7 +140,7 @@ const RatingsGraph = (props) => {
         }}>
         <p>{stars} total reviews</p>
       </div>
-      <div className="status-bars">
+      <div title="status-bars" className="status-bars">
         {progressBar()}
       </div>
       <h6 style={{textAlign:"center", paddingTop: "10px", paddingBottom:'0px'}}>Product Breakdown</h6>
