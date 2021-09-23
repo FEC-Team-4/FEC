@@ -5,28 +5,28 @@ import StarRatings from 'react-star-ratings';
 import './RelatedItems.css';
 
 
-const RelatedItemsCards = () => {
+const RelatedItemsCards = (props) => {
 
   const { product } = useContext(dataContext);
-
+  // console.log('info', props.info)
 
   return(
     <div className='d-flex align-items-stretch bd-highlight example-parent' style={{ height: '450px' }}>
       <div className="p-2 bd-highlight col-example">
         <Card style={{ width: '15rem' }}>
-          <Card.Img variant="top" src="https://images.unsplash.com/photo-1544441892-794166f1e3be?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" />
+          <Card.Img variant="top" src={props.info.pic} />
           <Card.Body>
             <Card.Text>
-              Category
+              {props.info.category}
             </Card.Text>
             <Card.Text>
-              Name
+              {props.info.name}
             </Card.Text>
             <Card.Text>
-              Price
+              ${props.info.price}
             </Card.Text>
             <StarRatings
-                  rating={3}
+                  rating={1} //needs to be converted to props- issue with re-rendering
                   starDimension="15px"
                   starSpacing="0.5px"
                   starRatedColor="black"

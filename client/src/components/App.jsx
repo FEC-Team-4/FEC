@@ -17,6 +17,7 @@ const App = () => {
   const [product, setProduct] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [productId, setProductId] = useState(42366);
+  console.log('productId', productId);
 
   useEffect(() => {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${productId}`,{params: {count: 10}, headers: {Authorization: token}})
@@ -25,9 +26,11 @@ const App = () => {
     axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/',{params: {product_id: `${productId}`}, headers: {Authorization: token }})
       .then((results) => setReviews(() => results))
       .catch(err => console.log(err));
-  }, [])
+  }, [productId])
 
-  //setProductId helper function needed
+  const relatedProductClick = (id) => {
+    setProductId(id)
+  };
 
   return (
       <dataContext.Provider value={{
@@ -41,7 +44,7 @@ const App = () => {
             <ProductDetails id={productId}/>
           </div>
           <div className="RelatedItems-OutfitCreation">
-            <RelatedItems/>
+            <RelatedItems relatedProductClick={relatedProductClick}/>
           </div>
           <div className="Questions-Answers">
             <Questions productId={productId}/>
