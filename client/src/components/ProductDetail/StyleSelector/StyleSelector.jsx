@@ -63,12 +63,12 @@ function StyleSelector (props) {
               <Col md={3} key = {style.style_id}>
                 <label key = {style.style_id}>
                   <input onChange={(e)=> clickHandler(e)} type="radio" name= "styleselector" value = {style.style_id} />
-                  <Img src={style.photos[0].thumbnail_url} />
+                  <Img src={style.photos[0].thumbnail_url} alt ="style thumbnail"/>
               </label> </Col>:
               <Col md={3} key = {style.style_id}>
               <label key = {style.style_id}>
               <input type="radio" name= "styleselector" value = {style.style_id} defaultChecked/>
-              <Img src={style.photos[0].thumbnail_url} />
+              <Img src={style.photos[0].thumbnail_url} alt ="style thumbnail"/>
           </label></Col>
             })}
             </Row>
@@ -98,7 +98,12 @@ function StyleSelector (props) {
       </Row>
       <Row>
         <Col md={12}>
+        {skus.length > 0 ? (
           <a href="#" className="btn w-100 btn-lg btn-outline-primary">Add to cart</a>
+          ) : (
+            null
+          )
+        }
         </Col>
     </Row>
     <Socialshare />

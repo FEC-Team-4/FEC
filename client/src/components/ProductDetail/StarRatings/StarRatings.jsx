@@ -37,7 +37,6 @@ class Productratings extends React.Component {
       weightedRating += key * Number(value);
     }
     const finalAvg = ratings.length ? (Math.round(weightedRating / totalRatings * 4) / 4).toFixed(2) : 0;
-    console.log(totalRatings)
     this.setState( {
       ratings: totalRatings,
       avgRating: finalAvg

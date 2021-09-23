@@ -86,7 +86,7 @@ var RelatedItems = (props) => {
   }, [relatedItems])
 
   return (
-    <div style={{ maxWidth: 1200, marginLeft: 'auto', marginRight: 'auto', marginTop: 64 }}>
+    <div style={{marginLeft: 'auto', marginRight: 'auto', marginTop: 64 }}>
         <CarouselTwo info={relatedItems} relatedProductClick={props.relatedProductClick}/>
     </div>
   );

@@ -10,7 +10,7 @@ function AdditionalInfo (props) {
         <Row>
           <Col md={1}></Col>
           <Col md={7}>
-            <h5>{props.productInfo.slogan}</h5>
+            <p className="slogan">{props.productInfo.slogan}</p>
             <p>{props.productInfo.description}</p>
           </Col>
           <Col md={3} style={{borderLeft: "3px solid #999",  display: "flex", alignItems: "center"}}>

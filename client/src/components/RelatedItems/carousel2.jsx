@@ -38,14 +38,14 @@ const CarouselTwo = (props) => {
 
   return (
     <>
-      <h1 style={{ textAlign: "left" }}>Related Items</h1>
+      <h2 style={{ textAlign: "left" }}>Related Items</h2>
       <FlexContainer>
         <Carousel breakPoints={breakPoints} control={false}>
           {props.info.map(item => {
             return(
               <Item key={item.product_id} >
                 <Card style={{ width: '15rem' }} onClick={() => handleClick(item.product_id)}>
-                  <Card.Img variant="top" src={
+                  <Card.Img alt="Product Image" variant="top" src={
                     item.results[0].photos[0].thumbnail_url
                     ? item.results[0].photos[0].thumbnail_url
                     : ""
