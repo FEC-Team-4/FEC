@@ -69,6 +69,9 @@ function StyleSelector (props) {
               <label key = {style.style_id}>
               <input type="radio" name= "styleselector" value = {style.style_id} defaultChecked/>
               <Img src={style.photos[0].thumbnail_url} alt ="style thumbnail"/>
+              <div className="checkouter">
+                <span className="checkmark"></span>
+              </div>
           </label></Col>
             })}
             </Row>
