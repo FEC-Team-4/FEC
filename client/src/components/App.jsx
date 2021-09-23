@@ -21,16 +21,11 @@ const App = () => {
   useEffect(() => {
     axios.post('/products' , {productId: productId})
       .then(({data}) => setProduct(data))
-<<<<<<< HEAD
-      .catch(err => console.error(err));
-  }, [])
-=======
       .catch(err => console.log(err));
     axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/',{params: {product_id: `${productId}`}, headers: {Authorization: token }})
       .then((results) => setReviews(() => results))
       .catch(err => console.log(err));
   }, [productId])
->>>>>>> 78227b5e4a3ef080bede4f95f2433dd281100efc
 
   const relatedProductClick = (id) => {
     setProductId(id)
