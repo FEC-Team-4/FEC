@@ -14,19 +14,14 @@ import token from './ProductDetail/token.js';
 
 const App = () => {
 
-  const [product, setProduct] = useState([]);
-  const [reviews, setReviews] = useState([]);
-  const [productId, setProductId] = useState(42366);
+  const [productId, setProductId] = useState(42373);
   console.log('productId', productId);
 
-  useEffect(() => {
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${productId}`,{params: {count: 10}, headers: {Authorization: token}})
-      .then(({data}) => setProduct(data))
-      .catch(err => console.log(err));
-    axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/',{params: {product_id: `${productId}`}, headers: {Authorization: token }})
-      .then((results) => setReviews(() => results))
-      .catch(err => console.log(err));
-  }, [productId])
+  // useEffect(() => {
+  //   axios.post('/products' , {productId: productId})
+  //     .then(({data}) => setProduct(data))
+  //     .catch(err => console.log(err));
+  // }, [productId])
 
   const relatedProductClick = (id) => {
     setProductId(id)
@@ -34,8 +29,6 @@ const App = () => {
 
   return (
       <dataContext.Provider value={{
-        product: [product],
-        reviews: [reviews],
         productId: [productId]
       }}>
         <Container>

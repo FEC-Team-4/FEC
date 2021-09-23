@@ -19,31 +19,26 @@ function ProductDetails (props) {
 
   useEffect(() => {
     const loadinfo = async () => {
-      const response = await axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${props.id}`, {
-        headers: {Authorization: token}
-      });
+      const response = await axios.post('/products', {productId: props.id});
       setProductinfo(response.data)
     }
     loadinfo();
-  }, [])
+    axios.post('/products/styles', {id: props.id})
+    .then(results => {
+      setStylelist(results.data.results);
+      setSelectedstyle(results.data.results[0].style_id);
+    })
+  }, [props.id])
 
-  useEffect(() => {
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${props.id}/styles`, {
-        headers: {Authorization: token}
-      })
-      .then(results => {
-        setStylelist(results.data.results);
-        setSelectedstyle(results.data.results[0].style_id);
-      })
-  }, [])
-  useEffect(() => {
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${props.id}/styles`, {
-        headers: {Authorization: token}
-      })
-      .then(results => {
-        setStylelist(results.data.results);
-      })
-  }, [selectedStyle])
+  //this block seems redundant- we tested and everything appears to be working.
+  // useEffect(() => {
+  //   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${props.id}/styles`, {
+  //       headers: {Authorization: token}
+  //     })
+  //     .then(results => {
+  //       setStylelist(results.data.results);
+  //     })
+  // }, [selectedStyle])
 
   const clickSelector = styleId => {
     setSelectedstyle(styleId)

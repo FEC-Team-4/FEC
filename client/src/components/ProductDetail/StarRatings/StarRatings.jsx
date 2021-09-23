@@ -21,11 +21,8 @@ class Productratings extends React.Component {
   }
 
   getRatings() {
-    axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/meta/', {
-      params: {
-        product_id: this.props.id
-      },
-      headers: {Authorization: token}
+    axios.post('/reviews/meta', {
+      productId: this.props.id
     })
     .then(results => this.roundedAvg(results.data.ratings))
     .catch(error => console.log(error))

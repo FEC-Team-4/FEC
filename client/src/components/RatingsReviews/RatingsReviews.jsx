@@ -23,7 +23,7 @@ const RatingsReviews = (props) => {
 
   useEffect(() => {
     getReviews();
-  }, [more, sort])
+  }, [more, sort, props.productId])
 
   const getReviews = () => {
     axios.post('/reviews', {count: counter, productId: props.productId, sort: sort})
@@ -48,10 +48,10 @@ const RatingsReviews = (props) => {
       <div className="row">
       <div className="col-sm">
         <Header />
-        <RatingsGraph recommend={recommend} characteristics={characteristics} stars={stars}/>
+        <RatingsGraph currentItemId={props.productId} title="ratings-graph" recommend={recommend} characteristics={characteristics} stars={stars}/>
       </div>
       <div className="col-sm">
-        <span>
+        <div title="dropdown" className="py-4">
         <Dropdown as={ButtonGroup}>
           <Button variant="success">Sort By</Button>
           <Dropdown.Toggle split variant="success"/>
@@ -76,8 +76,10 @@ const RatingsReviews = (props) => {
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
-        </span>
-        <Reviews reviews={reviews}/>
+        </div>
+        <div title="review-body">
+          <Reviews reviews={reviews}/>
+        </div>
         <Footer reviewLength={reviews.length} currentItemId={props.productId} getMoreReviews={setMore} hide={hide}/>
       </div>
       </div>
