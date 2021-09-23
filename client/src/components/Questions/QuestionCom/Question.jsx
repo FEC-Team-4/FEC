@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import Answer from "../Answer.jsx";
-import { markQuestionHelpful, reportQuestion } from "../helperFunction.js";
-import { Button, Card, CardContent, CardActions } from "@material-ui/core";
+import React, { useState, useEffect } from 'react';
+import Answer from '../Answer.jsx';
+import { markQuestionHelpful, reportQuestion } from '../helperFunction.js';
+import { Button, Card } from 'react-bootstrap';
 
 const Question = ({ question, handleChange }) => {
   var answers = Object.entries(question.answers)
@@ -23,7 +23,8 @@ const Question = ({ question, handleChange }) => {
   return (
     <div>
       <Card>
-        <CardContent>
+        <Card.Body>
+          <Card.Title>
           <span>
             Q: {question.question_body} | Helpful?{" "}
             <a className="qa-link" onClick={markHelpful}>
@@ -31,6 +32,7 @@ const Question = ({ question, handleChange }) => {
             </a>{" "}
             ({question.question_helpfulness}) | Add Answer
           </span>
+          </Card.Title>
           <div className="qa-answers">
             {answers.slice(0, answersToShow).map((a) => {
               return (
@@ -38,8 +40,8 @@ const Question = ({ question, handleChange }) => {
               );
             })}
           </div>
-        </CardContent>
-        <CardActions>
+        </Card.Body>
+        <Card.Footer>
           {answers.length > 2 ? (
             <Button color="default" onClick={showMore} size="small">
               {expanded ? (
@@ -49,7 +51,7 @@ const Question = ({ question, handleChange }) => {
               )}
             </Button>
           ) : null}
-        </CardActions>
+        </Card.Footer>
       </Card>
     </div>
   );
