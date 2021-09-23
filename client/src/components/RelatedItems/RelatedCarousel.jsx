@@ -29,7 +29,7 @@ const breakPoints = [
   { width: 1200, itemsToShow: 4 },
 ];
 
-const CarouselTwo = (props) => {
+const RelatedCarousel = (props) => {
 
 
   const handleClick = (id) => {
@@ -83,7 +83,7 @@ const CarouselTwo = (props) => {
   );
 }
 
-export default CarouselTwo;
+export default RelatedCarousel;
 
 
 

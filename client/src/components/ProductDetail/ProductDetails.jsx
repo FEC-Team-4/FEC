@@ -25,7 +25,7 @@ function ProductDetails (props) {
       setProductinfo(response.data)
     }
     loadinfo();
-  }, [])
+  }, [props.id])
 
   useEffect(() => {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${props.id}/styles`, {
@@ -35,7 +35,7 @@ function ProductDetails (props) {
         setStylelist(results.data.results);
         setSelectedstyle(results.data.results[0].style_id);
       })
-  }, [])
+  }, [props.id])
   useEffect(() => {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${props.id}/styles`, {
         headers: {Authorization: token}

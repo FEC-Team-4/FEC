@@ -2,11 +2,10 @@ import React, { useState, useContext, useEffect } from 'react';
 import { dataContext } from '../context/dataContext.js';
 import './RelatedItems.css'
 import { CardGroup } from 'react-bootstrap';
-import RelatedItemsCards from './RelatedItemsCards.jsx';
 import YourOutfit from './YourOutfit.jsx';
 import token from '../../../../token/token.js';
 import axios from 'axios';
-import CarouselTwo from './carousel2.jsx';
+import RelatedCarousel from './RelatedCarousel.jsx';
 
 
 var RelatedItems = (props) => {
@@ -87,7 +86,8 @@ var RelatedItems = (props) => {
 
   return (
     <div style={{ maxWidth: 1200, marginLeft: 'auto', marginRight: 'auto', marginTop: 64 }}>
-        <CarouselTwo info={relatedItems} relatedProductClick={props.relatedProductClick}/>
+        <RelatedCarousel info={relatedItems} relatedProductClick={props.relatedProductClick}/>
+        <YourOutfit/>
     </div>
   );
 }
