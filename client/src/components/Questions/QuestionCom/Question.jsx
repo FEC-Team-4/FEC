@@ -43,7 +43,7 @@ const Question = ({ question, handleChange }) => {
         </Card.Body>
         <Card.Footer>
           {answers.length > 2 ? (
-            <Button color="default" onClick={showMore} size="sm">
+            <Button onClick={showMore} size="sm">
               {expanded ? (
                 <span>show fewer answers</span>
               ) : (

@@ -3,6 +3,7 @@ import Question from "./QuestionCom/Question.jsx";
 import { dataContext } from "../context/dataContext.js";
 import QuestionSearch from "./QuestionCom/QuestionSearch.jsx";
 import { addQuestion, getQuestions, getProducts } from "./helperFunction.js";
+import "./QuestionCom/Questions.css";
 // import sampleData from "./sampleData.js";
 import axios from "axios";
 import { Button, Card } from "react-bootstrap";
@@ -46,16 +47,17 @@ const Questions = (props) => {
         ))}
         {data.length > 2 ? (
           <Button
-            color="primary"
+            className="px-2"
+            variant="primary"
             onClick={expand}
-            size="small"
-            variant="outlined"
+            size="sm"
+            outline="dark"
           >
-            {expanded ? <span>LESS ANSWERS</span> : <span>MORE ANSWERS</span>}
+            {expanded ? <span>Less Answered Questions</span> : <span>More Answered Questions</span>}
           </Button>
-        ) : null}
-        <Button color="primary" size="small" variant="outlined">
-          Add Question
+        ) : null} &nbsp;&nbsp;&nbsp;
+        <Button variant="primary" type="button" size="sm" outline="dark">
+          Add a Question
         </Button>
       </div>
     </div>
