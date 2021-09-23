@@ -38,7 +38,7 @@ const RelatedItemsCards = (props) => {
       </div>
       <div className="p-2 bd-highlight col-example">
         <Card style={{ width: '15rem' }}>
-        <Card.Img variant="top" src="https://images.unsplash.com/photo-1544441892-794166f1e3be?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" />
+        <Card.Img variant="top" src="" />
         <Card.Body>
           <Card.Text>
             Category
@@ -62,7 +62,7 @@ const RelatedItemsCards = (props) => {
       </div>
       <div className="p-2 bd-highlight col-example">
         <Card style={{ width: '15rem' }}>
-        <Card.Img variant="top" src="https://images.unsplash.com/photo-1544441892-794166f1e3be?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" />
+        <Card.Img variant="top" src="" />
         <Card.Body>
           <Card.Text>
             Category
@@ -86,7 +86,7 @@ const RelatedItemsCards = (props) => {
       </div>
       <div className="p-2 bd-highlight col-example">
         <Card style={{ width: '15rem' }}>
-        <Card.Img variant="top" src="https://images.unsplash.com/photo-1544441892-794166f1e3be?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" />
+        <Card.Img variant="top" src="" />
         <Card.Body>
           <Card.Text>
             Category
