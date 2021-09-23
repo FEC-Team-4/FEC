@@ -1,5 +1,5 @@
 .thumbs {
-  margin-top: -560px;
+  margin-top: -550px;
   margin-left: 25px;
   width: 100px;
   height: 550px
@@ -21,6 +21,11 @@
 .slick-vertical .slick-next {
   left: 20px;
   top: 480px;
+  transform: rotate(90deg);
+}
+.slick-vertical .slick-prev {
+  left: 20px;
+  top: -29px;
   transform: rotate(90deg);
 }
 .hero img.main {
