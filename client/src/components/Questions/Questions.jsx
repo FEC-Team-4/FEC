@@ -7,7 +7,6 @@ import { addQuestion, getQuestions, getProducts } from "./helperFunction.js";
 import axios from "axios";
 import { Button, Card } from "react-bootstrap";
 
-
 const Questions = (props) => {
   const [data, setData] = useState([]);
   const [questionsDisplay, setquestionsDisplay] = useState(4);
@@ -17,20 +16,16 @@ const Questions = (props) => {
     loadData(props.productId);
   }, []);
 
-  // var loadData = async (productId) => {
-  //   await getQuestions(productId).then((receivedData) =>
-  //     setData(
-  //       receivedData.results.sort((i, j) =>
-  //         i.helpfulness > j.helpfulness ? -1 : 1
-  //       )
-  //     )
-  //   );
-  // };
-
   var loadData = async (productId) => {
     await axios
       .post("/questions", { productId: productId })
-      .then((result) => setData(() => result.data.results))
+      .then((result) =>
+        setData(() =>
+          result.data.results.sort((a, b) =>
+            a.helpfulness > b.helpfulness ? -1 : 1
+          )
+        )
+      )
       .catch((err) => console.log(err));
   };
 
