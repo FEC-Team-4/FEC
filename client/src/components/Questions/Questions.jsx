@@ -1,12 +1,12 @@
-import React, { useState, useContext, useEffect } from 'react';
-import Question from './QuestionCom/Question.jsx';
-import { dataContext } from '../context/dataContext.js';
-import QuestionSearch from './QuestionCom/QuestionSearch.jsx';
-import { addQuestion, getQuestions, getProducts } from './helperFunction.js';
-import sampleData from './sampleData.js';
-import axios from 'axios';
-import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add';
+import React, { useState, useContext, useEffect } from "react";
+import Question from "./QuestionCom/Question.jsx";
+import { dataContext } from "../context/dataContext.js";
+import QuestionSearch from "./QuestionCom/QuestionSearch.jsx";
+import { addQuestion, getQuestions, getProducts } from "./helperFunction.js";
+import sampleData from "./sampleData.js";
+import axios from "axios";
+import { Button, Card } from "react-bootstrap";
+
 
 const Questions = (props) => {
   const [data, setData] = useState([]);
@@ -28,11 +28,11 @@ const Questions = (props) => {
   // };
 
   var loadData = async (productId) => {
-    await axios.post('/questions', {productId: productId})
+    await axios
+      .post("/questions", { productId: productId })
       .then((result) => setData(() => result.data.results))
-      .catch(err => console.log(err))
+      .catch((err) => console.log(err));
   };
-
 
   loadData = loadData.bind(this);
 
@@ -59,12 +59,7 @@ const Questions = (props) => {
             {expanded ? <span>LESS ANSWERS</span> : <span>MORE ANSWERS</span>}
           </Button>
         ) : null}
-        <Button
-          color="primary"
-          size="small"
-          variant="outlined"
-          endIcon={<AddIcon>add</AddIcon>}
-        >
+        <Button color="primary" size="small" variant="outlined">
           Add Question
         </Button>
       </div>
