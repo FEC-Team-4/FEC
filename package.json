@@ -15,7 +15,7 @@
   "scripts": {
     "start": "nodemon server/index.js",
     "build": "webpack --mode development -w",
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "repository": {
     "type": "git",
