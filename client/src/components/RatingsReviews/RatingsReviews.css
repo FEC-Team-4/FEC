@@ -6,3 +6,11 @@
   padding: 20px
 }
 
+p.user {
+  font-size: 1rem;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-family: Oswald;
+  font-weight: 500;
+  line-height: 1.2;
+}

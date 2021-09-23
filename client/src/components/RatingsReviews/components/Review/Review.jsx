@@ -78,7 +78,7 @@ const Review = (props) => {
               starRatedColor="#93D2DF"
             />
           </div>
-          <h6>User: {props.review.reviewer_name} | {date} </h6>
+          <p className="user">User: {props.review.reviewer_name} | {date} </p>
           <h4>{props.review.summary}</h4>
           {showMore()}
           {ifRec()}
@@ -97,7 +97,7 @@ const Review = (props) => {
             starRatedColor="#93D2DF"
           />
         </div>
-          <h6>User: {props.review.reviewer_name} | {date}</h6>
+        <p className="user">User: {props.review.reviewer_name} | {date}</p>
           <h4>{props.review.summary}</h4>
           <p className="text-justify">{props.review.body}</p>
           {thanks()}

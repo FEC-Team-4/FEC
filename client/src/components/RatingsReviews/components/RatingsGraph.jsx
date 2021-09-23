@@ -164,7 +164,7 @@ const RatingsGraph = (props) => {
       <div title="status-bars" className="status-bars">
         {progressBar()}
       </div>
-      <h6 style={{textAlign:"center", paddingTop: "10px", paddingBottom:'0px'}}>Product Breakdown</h6>
+      <h4 style={{textAlign:"center", paddingTop: "10px", paddingBottom:'0px'}}>Product Breakdown</h4>
       <div>
         {characteristics.map((ele, ind) =>
             <div key={ind} className="status-bars">
