@@ -6,79 +6,88 @@ import RelatedItemsCards from './RelatedItemsCards.jsx';
 import YourOutfit from './YourOutfit.jsx';
 import token from '../../../../token/token.js';
 import axios from 'axios';
+import CarouselTwo from './carousel2.jsx';
 
 
-var RelatedItems = () => {
+var RelatedItems = (props) => {
 
   var { product, reviews, productId } = useContext(dataContext);
+  const [relatedItems, setRelatedItems] = useState([]);  //arr of all info for related styles
 
-  const [relatedList, setRelatedList] = useState([]); //array of related style id's
-  const [oneRating, setOneRating] = useState([]); //array of ratings for one item (to be averaged)
+  const getProductStyles = async (id) => {
+    const {data} = await axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${id}/styles`, {params: {count: 50}, headers: {Authorization: token}});
+    return data;
+  };
 
-  //holds final object w everything needed
-  const [{id, name, price, pic, category, rating}, setRelatedItems] = useState({id: 42370, name: 'a', price: 1, pic: '', category: 'a', rating: 4});
+  const addCategory = async (eachId) => {
+    const {data} = await axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${eachId}`, {headers: {Authorization: token}})
+    const temp = relatedItems;
+    for (let i = 0; i < temp.length; i++) {
+      if (parseInt(temp[i].product_id) === data.id) {
+        temp[i].category = data.category
+      }
+    }
+    setRelatedItems(temp);
+    return relatedItems;
+  }
+
+  const addRatingAvg = (eachId) => {
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews`, {params: {product_id: eachId}, headers: {Authorization: token}})
+    .then(({data}) => {
+        var oneRating = [];
+        data.results.forEach(item => (oneRating.push(item.rating)))
+        var total = 0;
+        oneRating.forEach(item => {total += item});
+        var rating = parseInt(total/oneRating.length);
+        return [rating, eachId];
+      })
+      .then((result) => {
+        const temp = relatedItems;
+        for (let i = 0; i < temp.length; i++) {
+          if (parseInt(temp[i].product_id) === eachId) {
+            temp[i].rating = result[0];
+          }
+        }
+        setRelatedItems(temp);
+      })
+    .catch((err) => console.log('rating avg err:', err));
+  }
+
+  useEffect( () => {
+    async function fetchData(){
+      try {
+        const {data} = await axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${productId}/related`, {headers: {Authorization: token}});
+        let newData = data;
+        let productStylesArr = [];
+        for(let i = 0; i < newData.length; i++){
+          const products = await getProductStyles(newData[i]);
+          productStylesArr.push(products);
+        }
+        setRelatedItems(productStylesArr);
+      }
+      catch(err){console.log('useEffect err:', err)}
+    }
+    fetchData()
+  }, [productId]);
 
   useEffect(() => {
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${productId}/styles`,{params: {count: 50}, headers: {Authorization: token}})
-    .then(({data}) => setRelatedList(data.results.map(item => {
-      return(
-        setRelatedItems(currentState => ({
-          ...currentState,
-          id: item.style_id,
-          name: item.name,
-          price: item.original_price,
-          pic: item.photos[0].thumbnail_url
-        }))
-      )
-    })))
-    .then(() => addCategory(42366))
-    .then(() => getAllRatings(42366))
-    .then(() => getAvg())
-    .catch((err) => console.log('related items ajax err:', err))
-  }, []);
+    if((relatedItems.length !== 0) && !relatedItems[0].category) {
+      for(let i = 0; i < relatedItems.length; i++){
+        addCategory(relatedItems[i].product_id)
+      }
+    }
 
-
-  const addCategory = (currentId) => (
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${currentId}`, {headers: {Authorization: token}})
-    .then(({data}) => (
-      setRelatedItems(currentState => ({
-        ...currentState,
-        category: data.category
-      }))
-      ))
-      .catch((err) => console.log('products ajax err:', err))
-  )
-
-  const getAllRatings = (currentId) => {
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews`, {params: {product_id: currentId}, headers: {Authorization: token}})
-    .then(({data}) => {
-      var resultsOnly = data.results.map(item => (
-        item.rating
-      ))
-      return(
-        setOneRating(resultsOnly)
-      );
-    })
-      .catch((err) => console.log('products ajax err:', err))
-  }
-
-  const getAvg = () => {
-    var total = 0;
-    oneRating.forEach(item => {total += item})
-    setRelatedItems(currentState => ({
-      ...currentState,
-      rating: total/oneRating.length
-    }))
-  }
-
-  // console.log(id, name, price, pic, category, rating);
+    if(relatedItems.length !== 0 && !relatedItems[0].hasOwnProperty('rating')) {
+      for(let i = 0; i < relatedItems.length; i++){
+        const num = parseInt(relatedItems[i].product_id);
+        addRatingAvg(num)
+      }
+    }
+  }, [relatedItems])
 
   return (
     <div style={{ maxWidth: 1200, marginLeft: 'auto', marginRight: 'auto', marginTop: 64 }}>
-      <h3>Related Items</h3>
-        <RelatedItemsCards/>
-      <h3>Your Outfit</h3>
-        {/* <YourOutfit /> */}
+        <CarouselTwo info={relatedItems} relatedProductClick={props.relatedProductClick}/>
     </div>
   );
 }

@@ -41,7 +41,7 @@ const RatingsReviews = (props) => {
         setMeta(() => results.data)
         setRecommend(() => results.data.recommended)
       })
-  }, [])
+  }, [props.productId])
 
   return (
     <div className="container">
