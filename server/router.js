@@ -2,6 +2,15 @@ const router = require('express').Router()
 const axios = require('axios')
 const apiKey = require('./../token/token.js')
 
+//Products
+router.post('/products', (req, res) => {
+  const productId = req.body.productId;
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${productId}`,{params: {count: 10}, headers: {Authorization: apiKey}})
+    // .then((result) => console.log(result))
+    .then((result) => res.status(200).send(result.data))
+    .catch(err => console.log(err));
+})
+
 
 //Questions
 router.post('/questions', (req, res) => {

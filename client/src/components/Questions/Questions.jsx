@@ -3,7 +3,7 @@ import Question from "./QuestionCom/Question.jsx";
 import { dataContext } from "../context/dataContext.js";
 import QuestionSearch from "./QuestionCom/QuestionSearch.jsx";
 import { addQuestion, getQuestions, getProducts } from "./helperFunction.js";
-import sampleData from "./sampleData.js";
+// import sampleData from "./sampleData.js";
 import axios from "axios";
 import { Button, Card } from "react-bootstrap";
 
