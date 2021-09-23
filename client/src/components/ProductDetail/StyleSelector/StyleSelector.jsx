@@ -100,7 +100,12 @@ function StyleSelector (props) {
       </Row>
       <Row>
         <Col md={12}>
+        {skus.length > 0 ? (
           <a href="#" className="btn w-100 btn-lg btn-outline-primary">Add to cart</a>
+          ) : (
+            null
+          )
+        }
         </Col>
     </Row>
     <Socialshare />
