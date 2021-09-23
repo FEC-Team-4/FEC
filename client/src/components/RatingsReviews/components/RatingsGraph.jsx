@@ -25,10 +25,30 @@ const RatingsGraph = (props) => {
     updateChar()
   }, [stars])
 
+  useEffect(() => {
+    clearAll()
+    setAllStars()
+    loop(props.stars, setStars)
+    loopForAvg(props.stars, setAvgStars)
+  }, [props.currentItemId])
+
   const loop = (obj, setFunc) => {
     for (const star in obj) {
       setFunc((prev) => prev +=parseInt(obj[star]))
     }
+  }
+
+  const clearAll = () => {
+    setAvgStars(() => 0);
+    set1(() => 0);
+    set2(() => 0);
+    set3(() => 0);
+    set4(() => 0);
+    set5(() => 0);
+    setStars(() => 0);
+    setCharacteristics(() => []);
+    setRecommend(() => 0);
+    console.log()
   }
 
   const loopForAvg = (obj, setFunc) => {
@@ -53,7 +73,7 @@ const RatingsGraph = (props) => {
   const progressBar = () => {
     for (var i = 0; i < 5; i++) {
       return (
-        <div>
+        <div title="stars-status">
           <Row>
             <Col sm={4}>
             <i className="fas fa-star"></i><i className="fas fa-star"></i>
@@ -129,7 +149,7 @@ const RatingsGraph = (props) => {
               name='rating'
           />
         </Col>
-        <Col sm={2}>
+        <Col sm={2} title="avg-rating">
           <h1>{avgStars.toFixed(1)}</h1>
         </Col>
       </Row>
@@ -140,13 +160,14 @@ const RatingsGraph = (props) => {
         }}>
         <p>{stars} total reviews</p>
       </div>
-      <div className="status-bars">
+      <div title="status-bars" className="status-bars">
         {progressBar()}
       </div>
       <h6 style={{textAlign:"center", paddingTop: "10px", paddingBottom:'0px'}}>Product Breakdown</h6>
       <div>
         {characteristics.map((ele, ind) =>
             <div key={ind} className="status-bars">
+              {console.log(ele)}
               {ele[0]}
             <ProgressBar label={Math.round(ele[1])} now={Math.round(ele[1] / 5 * 100)} />
             </div>)}

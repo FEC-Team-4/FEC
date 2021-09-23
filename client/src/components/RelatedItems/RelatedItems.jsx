@@ -14,12 +14,13 @@ var RelatedItems = (props) => {
   const [relatedItems, setRelatedItems] = useState([]);  //arr of all info for related styles
 
   const getProductStyles = async (id) => {
-    const {data} = await axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${id}/styles`, {params: {count: 50}, headers: {Authorization: token}});
+    const {data} = await axios.post(`products/styles`, {id: id});
     return data;
   };
 
   const addCategory = async (eachId) => {
-    const {data} = await axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${eachId}`, {headers: {Authorization: token}})
+
+    const {data} = await axios.post('/products', {productId: eachId})
     const temp = relatedItems;
     for (let i = 0; i < temp.length; i++) {
       if (parseInt(temp[i].product_id) === data.id) {
@@ -31,7 +32,7 @@ var RelatedItems = (props) => {
   }
 
   const addRatingAvg = (eachId) => {
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews`, {params: {product_id: eachId}, headers: {Authorization: token}})
+    axios.post('/reviews', {productId: eachId})
     .then(({data}) => {
         var oneRating = [];
         data.results.forEach(item => (oneRating.push(item.rating)))
@@ -55,7 +56,7 @@ var RelatedItems = (props) => {
   useEffect( () => {
     async function fetchData(){
       try {
-        const {data} = await axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${productId}/related`, {headers: {Authorization: token}});
+        const {data} = await axios.post('/related', {productId: productId});
         let newData = data;
         let productStylesArr = [];
         for(let i = 0; i < newData.length; i++){

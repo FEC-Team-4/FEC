@@ -48,7 +48,7 @@ const RelatedCarousel = (props) => {
                   <Card.Img variant="top" src={
                     item.results[0].photos[0].thumbnail_url
                     ? item.results[0].photos[0].thumbnail_url
-                    : "https://images.unsplash.com/photo-1449505278894-297fdb3edbc1?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"
+                    : ""
                   } />
                   <Card.Body>
                   <Card.Text>

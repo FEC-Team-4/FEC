@@ -3,6 +3,8 @@ import { Row, Col, Form, Spinner } from 'react-bootstrap';
 import './style-selector.css';
 import Renderqty from './Renderqty.jsx';
 import Socialshare from './Socialshare.jsx';
+import Img from "react-cool-img";
+
 
 function StyleSelector (props) {
   const [currentStyleInfo, setCurrentstyleinfo] = useState({});
@@ -61,12 +63,12 @@ function StyleSelector (props) {
               <Col md={3} key = {style.style_id}>
                 <label key = {style.style_id}>
                   <input onChange={(e)=> clickHandler(e)} type="radio" name= "styleselector" value = {style.style_id} />
-                  <img src={style.photos[0].thumbnail_url} />
+                  <Img src={style.photos[0].thumbnail_url} />
               </label> </Col>:
               <Col md={3} key = {style.style_id}>
               <label key = {style.style_id}>
               <input type="radio" name= "styleselector" value = {style.style_id} defaultChecked/>
-              <img src={style.photos[0].thumbnail_url} />
+              <Img src={style.photos[0].thumbnail_url} />
           </label></Col>
             })}
             </Row>

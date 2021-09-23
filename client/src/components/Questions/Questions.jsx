@@ -3,10 +3,9 @@ import Question from "./QuestionCom/Question.jsx";
 import { dataContext } from "../context/dataContext.js";
 import QuestionSearch from "./QuestionCom/QuestionSearch.jsx";
 import { addQuestion, getQuestions, getProducts } from "./helperFunction.js";
-import sampleData from "./sampleData.js";
+// import sampleData from "./sampleData.js";
 import axios from "axios";
 import { Button, Card } from "react-bootstrap";
-
 
 const Questions = (props) => {
   const [data, setData] = useState([]);
@@ -17,20 +16,16 @@ const Questions = (props) => {
     loadData(props.productId);
   }, []);
 
-  // var loadData = async (productId) => {
-  //   await getQuestions(productId).then((receivedData) =>
-  //     setData(
-  //       receivedData.results.sort((i, j) =>
-  //         i.helpfulness > j.helpfulness ? -1 : 1
-  //       )
-  //     )
-  //   );
-  // };
-
   var loadData = async (productId) => {
     await axios
       .post("/questions", { productId: productId })
-      .then((result) => setData(() => result.data.results))
+      .then((result) =>
+        setData(() =>
+          result.data.results.sort((a, b) =>
+            a.helpfulness > b.helpfulness ? -1 : 1
+          )
+        )
+      )
       .catch((err) => console.log(err));
   };
 

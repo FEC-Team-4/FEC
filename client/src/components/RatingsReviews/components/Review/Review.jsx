@@ -4,7 +4,7 @@ import StarRating from 'react-star-ratings'
 
 const bg = {
   padding: "15px",
-  backgroundColor: '#d3d3d3',
+  backgroundColor: '#f3f3f3',
   borderRadius: '10px'
 }
 
@@ -69,13 +69,15 @@ const Review = (props) => {
     if (props.bgCount % 2 === 0) {
       return (
         <div style={bg2}>
-          <StarRating
-            rating={props.review.rating}
-            numberOfStars={5}
-            starDimension="20px"
-            starSpacing="1px"
-            starRatedColor="#93D2DF"
-          />
+          <div className="py-2">
+            <StarRating
+              rating={props.review.rating}
+              numberOfStars={5}
+              starDimension="20px"
+              starSpacing="1px"
+              starRatedColor="#93D2DF"
+            />
+          </div>
           <h6>User: {props.review.reviewer_name} | {date} </h6>
           <h4>{props.review.summary}</h4>
           {showMore()}
@@ -86,6 +88,7 @@ const Review = (props) => {
     } else {
       return (
         <div style={bg}>
+          <div className="py-2">
           <StarRating
             rating={props.review.rating}
             numberOfStars={5}
@@ -93,6 +96,7 @@ const Review = (props) => {
             starSpacing="1px"
             starRatedColor="#93D2DF"
           />
+        </div>
           <h6>User: {props.review.reviewer_name} | {date}</h6>
           <h4>{props.review.summary}</h4>
           <p className="text-justify">{props.review.body}</p>
