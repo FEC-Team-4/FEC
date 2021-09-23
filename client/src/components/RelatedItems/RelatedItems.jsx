@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect } from 'react';
 import { dataContext } from '../context/dataContext.js';
 import './RelatedItems.css'
 import { CardGroup } from 'react-bootstrap';
-import RelatedItemsCards from './RelatedItemsCards.jsx';
 import YourOutfit from './YourOutfit.jsx';
 import token from '../../../../token/token.js';
 import axios from 'axios';

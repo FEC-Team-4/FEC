@@ -6,6 +6,7 @@ const SRC_Path = path.join(__dirname, 'client/src');
 
 module.exports = {
   entry: `${SRC_Path}/index.jsx`,
+  mode: 'production',
   output: {
     filename: 'bundle.js',
     path: DIST_Path
