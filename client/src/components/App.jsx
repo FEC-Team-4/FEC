@@ -14,7 +14,7 @@ import token from './ProductDetail/token.js';
 
 const App = () => {
 
-  const [productId, setProductId] = useState(42373);
+  const [productId, setProductId] = useState(42366);
   console.log('productId', productId);
 
   // useEffect(() => {
