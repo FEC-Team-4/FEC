@@ -61,12 +61,12 @@ function StyleSelector (props) {
               <Col md={3} key = {style.style_id}>
                 <label key = {style.style_id}>
                   <input onChange={(e)=> clickHandler(e)} type="radio" name= "styleselector" value = {style.style_id} />
-                  <img src={style.photos[0].thumbnail_url} />
+                  <img src={style.photos[0].thumbnail_url} alt="product style"/>
               </label> </Col>:
               <Col md={3} key = {style.style_id}>
               <label key = {style.style_id}>
               <input type="radio" name= "styleselector" value = {style.style_id} defaultChecked/>
-              <img src={style.photos[0].thumbnail_url} />
+              <img src={style.photos[0].thumbnail_url} alt="product-style"/>
           </label></Col>
             })}
             </Row>
