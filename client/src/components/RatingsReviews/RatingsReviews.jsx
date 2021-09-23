@@ -45,7 +45,7 @@ const RatingsReviews = (props) => {
 
   return (
     <div className="container">
-      <div className="row">
+      <div className="row py-5">
       <div className="col-sm">
         <Header />
         <RatingsGraph currentItemId={props.productId} title="ratings-graph" recommend={recommend} characteristics={characteristics} stars={stars}/>

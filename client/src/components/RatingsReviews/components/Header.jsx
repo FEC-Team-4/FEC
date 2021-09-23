@@ -4,7 +4,7 @@ const style = {
 }
 const Header = () => {
   return (
-    <h3 style={style}>Ratings and Reviews</h3>
+    <h2 style={style}>Ratings and Reviews</h2>
   )
 }
 
