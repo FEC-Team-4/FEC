@@ -38,7 +38,7 @@ const Questions = (props) => {
 
   return (
     <div>
-      <h1>Questions & Answers</h1>
+      <h2>Questions & Answers</h2>
       <div>
         <QuestionSearch />
         {data.map((q) => (

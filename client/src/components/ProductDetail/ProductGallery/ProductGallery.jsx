@@ -43,11 +43,12 @@ function ProductGallery (props) {
         <Col md={12} className ="hero">
           <Slider
           asNavFor= {nav2}
+          fade= {true}
           ref= {slider1 => setNav1(slider1)}
           arrows= {true}>
             {imageList.map((image, i) => {
               return <div key ="{i}">
-                <Img onClick = {(e) => zoomHandler(e)} className = {zoom} src={image.img} />
+                <Img onClick = {(e) => zoomHandler(e)} className = {zoom} src={image.img} alt = "Gallery Image" />
                 </div>
             })}
           </Slider>
@@ -63,7 +64,7 @@ function ProductGallery (props) {
           >
             {imageList.map((image, i) => {
               return <div key ="{i}">
-                <Img className="thumb" src={image.thumb} />
+                <Img className="thumb" src={image.thumb} alt="Product Thumbnail"/>
                 </div>
             })}
           </Slider>

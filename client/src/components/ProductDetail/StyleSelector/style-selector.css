@@ -19,20 +19,13 @@ p.style span {
   width: 0;
   height: 0;
 }
-.style-select-main [type=radio] + img {
+.style-select-main [type=radio] + img, .checkouter + img {
   cursor: pointer;
   width: 100px;
   height: 100px;
   border-radius: 150px;
   padding: 10px;
-}
-.style-select-main [type=radio]:checked:before {
-  content: '←';
-  font-size: 20px;
-  line-height: 1;
-  opacity: .75;
-  color: #d21111;
-  display: block;
+  object-fit: cover;
 }
 .fec-size select, .fec-qty select {
   cursor: pointer;
@@ -50,4 +43,30 @@ p.style span {
   display: flex;
   font-size: 12px;
   justify-content: space-between;
+}
+.share a:hover {
+  color: #fff;
+}
+.checkouter {
+  margin-top: -90px;
+  margin-left: 65px;
+}
+.checkmark {
+  display: inline-block;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  background-color: #FF550B;
+}
+.checkmark:after {
+  content: '';
+  display: block;
+  width: 6px;
+  height: 12px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  margin-left: 6px;
+  margin-top: 1px;
 }
