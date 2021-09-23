@@ -44,7 +44,7 @@ const App = () => {
             <ProductDetails id={productId}/>
           </div>
           <div className="RelatedItems-OutfitCreation">
-            {/* <RelatedItems relatedProductClick={relatedProductClick}/> */}
+            <RelatedItems relatedProductClick={relatedProductClick}/>
           </div>
           <div className="Questions-Answers">
             <Questions productId={productId}/>
