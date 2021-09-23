@@ -15,7 +15,7 @@
   "scripts": {
     "start": "nodemon server/index.js",
     "build": "webpack --mode development -w",
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -27,11 +27,11 @@
   "dependencies": {
     "@emotion/react": "^11.4.1",
     "@emotion/stylis": "^0.8.5",
-    "@testing-library/jest-dom": "^5.14.1",
     "axios": "^0.21.1",
     "babel-polyfill": "^6.26.0",
     "bootstrap": "^5.1.1",
     "compression": "^1.7.4",
+    "debug": "^4.3.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "lodash": "^4.17.21",
@@ -58,6 +58,7 @@
     "@babel/plugin-transform-runtime": "^7.14.5",
     "@babel/preset-env": "^7.14.8",
     "@babel/preset-react": "^7.14.5",
+    "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.1.0",
     "babel-jest": "^27.2.0",
     "babel-loader": "^8.2.2",
@@ -71,6 +72,6 @@
     "react-test-renderer": "^17.0.2",
     "style-loader": "^3.2.1",
     "webpack": "^5.52.1",
-    "webpack-cli": "^4.7.2"
+    "webpack-cli": "^4.8.0"
   }
 }

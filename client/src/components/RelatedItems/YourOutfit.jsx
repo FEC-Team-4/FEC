@@ -1,41 +1,69 @@
-import React, { useState, useContext } from 'react';
-import { dataContext } from '../context/dataContext.js';
+import React from "react";
+import ReactDOM from "react-dom";
+import Carousel from "react-elastic-carousel";
+import styled from "styled-components";
 import { Card, Button } from 'react-bootstrap';
 import StarRatings from 'react-star-ratings';
 
-import './RelatedItems.css';
+import "./RelatedItems.css";
+
+const Item =  styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  margin: 0 15px;
+  background-color: grey;
+  color: grey;
+  font-size: 10vw;
+  text-align: center;
+`;
+
+const FlexContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+`;
+
+const breakPoints = [
+  { width: 1, itemsToShow: 1 },
+  { width: 550, itemsToShow: 2 },
+  { width: 768, itemsToShow: 3 },
+  { width: 1200, itemsToShow: 4 },
+];
+
+const YourOutfit = (props) => {
 
 
-const YourOutfit = () => {
+  // const handleClick = (id) => {
+  //   props.relatedProductClick(parseInt(id))
+  // };
 
-  const { product } = useContext(dataContext);
-
-  return(
-    <div>
-    <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src="" />
-      <Card.Body>
-        <Card.Text>
-          Category
-        </Card.Text>
-        <Card.Text>
-          Name
-        </Card.Text>
-        <Card.Text>
-          Price
-        </Card.Text>
-        <StarRatings
-              rating={3}
-              starDimension="15px"
-              starSpacing="0.5px"
-              starRatedColor="black"
-              numberOfStars={5}
-              name='rating'
-          />
-      </Card.Body>
-    </Card>
-    </div>
+  return (
+    <>
+      <h1 style={{ textAlign: "left" }}>Your Outfit</h1>
+      <FlexContainer>
+        <Carousel breakPoints={breakPoints} control={false}>
+              <Item >
+                <Card style={{ width: '15rem' }}>
+                  <Card.Body>
+                    +
+                  </Card.Body>
+                </Card>
+              </Item>
+        </Carousel>
+      </FlexContainer>
+    </>
   );
 }
 
 export default YourOutfit;
+
+
+
+
+
+
+
+
