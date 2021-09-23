@@ -44,18 +44,8 @@ const Questions = (props) => {
         {data.map((q) => (
           <Question question={q} key={q.question_id} handleChange={loadData} />
         ))}
-        {data.length > 2 ? (
-          <Button
-            color="primary"
-            onClick={expand}
-            size="small"
-            variant="outlined"
-          >
-            {expanded ? <span>LESS ANSWERS</span> : <span>MORE ANSWERS</span>}
-          </Button>
-        ) : null}
-        <Button color="primary" size="small" variant="outlined">
-          Add Question
+        <Button variant="primary" type="button" size="sm" outline="dark">
+          Add a Question
         </Button>
       </div>
     </div>
