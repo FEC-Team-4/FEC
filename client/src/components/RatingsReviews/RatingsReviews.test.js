@@ -13,11 +13,11 @@ it('creates an add review button', () => {
   expect(btn).toBeTruthy();
 })
 
-it('creates a more review button', () => {
-  const { queryByTitle } = render(<RatingsReviews productId={42366}/>)
-  const btn = queryByTitle('more-review')
-  expect(btn).toBeTruthy();
-})
+// it('creates a more review button', () => {
+//   const { queryByTitle } = render(<RatingsReviews productId={42366}/>)
+//   const btn = queryByTitle('more-review')
+//   expect(btn).toBeTruthy();
+// })
 
 it('creates a dropdown menue ', () => {
   const { queryByTitle } = render(<RatingsReviews />)
