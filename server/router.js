@@ -6,11 +6,25 @@ const apiKey = require('./../token/token.js')
 router.post('/products', (req, res) => {
   const productId = req.body.productId;
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${productId}`,{params: {count: 10}, headers: {Authorization: apiKey}})
-    // .then((result) => console.log(result))
     .then((result) => res.status(200).send(result.data))
     .catch(err => console.log(err));
 })
 
+//Related Products
+router.post('/related', (req, res) => {
+  const productId = req.body.productId;
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${productId}/related`, {headers: {Authorization: apiKey}})
+    .then((result) => res.status(200).send(result.data))
+    .catch(err => console.log(err));
+})
+
+//Product Styles
+router.post('/products/styles', (req, res) => {
+  const id = req.body.id;
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${id}/styles`, {params: {count: 50}, headers: {Authorization: apiKey}})
+    .then((result) => res.status(200).send(result.data))
+    .catch(err => console.log(err));
+})
 
 //Questions
 router.post('/questions', (req, res) => {
@@ -43,6 +57,7 @@ router.put('/helpful', (req, res) => {
     .then(() => res.status(200).send('helpful submitted'))
     .catch(err => res.status(404).send(err))
 })
+
 // submit new review
 router.post('/submitreview', (req, res) => {
   const productId = req.body.product_id
@@ -67,7 +82,5 @@ router.post('/submitreview', (req, res) => {
     .then(() => res.status(200).send('submitted'))
     .catch(() => res.status(404).send('error'))
 })
-
-//
 
 module.exports = router
