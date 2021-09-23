@@ -9,7 +9,7 @@ import axios from 'axios';
 import CarouselTwo from './carousel2.jsx';
 
 
-var RelatedItems = () => {
+var RelatedItems = (props) => {
 
   var { product, reviews, productId } = useContext(dataContext);
   const [relatedItems, setRelatedItems] = useState([]);  //arr of all info for related styles
@@ -83,12 +83,11 @@ var RelatedItems = () => {
         addRatingAvg(num)
       }
     }
-    console.log('relatedItemsResult:', relatedItems);
   }, [relatedItems])
 
   return (
     <div style={{ maxWidth: 1200, marginLeft: 'auto', marginRight: 'auto', marginTop: 64 }}>
-        <CarouselTwo info={relatedItems}/>
+        <CarouselTwo info={relatedItems} relatedProductClick={props.relatedProductClick}/>
     </div>
   );
 }

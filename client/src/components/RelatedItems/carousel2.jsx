@@ -11,8 +11,7 @@ const Item =  styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 400px;
-  width: 250px;
+  min-height: 300px;
   margin: 0 15px;
 `;
 
@@ -20,6 +19,7 @@ const FlexContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 20px;
 `;
 
 const breakPoints = [
@@ -30,6 +30,12 @@ const breakPoints = [
 ];
 
 const CarouselTwo = (props) => {
+
+
+  const handleClick = (id) => {
+    props.relatedProductClick(parseInt(id))
+  };
+
   return (
     <>
       <h1 style={{ textAlign: "left" }}>Related Items</h1>
@@ -37,8 +43,8 @@ const CarouselTwo = (props) => {
         <Carousel breakPoints={breakPoints} control={false}>
           {props.info.map(item => {
             return(
-              <Item>
-                <Card style={{ width: '15rem' }}>
+              <Item key={item.product_id} >
+                <Card style={{ width: '15rem' }} onClick={() => handleClick(item.product_id)}>
                   <Card.Img variant="top" src={
                     item.results[0].photos[0].thumbnail_url
                     ? item.results[0].photos[0].thumbnail_url
