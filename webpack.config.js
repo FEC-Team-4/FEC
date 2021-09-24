@@ -1,4 +1,5 @@
 const path = require('path');
+const CriticalCssPlugin = require('critical-css-webpack-plugin')
 const TerserPlugin = require("terser-webpack-plugin");
 const DIST_Path = path.join(__dirname, 'client/dist');
 const SRC_Path = path.join(__dirname, 'client/src');
@@ -11,6 +12,17 @@ module.exports = {
     minimize: true,
     minimizer: [new TerserPlugin()],
   },
+  plugins: [
+    new CriticalCssPlugin({
+      base: path.join(path.resolve(__dirname), 'client/dist/'),
+      src: 'index.html',
+      target: 'index.html',
+      inline: true,
+      extract: true,
+      width: 375,
+      height: 565,
+    })
+  ],
   output: {
     filename: 'bundle.js',
     path: DIST_Path
