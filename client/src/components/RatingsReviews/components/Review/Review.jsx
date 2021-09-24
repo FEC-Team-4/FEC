@@ -39,8 +39,8 @@ const Review = (props) => {
     } else {
       return (
         <div>
-        <p><i>Helpful? <a href="#" onClick={helpful} >Yes</a> ({props.review.helpfulness}) </i> ||
-          <a href="#">Report</a></p>
+        <p><i>Helpful? <a href="#" style ={{fontWeight:500, color:"#bd3900"}} onClick={helpful} >Yes</a> ({props.review.helpfulness}) </i> ||
+          <a href="#" style ={{fontWeight:500, color:"#bd3900"}} >Report</a></p>
         </div>
       )
     }
