@@ -5,8 +5,13 @@
 .side-text {
   padding: 20px
 }
-h3.summary {
+span.summary {
   font-size: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-family: Oswald;
+  font-weight: 500;
+  line-height: 1.2;
 }
 p.user {
   font-size: 1rem;

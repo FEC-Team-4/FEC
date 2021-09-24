@@ -42,7 +42,7 @@ const YourOutfit = (props) => {
 
   return (
     <>
-      <h1 style={{ textAlign: "left" }}>Your Outfit</h1>
+      <h2 style={{ textAlign: "left" }}>Your Outfit</h2>
       <FlexContainer>
         <Carousel breakPoints={breakPoints} control={false}>
               <Item >

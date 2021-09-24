@@ -48,7 +48,7 @@ function StyleSelector (props) {
   if(currentStyleInfo) {
   return (
     <div className="form">
-      <Row>
+      <Row style={{fontStyle: "italic", fontWeight:500}}>
         {currentStyleInfo.sale_price !== null ? <span className="sale">${currentStyleInfo.sale_price}&nbsp;&nbsp;<s>${currentStyleInfo.original_price}</s></span> :
         <span>${currentStyleInfo.original_price}</span>
         }
@@ -69,6 +69,9 @@ function StyleSelector (props) {
               <label key = {style.style_id}>
               <input type="radio" name= "styleselector" value = {style.style_id} defaultChecked/>
               <Img src={style.photos[0].thumbnail_url} alt ="style thumbnail"/>
+              <div className="checkouter">
+                <span className="checkmark"></span>
+              </div>
           </label></Col>
             })}
             </Row>

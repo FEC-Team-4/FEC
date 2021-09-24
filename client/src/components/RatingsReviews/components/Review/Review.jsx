@@ -39,8 +39,8 @@ const Review = (props) => {
     } else {
       return (
         <div>
-        <p><i>Helpful? <a href="#" onClick={helpful} >Yes</a> ({props.review.helpfulness}) </i> ||
-          <a href="#">Report</a></p>
+        <p><i>Helpful? <a href="#" style ={{fontWeight:500, color:"#bd3900"}} onClick={helpful} >Yes</a> ({props.review.helpfulness}) </i> ||
+          <a href="#" style ={{fontWeight:500, color:"#bd3900"}} >Report</a></p>
         </div>
       )
     }
@@ -79,7 +79,7 @@ const Review = (props) => {
             />
           </div>
           <p className="user">User: {props.review.reviewer_name} | {date} </p>
-          <h3 className="summary">{props.review.summary}</h3>
+          <span className="summary">{props.review.summary}</span>
           {showMore()}
           {ifRec()}
           {thanks()}
@@ -98,7 +98,7 @@ const Review = (props) => {
           />
         </div>
         <p className="user">User: {props.review.reviewer_name} | {date}</p>
-          <h4>{props.review.summary}</h4>
+        <span className="summary">{props.review.summary}</span>
           <p className="text-justify">{props.review.body}</p>
           {thanks()}
         </div>
