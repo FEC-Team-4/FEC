@@ -4,7 +4,6 @@ import { dataContext } from "../context/dataContext.js";
 import QuestionSearch from "./QuestionCom/QuestionSearch.jsx";
 import { addQuestion, getQuestions, getProducts } from "./helperFunction.js";
 import "./QuestionCom/Questions.css";
-// import sampleData from "./sampleData.js";
 import axios from "axios";
 import { Button, Card } from "react-bootstrap";
 
@@ -15,7 +14,7 @@ const Questions = (props) => {
 
   useEffect(() => {
     loadData(props.productId);
-  }, []);
+  }, [props.productId]);
 
   var loadData = async (productId) => {
     await axios
