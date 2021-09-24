@@ -32,7 +32,7 @@ export default class NavBar extends React.Component {
               className="top-search-input mr-2"
               aria-label="Search"
             />
-            <Button variant="outline-light">Search</Button>
+            <Button variant="outline-light" className="menu-search">Search</Button>
           </Form>
         </Nav>
       </Navbar.Collapse>

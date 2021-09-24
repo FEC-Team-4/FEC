@@ -1,0 +1,21 @@
+{
+  "short_name": "team4-fec",
+  "name": "lax-fec",
+  "icons": [
+    {
+        "src": "/logo.png",
+        "sizes": "192x192",
+        "type": "image/png"
+    },
+    {
+        "src": "/logo.png",
+        "sizes": "512x512",
+        "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "theme_color": "#FF550B",
+  "background_color": "#2B2929",
+  "display": "standalone",
+  "scope": "/"
+ }

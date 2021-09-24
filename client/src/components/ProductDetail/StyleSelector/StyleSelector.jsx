@@ -48,7 +48,7 @@ function StyleSelector (props) {
   if(currentStyleInfo) {
   return (
     <div className="form">
-      <Row>
+      <Row style={{fontStyle: "italic", fontWeight:500}}>
         {currentStyleInfo.sale_price !== null ? <span className="sale">${currentStyleInfo.sale_price}&nbsp;&nbsp;<s>${currentStyleInfo.original_price}</s></span> :
         <span>${currentStyleInfo.original_price}</span>
         }

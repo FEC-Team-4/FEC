@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { Row, Col } from 'react-bootstrap'
 import _ from "lodash"
 import Img from "react-cool-img";
-
 import Slider from "react-slick";
 import './product-gallery.css'
 
@@ -11,6 +10,17 @@ function ProductGallery (props) {
   const [nav2, setNav2] = useState(null);
   const [imageList, setImageList] = useState([]);
   const [zoom, setZoom] = useState('main normal');
+
+  // useEffect(() => {
+  //   const script = document.createElement('script');
+  //   script.src = {zoom};
+  //   script.async = true;
+  //   document.body.appendChild(script);
+  // return () => {
+  //     document.body.removeChild(script);
+  //   }
+  // }, []);
+
 
   useEffect(() => {
     const currentStyle = props.styleList.find(style => {
@@ -25,14 +35,13 @@ function ProductGallery (props) {
   },[props.styleId])
 
   const zoomHandler = (e) => {
-    console.log(e.target.className)
-    if (e.target.className === 'main normal') {
+    if (e.target.classList.contains("normal")) {
       props.zoomIn();
       setZoom('main expanded')
-    } else if (e.target.className === 'main expanded') {
+    } else if (e.target.classList.contains("expanded")) {
       setZoom('main zoomed')
-    } else if (e.target.className === 'main zoomed') {
-      setZoom('main expanded')
+    } else if (e.target.classList.contains("zoomed")) {
+      setZoom('main normal')
     }
   }
 

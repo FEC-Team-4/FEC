@@ -70,3 +70,11 @@ p.style span {
   margin-left: 6px;
   margin-top: 1px;
 }
+.fWYWWZ {
+  background-color: #0975c7!important;
+  border-color: #0975c7!important;
+}
+.fWYWWZ:hover, .fWYWWZ:active {
+  background-color: #136caf!important;
+  border-color: #136caf!important;
+}

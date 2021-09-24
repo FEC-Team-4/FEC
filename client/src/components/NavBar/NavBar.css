@@ -11,3 +11,11 @@ img.logo {
 .top-search-input {
   border-radius: 0;
 }
+button.menu-search {
+  color: #fff;
+  background-color: #000000;
+  border-color: #000000;
+}
+input.top-search-input {
+  border-radius: 3px 0 0 3px;
+}
