@@ -47,3 +47,7 @@ button.rec-dot:hover, button.rec-dot:active{
   background-color: grey;
   box-shadow: 0 0 1px 3px grey;
 }
+
+.table td {
+  text-align: center;
+  } 

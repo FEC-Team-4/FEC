@@ -48,7 +48,7 @@ const RatingsGraph = (props) => {
     setStars(() => 0);
     setCharacteristics(() => []);
     setRecommend(() => 0);
-    console.log()
+    // console.log()
   }
 
   const loopForAvg = (obj, setFunc) => {
@@ -167,7 +167,7 @@ const RatingsGraph = (props) => {
       <div>
         {characteristics.map((ele, ind) =>
             <div key={ind} className="status-bars">
-              {console.log(ele)}
+              {/* {console.log(ele)} */}
               {ele[0]}
             <ProgressBar label={Math.round(ele[1])} now={Math.round(ele[1] / 5 * 100)} />
             </div>)}

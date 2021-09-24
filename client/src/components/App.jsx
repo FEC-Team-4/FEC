@@ -15,7 +15,7 @@ import { dataContext } from './context/dataContext.js';
 const App = () => {
 
   const [productId, setProductId] = useState(42366);
-  console.log('productId', productId);
+  // console.log('productId', productId);
 
   // useEffect(() => {
   //   axios.post('/products' , {productId: productId})

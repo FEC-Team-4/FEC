@@ -41,7 +41,7 @@ function StyleSelector (props) {
     setSize(parseInt(e.target.value));
   }
   const handleQtyChange = (qty) => {
-    console.log(qty)
+    // console.log(qty)
     setQty(qty);
   }
 

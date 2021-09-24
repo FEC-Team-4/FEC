@@ -4,6 +4,7 @@ import Carousel from "react-elastic-carousel";
 import styled from "styled-components";
 import { Card, Button } from 'react-bootstrap';
 import StarRatings from 'react-star-ratings';
+import ComparisonModal from './ComparisonModal.jsx';
 
 import "./RelatedItems.css";
 
@@ -31,6 +32,7 @@ const breakPoints = [
 
 const RelatedCarousel = (props) => {
 
+  const [modalShow, setModalShow] = React.useState(false);
 
   const handleClick = (id) => {
     props.relatedProductClick(parseInt(id))
@@ -43,12 +45,17 @@ const RelatedCarousel = (props) => {
         <Carousel breakPoints={breakPoints} control={false}>
           {props.info.map(item => {
             return(
-              <Item key={item.product_id} >
+              <Item key={item.product_id}>
                 <Card style={{ width: '15rem' }} onClick={() => handleClick(item.product_id)}>
+                <Button variant="light" onClick={() => setModalShow(true)}>Compare</Button>
+                  <ComparisonModal
+                    show={modalShow}
+                    onHide={() => setModalShow(false)}
+                  />
                   <Card.Img alt="Product Image" variant="top" src={
                     item.results[0].photos[0].thumbnail_url
                     ? item.results[0].photos[0].thumbnail_url
-                    : ""
+                    : "https://images.unsplash.com/photo-1554921148-83d8ceda2095?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80"
                   } />
                   <Card.Body>
                   <Card.Text>
