@@ -79,7 +79,7 @@ const Review = (props) => {
             />
           </div>
           <p className="user">User: {props.review.reviewer_name} | {date} </p>
-          <h3 className="summary">{props.review.summary}</h3>
+          <span className="summary">{props.review.summary}</span>
           {showMore()}
           {ifRec()}
           {thanks()}
@@ -98,7 +98,7 @@ const Review = (props) => {
           />
         </div>
         <p className="user">User: {props.review.reviewer_name} | {date}</p>
-          <h4>{props.review.summary}</h4>
+        <span className="summary">{props.review.summary}</span>
           <p className="text-justify">{props.review.body}</p>
           {thanks()}
         </div>
