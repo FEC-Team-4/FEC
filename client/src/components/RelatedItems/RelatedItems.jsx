@@ -3,7 +3,6 @@ import { dataContext } from '../context/dataContext.js';
 import './RelatedItems.css'
 import { CardGroup } from 'react-bootstrap';
 import YourOutfit from './YourOutfit.jsx';
-import token from '../../../../token/token.js';
 import axios from 'axios';
 import RelatedCarousel from './RelatedCarousel.jsx';
 

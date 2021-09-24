@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios'
-import token from './token'
 import { Row, Col, Spinner } from 'react-bootstrap';
 import Announcement from './Announcement/Announcement.jsx'
 import ProductMeta from './ProductMeta/ProductMeta.jsx'

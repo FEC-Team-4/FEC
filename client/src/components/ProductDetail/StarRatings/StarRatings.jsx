@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import token from '../token'
+
 import StarRatings from 'react-star-ratings';
 import { Row, Col } from 'react-bootstrap';
 import './StarRatings.css'

@@ -9,7 +9,7 @@ import RatingsReviews from './RatingsReviews/RatingsReviews.jsx';
 import "./App.css";
 import axios from 'axios';
 import { dataContext } from './context/dataContext.js';
-import token from './ProductDetail/token.js';
+
 
 
 const App = () => {
