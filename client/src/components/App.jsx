@@ -29,7 +29,8 @@ const App = () => {
 
   return (
       <dataContext.Provider value={{
-        productId: [productId]
+        productId,
+        setProductId
       }}>
         <Container>
             <NavBar/>

@@ -9,7 +9,7 @@ import RelatedCarousel from './RelatedCarousel.jsx';
 
 var RelatedItems = (props) => {
 
-  var { product, reviews, productId } = useContext(dataContext);
+  var { productId, setProductId } = useContext(dataContext);
   const [relatedItems, setRelatedItems] = useState([]);  //arr of all info for related styles
 
   const getProductStyles = async (id) => {
