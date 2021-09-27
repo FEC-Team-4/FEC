@@ -11,6 +11,7 @@ var RelatedItems = (props) => {
 
   var { productId, setProductId } = useContext(dataContext);
   const [relatedItems, setRelatedItems] = useState([]);  //arr of all info for related styles
+  // console.log('function', setProductId);
 
   const getProductStyles = async (id) => {
     const {data} = await axios.post(`products/styles`, {id: id});
@@ -86,7 +87,7 @@ var RelatedItems = (props) => {
 
   return (
     <div style={{marginLeft: 'auto', marginRight: 'auto', marginTop: 64 }}>
-        <RelatedCarousel info={relatedItems} relatedProductClick={props.relatedProductClick}/>
+        <RelatedCarousel info={relatedItems} />
         <YourOutfit/>
     </div>
   );

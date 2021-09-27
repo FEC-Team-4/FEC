@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useState, useContext} from "react";
+import { dataContext } from '../context/dataContext.js';
 import ReactDOM from "react-dom";
 import Carousel from "react-elastic-carousel";
 import styled from "styled-components";
@@ -33,10 +34,13 @@ const breakPoints = [
 const RelatedCarousel = (props) => {
 
   const [modalShow, setModalShow] = React.useState(false);
+  const { productId, setProductId } = useContext(dataContext);
 
-  const handleClick = (id) => {
-    props.relatedProductClick(parseInt(id))
-  };
+
+  // const handleClick = (id) => {
+  //   // props.relatedProductClick(parseInt(id))
+  //   setProductId(parseInt(id));
+  // };
 
   return (
     <>
@@ -46,7 +50,7 @@ const RelatedCarousel = (props) => {
           {props.info.map(item => {
             return(
               <Item key={item.product_id}>
-                <Card style={{ width: '15rem' }} onClick={() => handleClick(item.product_id)}>
+                <Card style={{ width: '15rem' }} onClick={() => setProductId(parseInt(item.product_id))}>
                 <Button variant="light" onClick={() => setModalShow(true)}>Compare</Button>
                   <ComparisonModal
                     show={modalShow}

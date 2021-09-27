@@ -23,9 +23,9 @@ const App = () => {
   //     .catch(err => console.log(err));
   // }, [productId])
 
-  const relatedProductClick = (id) => {
-    setProductId(id)
-  };
+  // const relatedProductClick = (id) => {
+  //   setProductId(id)
+  // };
 
   return (
       <dataContext.Provider value={{
@@ -38,7 +38,7 @@ const App = () => {
             <ProductDetails id={productId}/>
           </div>
           <div className="RelatedItems-OutfitCreation">
-            <RelatedItems relatedProductClick={relatedProductClick}/>
+            <RelatedItems />
           </div>
           <div className="Questions-Answers">
             <Questions productId={productId}/>
